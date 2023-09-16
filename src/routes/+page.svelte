@@ -22,16 +22,15 @@
 
         goalPosition = document.documentElement.scrollLeft;
         
-        // const mtl = gsap.timeline();
+        const mtl = gsap.timeline();
         // mtl.set('.img-container')
-        // mtl.to('.img-container', {
-        //     opacity: 1,
-        //     y: 0,
-        //     duration: 1,
-        //     ease: "elastic.out(1, 0.7)",
-        //     stagger: 0.15,
-        // })
-        // mtl.to('.section-underneath h1', {y: 0, duration: 1, ease: 'emphasized'}, "<+=0.35")
+        mtl.to('.img-container', {
+            scale: 1,
+            duration: 1,
+            ease: CustomEase.create("custom", "M0,0 C0,0 0.101,0.003 0.166,0.016 0.242,0.03 0.401,0.072 0.451,0.248 0.496,0.404 0.498,0.505 0.531,0.721 0.54,0.783 0.545,0.816 0.558,0.875 0.567,0.917 0.574,0.942 0.586,0.982 0.59,0.995 0.595,1.003 0.601,1.016 0.606,1.024 0.61,1.03 0.616,1.037 0.622,1.042 0.628,1.046 0.635,1.049 0.642,1.051 0.65,1.051 0.657,1.049 0.688,1.038 0.711,1.021 0.745,1.009 0.764,1.002 0.778,0.998 0.798,0.997 0.873,0.994 1,1 1,1 "),
+            stagger: 0.1,
+        })
+        mtl.to('.section-underneath h1', {y: 0, duration: 1, ease: 'emphasized'}, "<+=0.35")
     })
 
     
@@ -121,7 +120,7 @@
 
 <div class="section-underneath">
     <div class="column-text-outer" style="padding-top: 45px;">
-        <h1 class="display-large bold-weight" style="translate: 0 0; margin: 0;">Top Artists</h1>
+        <h1 class="display-large bold-weight" style="translate: 0 100%; margin: 0;">Top Artists</h1>
     </div>
 </div>
 
@@ -155,7 +154,7 @@
                 width: 40vh;
                 width: 40svh;
                 transition: 1000ms var(--custom-easing) width, 1000ms var(--custom-easing) height;
-                // scale: 0;
+                scale: 0;
 
                 --md-focus-ring-shape: 24px;
 
@@ -340,10 +339,10 @@
         flex: 1;
     }
 
-    .image-list-container, .section-underneath {
-        animation: fade-in 0.5s 0s forwards;
-        opacity: 0;
-    }
+    // .image-list-container, .section-underneath {
+    //     animation: fade-in 0.5s 0s forwards;
+    //     opacity: 0;
+    // }
 </style>
 
 

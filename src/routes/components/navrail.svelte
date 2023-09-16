@@ -15,7 +15,7 @@
       scale: 1,
       ease: "elastic.out(1, 0.5)",
       duration: 0.85,
-      delay: 0.5
+      delay: 1.5
     });
     navtl.to('.navrail', {
       rotate: 0,
