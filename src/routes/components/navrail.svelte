@@ -94,7 +94,7 @@
       top: 20px;
       left: 20px;
       z-index: 2;
-      background-color: var(--md-sys-color-surface-container);
+      background-color: var(--md-sys-color-surface-container-blurred);
       backdrop-filter: blur(var(--background-blur-value));
       height: calc(100% - 40px);
       border-radius: 44px;
