@@ -14,7 +14,7 @@
     export let data;
 </script>
 
-{#key data.url}
+<!-- {#key data.url} -->
 <main class="app-container">
     <Navrail />
 
@@ -22,7 +22,7 @@
         <slot />
     </section>
 </main>
-{/key}
+<!-- {/key} -->
 
 <style lang="scss">
     main.app-container {

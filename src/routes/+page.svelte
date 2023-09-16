@@ -21,18 +21,17 @@
 
 
         goalPosition = document.documentElement.scrollLeft;
-        // lenis = new Lenis({
-        //     orientation: 'horizontal',
-        //     gestureOrientation: 'both',
-        //     smoothWheel: true,
+        
+        // const mtl = gsap.timeline();
+        // mtl.set('.img-container')
+        // mtl.to('.img-container', {
+        //     opacity: 1,
+        //     y: 0,
+        //     duration: 1,
+        //     ease: "elastic.out(1, 0.7)",
+        //     stagger: 0.15,
         // })
-
-        // function raf(time) {
-        //     lenis.raf(time)
-        //     requestAnimationFrame(raf)
-        // }
-
-        // requestAnimationFrame(raf)
+        // mtl.to('.section-underneath h1', {y: 0, duration: 1, ease: 'emphasized'}, "<+=0.35")
     })
 
     
@@ -104,20 +103,11 @@
                             <div class="content-details">
                                 <div class="right">
                                     <div class="card">
-                                        <!-- <div class="body-large medium-weight">Leaderboard position</div> -->
                                         <div class="body-large medium-weight">{artist.votes} votes</div>
                                         <h1 class="display-medium semibold-weight" style="font-size: 64px">N. 17</h1>
                                         <md-outlined-button>Cast your vote!</md-outlined-button>
                                     </div>
                                 </div>
-                                <!-- <div class="left">
-                                    <div class="vote-button">
-                                        <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 150"><defs></defs><path class="cls-1" d="M109,146.33a38.23,38.23,0,0,1-10.71-1.56L86.09,141.2a39.47,39.47,0,0,0-22.18,0l-12.18,3.57A38.41,38.41,0,0,1,41,146.33a37.6,37.6,0,0,1-29.88-15.14,37,37,0,0,1-5.9-32.91L8.8,86.09a39.29,39.29,0,0,0,0-22.18L5.23,51.73a37,37,0,0,1,5.9-32.91A37.59,37.59,0,0,1,41,3.67,38.41,38.41,0,0,1,51.73,5.23L63.91,8.8A39.23,39.23,0,0,0,75,10.39,39.23,39.23,0,0,0,86.09,8.8L98.28,5.23A38.28,38.28,0,0,1,109,3.67a37.6,37.6,0,0,1,29.88,15.14,37.06,37.06,0,0,1,5.9,32.92L141.2,63.91a39.29,39.29,0,0,0,0,22.18l3.57,12.19a37,37,0,0,1-5.9,32.9A37.61,37.61,0,0,1,109,146.33Z"/></svg>
-                                        <div class="button-content">
-                                            <div class="body-large bold-weight">Applause for Andreas</div>
-                                        </div>
-                                    </div>
-                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -125,17 +115,14 @@
             </button>
         {/each}
 
-        <div class="ending-filler">
-            <!-- <md-text-button on:click={scrollToZero} role="button" tabindex=0 on:touchend={scrollToZero} on:keyup={() => {}}>
-                <md-icon class="material-symbols-outlined" slot="icon" style="font-size: 18px;">arrow_back</md-icon>
-                Go back
-            </md-text-button> -->
-        </div>
+        <div class="ending-filler"></div>
     </section>
 </main>
 
 <div class="section-underneath">
-    <h1 class="display-large bold-weight">Top Artists</h1>
+    <div class="column-text-outer" style="padding-top: 45px;">
+        <h1 class="display-large bold-weight" style="translate: 0 0; margin: 0;">Top Artists</h1>
+    </div>
 </div>
 
 <style lang="scss">
@@ -168,6 +155,7 @@
                 width: 40vh;
                 width: 40svh;
                 transition: 1000ms var(--custom-easing) width, 1000ms var(--custom-easing) height;
+                // scale: 0;
 
                 --md-focus-ring-shape: 24px;
 
@@ -351,4 +339,19 @@
         padding-top: 20px;
         flex: 1;
     }
+
+    .image-list-container, .section-underneath {
+        animation: fade-in 0.5s 0s forwards;
+        opacity: 0;
+    }
 </style>
+
+
+                                <!-- <div class="left">
+                                    <div class="vote-button">
+                                        <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 150"><defs></defs><path class="cls-1" d="M109,146.33a38.23,38.23,0,0,1-10.71-1.56L86.09,141.2a39.47,39.47,0,0,0-22.18,0l-12.18,3.57A38.41,38.41,0,0,1,41,146.33a37.6,37.6,0,0,1-29.88-15.14,37,37,0,0,1-5.9-32.91L8.8,86.09a39.29,39.29,0,0,0,0-22.18L5.23,51.73a37,37,0,0,1,5.9-32.91A37.59,37.59,0,0,1,41,3.67,38.41,38.41,0,0,1,51.73,5.23L63.91,8.8A39.23,39.23,0,0,0,75,10.39,39.23,39.23,0,0,0,86.09,8.8L98.28,5.23A38.28,38.28,0,0,1,109,3.67a37.6,37.6,0,0,1,29.88,15.14,37.06,37.06,0,0,1,5.9,32.92L141.2,63.91a39.29,39.29,0,0,0,0,22.18l3.57,12.19a37,37,0,0,1-5.9,32.9A37.61,37.61,0,0,1,109,146.33Z"/></svg>
+                                        <div class="button-content">
+                                            <div class="body-large bold-weight">Applause for Andreas</div>
+                                        </div>
+                                    </div>
+                                </div> -->
