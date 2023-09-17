@@ -25,12 +25,15 @@
         const mtl = gsap.timeline();
         // mtl.set('.img-container')
         mtl.to('.img-container', {
+            // opacity: 1,
             scale: 1,
-            duration: 1,
-            ease: CustomEase.create("custom", "M0,0 C0,0 0.101,0.003 0.166,0.016 0.242,0.03 0.401,0.072 0.451,0.248 0.496,0.404 0.498,0.505 0.531,0.721 0.54,0.783 0.545,0.816 0.558,0.875 0.567,0.917 0.574,0.942 0.586,0.982 0.59,0.995 0.595,1.003 0.601,1.016 0.606,1.024 0.61,1.03 0.616,1.037 0.622,1.042 0.628,1.046 0.635,1.049 0.642,1.051 0.65,1.051 0.657,1.049 0.688,1.038 0.711,1.021 0.745,1.009 0.764,1.002 0.778,0.998 0.798,0.997 0.873,0.994 1,1 1,1 "),
+            duration: 0.5,
+            // ease: CustomEase.create("custom", "M0,0 C0,0 0.101,0.003 0.166,0.016 0.242,0.03 0.401,0.072 0.451,0.248 0.496,0.404 0.498,0.505 0.531,0.721 0.54,0.783 0.545,0.816 0.558,0.875 0.567,0.917 0.574,0.942 0.586,0.982 0.59,0.995 0.595,1.003 0.601,1.016 0.606,1.024 0.61,1.03 0.616,1.037 0.622,1.042 0.628,1.046 0.635,1.049 0.642,1.051 0.65,1.051 0.657,1.049 0.688,1.038 0.711,1.021 0.745,1.009 0.764,1.002 0.778,0.998 0.798,0.997 0.873,0.994 1,1 1,1 "),
             stagger: 0.1,
+            delay: 0.2,
+            ease: "emphasized"
         })
-        mtl.to('.section-underneath h1', {y: 0, duration: 1, ease: 'emphasized'}, "<+=0.35")
+        mtl.to('.section-underneath h1', {y: 0, duration: 1, ease: 'emphasized'}, "<+=0.15")
     })
 
     
@@ -87,14 +90,14 @@
     <section class="image-list">
         {#each data.artists as artist, index}
             <button type="button" class="img-container { selected === index ? 'selected' : '' }" on:click={() => {handleclick(index)}}>
-                <img src="{artist.backgroundImage}" alt="{artist.name}" draggable="false">
+                <img src="{artist.backgroundImage}" alt="{artist.fullName}" draggable="false">
                 <md-focus-ring></md-focus-ring>
 
                 {#if selected === index} 
                     <div class="content-container" out:fade={{duration: 100}}>
                         <div class="content">
                             <div class="heading-line">
-                                <h1 class="display-medium semibold-weight">{artist.name}</h1>
+                                <h1 class="display-medium semibold-weight">{artist.fullName}</h1>
                                 <md-icon-button on:click={closeContainer} role="button" tabindex=0 on:touchend={closeContainer} on:keyup={() => {}}>
                                     <md-icon class="material-symbols-outlined">close</md-icon>
                                 </md-icon-button>
@@ -114,7 +117,12 @@
             </button>
         {/each}
 
-        <div class="ending-filler"></div>
+        <div class="ending-filler">
+            <md-text-button>
+                <md-icon slot="icon"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M500-360q42 0 71-29t29-71v-220h120v-80H560v220q-13-10-28-15t-32-5q-42 0-71 29t-29 71q0 42 29 71t71 29ZM320-240q-33 0-56.5-23.5T240-320v-480q0-33 23.5-56.5T320-880h480q33 0 56.5 23.5T880-800v480q0 33-23.5 56.5T800-240H320Zm0-80h480v-480H320v480ZM160-80q-33 0-56.5-23.5T80-160v-560h80v560h560v80H160Zm160-720v480-480Z"/></svg></md-icon>
+                View Artists
+            </md-text-button>
+        </div>
     </section>
 </main>
 
@@ -155,6 +163,7 @@
                 width: 40svh;
                 transition: 1000ms var(--custom-easing) width, 1000ms var(--custom-easing) height;
                 scale: 0;
+                // opacity: 0;
 
                 --md-focus-ring-shape: 24px;
 
@@ -320,8 +329,8 @@
         }
 
         .ending-filler {
-            width: calc(100vw - 40svh - 39px);
-            // width: calc(20vh - 108px);
+            // width: calc(100vw - 40svh - 39px);
+            width: calc(100vw + 88px);
             height: 100%;
             display: flex;
             align-items: center;

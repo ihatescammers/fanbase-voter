@@ -130,8 +130,10 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-emphasized) background-color;
+            transition: var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-emphasized);
             position: relative;
+
+            &.material-symbols-outlined {transition-duration: 1s; animation-duration: 1s;}
           }
           .text {font-weight: var(--semibold-weight)}
 

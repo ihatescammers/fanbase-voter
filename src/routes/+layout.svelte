@@ -11,18 +11,18 @@
 
     import { fade } from 'svelte/transition';
 
-    export let data;
+    // export let data;
 </script>
 
-<!-- {#key data.url} -->
 <main class="app-container">
     <Navrail />
-
-    <section class="route-container" in:fade={{y: -10, duration: 100, delay: 100}} out:fade={{y: 10, duration: 100}}>
+    
+    <!-- {#key data.url} -->
+    <section class="route-container" in:fade={{duration: 100, delay: 100}} out:fade={{duration: 100}}>
         <slot />
     </section>
+    <!-- {/key} -->
 </main>
-<!-- {/key} -->
 
 <style lang="scss">
     main.app-container {
