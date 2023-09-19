@@ -73,6 +73,10 @@
       </span>
       <div class="text label-medium">Contact</div>
     </a>
+    <div style="flex: auto"></div>
+    <md-icon-button class="nav-search-button">
+      <md-icon class="material-symbols-outlined">account_circle</md-icon>
+    </md-icon-button>
 </nav>
 <div class="navrail-filler"></div>
 

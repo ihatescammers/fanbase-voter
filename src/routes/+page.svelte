@@ -6,6 +6,10 @@
     import Lenis from '@studio-freight/lenis';
     import { fly, blur, fade } from "svelte/transition";
 
+    import { getAuth } from 'firebase/auth';
+    import { GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
+    import { app } from '$lib/index.js';
+
     export let data;
 
     let container;
@@ -13,6 +17,8 @@
     let opened = false, selected = undefined;
     let goalPosition = 0;
     
+    const auth = getAuth(app);
+    const provider = new GoogleAuthProvider();
     
     onMount(() => {
         gsap.registerPlugin(CustomEase);
@@ -34,6 +40,7 @@
             ease: "emphasized"
         })
         mtl.to('.section-underneath h1', {y: 0, duration: 1, ease: 'emphasized'}, "<+=0.15")
+
     })
 
     
@@ -42,7 +49,7 @@
         selected = undefined;
     }
     
-    function handleclick(index) {
+    function handleItemOpen(index) {
         if (!opened) {
             opened = true;
             selected = index;
@@ -83,16 +90,39 @@
         if (opened) {e.preventDefault()}
     }
 
+    const handleSignIn = () => {
+        signInWithPopup(auth, provider)
+        .then((result) => {
+            // This gives you a Google Access Token. You can use it to access the Google API.
+            const credential = GoogleAuthProvider.credentialFromResult();
+            const token = credential.accessToken;
+
+            // the signed in user info
+            // IdP data available using getAdditionalUserInfo(result)
+            const user = result.user;
+            console.log(user)
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+
+            const email = error.customData;
+            const credential = GoogleAuthProvider.credentialFromError(error);
+
+            console.log(`Error ${errorCode}: ${error}`);
+        })
+    }
+
 </script>
 
 
 <main class="image-list-container { opened ? 'opened' : '' }" bind:this={container} on:wheel={handleScroll} on:touchmove={handleTouchScroll} on:scroll={handleTouchScroll}>
     <section class="image-list">
         {#each data.artists as artist, index}
-            <button type="button" class="img-container { selected === index ? 'selected' : '' }" on:click={() => {handleclick(index)}}>
+            <button type="button" class="img-container { selected === index ? 'selected' : '' }" on:click={() => {handleItemOpen(index)}} tabindex={opened ? -1 : 0}>
                 <img src="{artist.backgroundImage}" alt="{artist.fullName}" draggable="false">
                 <md-focus-ring></md-focus-ring>
-
+                
                 {#if selected === index} 
                     <div class="content-container" out:fade={{duration: 100}}>
                         <div class="content">
@@ -107,7 +137,11 @@
                                     <div class="card">
                                         <div class="body-large medium-weight">{artist.votes} votes</div>
                                         <h1 class="display-medium semibold-weight" style="font-size: 64px">N. 17</h1>
-                                        <md-outlined-button>Cast your vote!</md-outlined-button>
+                                        <button class="vote-button label-large on-surface-text">
+                                            Cast Your Vote!
+                                            <md-ripple></md-ripple>
+                                            <md-focus-ring></md-focus-ring>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -118,9 +152,10 @@
         {/each}
 
         <div class="ending-filler">
-            <md-text-button>
-                <md-icon slot="icon"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M500-360q42 0 71-29t29-71v-220h120v-80H560v220q-13-10-28-15t-32-5q-42 0-71 29t-29 71q0 42 29 71t71 29ZM320-240q-33 0-56.5-23.5T240-320v-480q0-33 23.5-56.5T320-880h480q33 0 56.5 23.5T880-800v480q0 33-23.5 56.5T800-240H320Zm0-80h480v-480H320v480ZM160-80q-33 0-56.5-23.5T80-160v-560h80v560h560v80H160Zm160-720v480-480Z"/></svg></md-icon>
-                View Artists
+            <md-text-button on:click={handleSignIn} role="button" tabindex=0 on:keyup={() => {}}>
+                <!-- <md-icon slot="icon"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M500-360q42 0 71-29t29-71v-220h120v-80H560v220q-13-10-28-15t-32-5q-42 0-71 29t-29 71q0 42 29 71t71 29ZM320-240q-33 0-56.5-23.5T240-320v-480q0-33 23.5-56.5T320-880h480q33 0 56.5 23.5T880-800v480q0 33-23.5 56.5T800-240H320Zm0-80h480v-480H320v480ZM160-80q-33 0-56.5-23.5T80-160v-560h80v560h560v80H160Zm160-720v480-480Z"/></svg></md-icon> -->
+                <md-icon slot="icon" class="material-symbols-outlined" style="font-size: 17px;">account_circle</md-icon>
+                Sign in
             </md-text-button>
         </div>
     </section>
@@ -185,6 +220,7 @@
                     flex-flow: column nowrap;
                     align-items: center;
                     justify-content: flex-end;
+                    user-select: text;
 
                     .content {
                         background: var(--md-sys-color-surface-container-blurred);
@@ -227,7 +263,7 @@
                             height: 100%;
                             width: 100%;
 
-                            .right, .left {
+                            .right {
                                 // flex: 1; //50%
                                 display: flex;
                                 flex-flow: column nowrap;
@@ -268,42 +304,42 @@
 
                                 h1 {margin: 0;}
                             }
-                            .left {
-                                position: relative;
-                                flex-grow: 0;
-                                height: 100%;
-                                flex-flow: column nowrap;
-                                align-items: center;
-                                justify-content: center;
-                                animation: scale-fade-in var(--md-sys-motion-duration-medium3) 800ms forwards;
+                            // .left {
+                            //     position: relative;
+                            //     flex-grow: 0;
+                            //     height: 100%;
+                            //     flex-flow: column nowrap;
+                            //     align-items: center;
+                            //     justify-content: center;
+                            //     animation: scale-fade-in var(--md-sys-motion-duration-medium3) 800ms forwards;
 
-                                --md-text-button-container-size: 100px;
+                            //     --md-text-button-container-size: 100px;
 
-                                svg {
-                                    position: absolute;
-                                    top: 0;
-                                    left: 0;
-                                    width: 100%;
-                                    height: 100%;
-                                    .cls-1:nth-child(2) {
-                                        fill: var(--md-sys-color-surface-container-blurred);
-                                        stroke: none;
+                            //     svg {
+                            //         position: absolute;
+                            //         top: 0;
+                            //         left: 0;
+                            //         width: 100%;
+                            //         height: 100%;
+                            //         .cls-1:nth-child(2) {
+                            //             fill: var(--md-sys-color-surface-container-blurred);
+                            //             stroke: none;
                                         
-                                    }
-                                    .cls-1:first-child {opacity: 0}
-                                }
-                                .button-content {
-                                    width: 100%;
-                                    height: 100%;
-                                    display: flex;
-                                    flex-flow: column nowrap;
-                                    gap: 20px;
-                                    align-items: center;
-                                    justify-content: center;
-                                    position: relative;
-                                    z-index: 1;
-                                }
-                            }
+                            //         }
+                            //         .cls-1:first-child {opacity: 0}
+                            //     }
+                            //     .button-content {
+                            //         width: 100%;
+                            //         height: 100%;
+                            //         display: flex;
+                            //         flex-flow: column nowrap;
+                            //         gap: 20px;
+                            //         align-items: center;
+                            //         justify-content: center;
+                            //         position: relative;
+                            //         z-index: 1;
+                            //     }
+                            // }
                         }
                     }
                 }
@@ -346,6 +382,26 @@
         padding-left: 128px;
         padding-top: 20px;
         flex: 1;
+    }
+
+    .vote-button {
+        // all: unset;
+        min-height: 48px;
+        min-width: 48px;
+        background: transparent;
+        border-radius: 24px;
+        padding: 0 16px;
+        border: 1px solid var(--md-sys-color-outline);
+        position: relative;
+        transition: var(--md-sys-motion-duration-long1) var(--md-sys-motion-easing-emphasized);
+
+        --md-ripple-hover-opacity: 0.05;
+
+        md-ripple {border-radius: 24px;}
+
+        &:focus-visible {
+            outline: none;
+        }
     }
 
     // .image-list-container, .section-underneath {

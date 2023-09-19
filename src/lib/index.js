@@ -16,7 +16,7 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+export const app = initializeApp(firebaseConfig);
 // const analytics = getAnalytics(app);
 const db = getFirestore();
 
@@ -33,18 +33,54 @@ export const getArtists = async () => {
     }))
 }
 
+export const addArtist = async (artist) => {
+    try {
+        const docRef = await addDoc(collection(db, "artists"), artist);
+        console.log(`Successfully added artist with ID: ${docRef.id}`)
+    } catch (e) {
+        console.log(`Error adding to collection artists: ${e}`)
+    }
+}
 
-// export const getArtists = async () => {
-//     artists.forEach((artist) => {console.log(artist.data())})
-//     // const result = artists.map((artist) => {({
-//     //         id: artist.data().id,
-//     //         first: artist.data().first,
-//     //         fullName: artist.data().first + ' ' + artist.data().last,
-//     //         votes: artist.data().votes,
-//     //         backgroundImage: artist.data().backgroundImage,
-//     //         profilePicture: artist.data().profilePicture
-//     //     })})
-//     // const result = artists;
-//     console.log(artists)
-//     return artists;
-// }
+
+
+
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+// import { GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
+
+const auth = getAuth(app);
+ 
+// const provider = new GoogleAuthProvider();
+
+// signInWithPopup(auth, provider)
+// .then((result) => {
+//     // This gives you a Google Access Token. You can use it to access the Google API.
+//     const credential = GoogleAuthProvider.credentialFromResult();
+//     const token = credential.accessToken;
+
+//     // the signed in user info
+//     // IdP data available using getAdditionalUserInfo(result)
+//     const user = result.user;
+//     console.log(user)
+// })
+// .catch((error) => {
+//     const errorCode = error.code;
+//     const errorMessage = error.message;
+
+//     const email = error.customData.email;
+//     const credential = GoogleAuthProvider.credentialFromError(error);
+
+//     console.log(`Error ${errorCode}: ${errorMessage}`);
+// })
+
+// createUserWithEmailAndPassword(auth, 'thelonerdude92@gmail.com', 'password1234')
+// .then((userCredential) => {
+//     const user = userCredential.user;
+//     // console.log(userCredential)
+// })
+// .catch((error) => {
+//     console.log(`Error ${error.code}: ${error.message}`);
+// });
+
+
+// const r = getAuth();
