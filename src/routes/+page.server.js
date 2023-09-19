@@ -7,6 +7,6 @@ export const _actions = {
 
 export function load({ setHeaders }) {
     setHeaders({
-        // 'Cross-Origin-Opener-Policy': 'all'
+        'Cross-Origin-Opener-Policy': 'all'
     })
 }
