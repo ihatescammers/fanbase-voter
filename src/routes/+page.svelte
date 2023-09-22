@@ -4,12 +4,12 @@
     import ScrollToPlugin from "gsap/dist/ScrollToPlugin";
     import CustomEase from "gsap/dist/CustomEase";
     import Lenis from '@studio-freight/lenis';
-    import { fade, slide } from "svelte/transition";
+    import { fade, scale, slide } from "svelte/transition";
     import { enhance } from '$app/forms';
     
-    import { getAuth } from 'firebase/auth';
-    import { GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
-    import { app } from '$lib/index.js';
+    // import { getAuth } from 'firebase/auth';
+    // import { GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
+    // import { app } from '$lib/index.js';
     
     // import { preventDefault } from '@sveltejs/kit';
     // import {fetch} from '$app/environment';
@@ -22,10 +22,10 @@
     let opened = false, selected = undefined;
     let goalPosition = 0;
     
-    const auth = getAuth(app);
-    const provider = new GoogleAuthProvider({
-        client_id: '442591407052-q2oskicagqm3sga5cptnvb110eneh5hk.apps.googleusercontent.com'
-    });
+    // const auth = getAuth(app);
+    // const provider = new GoogleAuthProvider({
+    //     client_id: '442591407052-q2oskicagqm3sga5cptnvb110eneh5hk.apps.googleusercontent.com'
+    // });
     
     onMount(() => {
         gsap.registerPlugin(CustomEase);
@@ -98,29 +98,6 @@
         if (opened) {e.preventDefault()}
     }
 
-    const handleSignIn = () => {
-        signInWithPopup(auth, provider)
-        .then((result) => {
-            // This gives you a Google Access Token. You can use it to access the Google API.
-            const credential = GoogleAuthProvider.credentialFromResult();
-            const token = credential.accessToken;
-
-            // the signed in user info
-            // IdP data available using getAdditionalUserInfo(result)
-            const user = result.user;
-            console.log(user)
-        })
-        .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-
-            const email = error.customData;
-            const credential = GoogleAuthProvider.credentialFromError(error);
-
-            console.log(`Error ${errorCode}: ${error}`);
-        })
-    }
-
     let promisePending = false, voted = false;
     let promise;
     const handleSubmit = async (event) => {
@@ -132,7 +109,7 @@
 
         const index = selected;
 
-        const promise = await fetch("?/updateartistvotes", {
+        promise = await fetch("?/updateartistvotes", {
             method: "POST",
             body: new FormData(event.target)
         })
@@ -144,11 +121,15 @@
             data.artists[index] = {...data.artists[index], votes: parsedData[3]};
             data = data;
             promisePending = false;
-            voted = true;
+            console.log(parsedData);
+            if (parsedData[1] === true) {
+                voted = true;
+            }
         } else {
             // handle error
             console.log(response.status);
             promisePending = false;
+            voted = false;
         }
     }
 
@@ -174,26 +155,27 @@
                             <div class="content-details">
                                 <div class="right">
                                     <div class="card">
-                                        <div class="body-large medium-weight artist-vote-count">{$artist.votes} votes</div>
+                                        {#key $artist.votes}
+                                            <div class="body-large medium-weight artist-vote-count" 
+                                            in:fade={{duration: 100}}>{$artist.votes} votes</div>
+                                        {/key}
                                         <h1 class="display-medium semibold-weight" style="font-size: 64px">N. 17</h1>
                                         {#if !voted}
                                             {#if !promisePending}
                                                 <form action="?/updateartistvotes" method="POST" on:submit|preventDefault={handleSubmit}>
                                                     <input type="hidden" name="id" value={$artist.id}>
-                                                    <button type="submit" class="vote-button label-large on-surface-text">
+                                                    <md-outlined-button type="submit">
                                                         Cast Your Vote
-                                                        <md-ripple></md-ripple>
-                                                        <md-focus-ring></md-focus-ring>
-                                                    </button>
+                                                    </md-outlined-button>
                                                 </form>
                                             {:else}
-                                                <div>
+                                                <div in:scale={{duration: 300}} out:fade>
                                                     <md-circular-progress indeterminate></md-circular-progress>
                                                 </div>
                                             {/if}
                                         {:else}
-                                            <p>Your vote has been cast!</p>
-                                            <md-text-button href="/concerts">View leaderboards</md-text-button>
+                                            <!-- <p in:fade>Your vote has been cast!</p> -->
+                                            <md-filled-button in:fade href="/concerts">Voted! View leaderboards</md-filled-button>
                                         {/if}
                                     </div>
                                 </div>
@@ -205,7 +187,7 @@
         {/each}
 
         <div class="ending-filler">
-            <md-text-button on:click={handleSignIn} role="button" tabindex=0 on:keyup={() => {}}>
+            <md-text-button>
                 <!-- <md-icon slot="icon"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M500-360q42 0 71-29t29-71v-220h120v-80H560v220q-13-10-28-15t-32-5q-42 0-71 29t-29 71q0 42 29 71t71 29ZM320-240q-33 0-56.5-23.5T240-320v-480q0-33 23.5-56.5T320-880h480q33 0 56.5 23.5T880-800v480q0 33-23.5 56.5T800-240H320Zm0-80h480v-480H320v480ZM160-80q-33 0-56.5-23.5T80-160v-560h80v560h560v80H160Zm160-720v480-480Z"/></svg></md-icon> -->
                 <md-icon slot="icon" class="material-symbols-outlined" style="font-size: 17px;">account_circle</md-icon>
                 Sign in
@@ -437,25 +419,25 @@
         flex: 1;
     }
 
-    .vote-button {
-        // all: unset;
-        min-height: 48px;
-        min-width: 48px;
-        background: transparent;
-        border-radius: 24px;
-        padding: 0 16px;
-        border: 1px solid var(--md-sys-color-outline);
-        position: relative;
-        transition: var(--md-sys-motion-duration-long1) var(--md-sys-motion-easing-emphasized);
+    // .vote-button {
+    //     // all: unset;
+    //     min-height: 48px;
+    //     min-width: 48px;
+    //     background: transparent;
+    //     border-radius: 24px;
+    //     padding: 0 16px;
+    //     border: 1px solid var(--md-sys-color-outline);
+    //     position: relative;
+    //     transition: var(--md-sys-motion-duration-long1) var(--md-sys-motion-easing-emphasized);
 
-        --md-ripple-hover-opacity: 0.05;
+    //     --md-ripple-hover-opacity: 0.05;
 
-        md-ripple {border-radius: 24px;}
+    //     md-ripple {border-radius: 24px;}
 
-        &:focus-visible {
-            outline: none;
-        }
-    }
+    //     &:focus-visible {
+    //         outline: none;
+    //     }
+    // }
 
     // .image-list-container, .section-underneath {
     //     animation: fade-in 0.5s 0s forwards;

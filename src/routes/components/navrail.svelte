@@ -4,6 +4,15 @@
   import CustomEase from "gsap/dist/CustomEase";
   import { onMount } from 'svelte';
 
+  import { getAuth } from 'firebase/auth';
+  import { GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
+  import { app } from '$lib/index.js';
+
+  const auth = getAuth(app);
+  const provider = new GoogleAuthProvider({
+    client_id: '442591407052-q2oskicagqm3sga5cptnvb110eneh5hk.apps.googleusercontent.com'
+  });
+
   onMount(() => {
     gsap.registerPlugin(CustomEase);
     CustomEase.create("emphasized", "M0,0 C0.05,0 0.13333,0.06 0.16666,0.4 0.20833,0.82 0.25,1 1,1 ");
@@ -40,6 +49,29 @@
       ease: "elastic.out(1, 0.5)"
     }, "<+=0.25")
   })
+
+  const handleSignIn = async () => {
+        signInWithPopup(auth, provider)
+        .then((result) => {
+            // This gives you a Google Access Token. You can use it to access the Google API.
+            const credential = GoogleAuthProvider.credentialFromResult();
+            const token = credential.accessToken;
+
+            // the signed in user info
+            // IdP data available using getAdditionalUserInfo(result)
+            const user = result.user;
+            console.log(user)
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+
+            const email = error.customData;
+            const credential = GoogleAuthProvider.credentialFromError(error);
+
+            console.log(`Error ${errorCode}: ${error}`);
+        })
+    }
 </script>
 
 <!-- <div style="height: 1px; width: 100%; background-color: black; position: fixed; top: 50%;"></div> -->
@@ -74,7 +106,7 @@
       <div class="text label-medium">Contact</div>
     </a>
     <div style="flex: auto"></div>
-    <md-icon-button class="nav-search-button">
+    <md-icon-button class="nav-search-button" on:click={handleSignIn} role="button" tabindex=0 on:keyup={() => {}}>
       <md-icon class="material-symbols-outlined">account_circle</md-icon>
     </md-icon-button>
 </nav>

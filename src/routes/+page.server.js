@@ -4,7 +4,6 @@ import { updateArtistVotes } from '$lib/index.js';
 export function load({ setHeaders }) {
     setHeaders({
         'Cross-Origin-Opener-Policy': 'same-origin',
-        'Cache-Control': 'no-cache'
     })
 }
 
