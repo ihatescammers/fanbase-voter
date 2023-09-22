@@ -83,7 +83,7 @@
 <style lang="scss">
   // animation styles:
   .navrail {height: 88; scale: 0;}
-  .nav-search-button, .navrail-button {scale: 0; opacity: 0}
+  .nav-search-button, .navrail-button {scale: 0; x: 0}
 
   .navrail {
       display: flex;

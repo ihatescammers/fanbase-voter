@@ -4,12 +4,17 @@
     import ScrollToPlugin from "gsap/dist/ScrollToPlugin";
     import CustomEase from "gsap/dist/CustomEase";
     import Lenis from '@studio-freight/lenis';
-    import { fly, blur, fade } from "svelte/transition";
-
+    import { fade, slide } from "svelte/transition";
+    import { enhance } from '$app/forms';
+    
     import { getAuth } from 'firebase/auth';
     import { GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
     import { app } from '$lib/index.js';
-
+    
+    // import { preventDefault } from '@sveltejs/kit';
+    // import {fetch} from '$app/environment';
+    import { writable } from "svelte/store";
+    
     export let data;
 
     let container;
@@ -18,7 +23,9 @@
     let goalPosition = 0;
     
     const auth = getAuth(app);
-    const provider = new GoogleAuthProvider();
+    const provider = new GoogleAuthProvider({
+        client_id: '442591407052-q2oskicagqm3sga5cptnvb110eneh5hk.apps.googleusercontent.com'
+    });
     
     onMount(() => {
         gsap.registerPlugin(CustomEase);
@@ -76,14 +83,15 @@
 
     function handleScroll(e) {
         if (e.shiftKey || opened) return;
+        document.documentElement.scrollLeft += e.deltaY + e.deltaX; 
 
-        goalPosition = Math.min(Math.max(goalPosition + e.deltaX + e.deltaY, 0), e.currentTarget.scrollWidth - window.innerWidth);
-        e.preventDefault();
-        gsap.to(window, {
-            scrollTo: {x: goalPosition},
-            ease: "expo.out",
-            duration: 1,
-        });
+        // goalPosition = Math.min(Math.max(goalPosition + e.deltaX + e.deltaY, 0), e.currentTarget.scrollWidth - window.innerWidth);
+        // e.preventDefault();
+        // gsap.to(window, {
+        //     scrollTo: {x: goalPosition},
+        //     ease: "expo.out",
+        //     duration: 1,
+        // });
     }
 
     function handleTouchScroll(e) {
@@ -113,21 +121,52 @@
         })
     }
 
+    let promisePending = false, voted = false;
+    let promise;
+    const handleSubmit = async (event) => {
+        if (promisePending) {
+            console.log('Promise already pending');
+            return;
+        };
+        promisePending = true;
+
+        const index = selected;
+
+        const promise = await fetch("?/updateartistvotes", {
+            method: "POST",
+            body: new FormData(event.target)
+        })
+
+        if (promise.ok) {
+            const responseData = await promise.json();
+            const parsedData = JSON.parse(responseData.data);
+            // array item 0 contains the corresponding names and the rest of the items contain values of those names
+            data.artists[index] = {...data.artists[index], votes: parsedData[3]};
+            data = data;
+            promisePending = false;
+            voted = true;
+        } else {
+            // handle error
+            console.log(response.status);
+            promisePending = false;
+        }
+    }
+
 </script>
 
 
 <main class="image-list-container { opened ? 'opened' : '' }" bind:this={container} on:wheel={handleScroll} on:touchmove={handleTouchScroll} on:scroll={handleTouchScroll}>
     <section class="image-list">
-        {#each data.artists as artist, index}
+        {#each data.artists as $artist, index}
             <button type="button" class="img-container { selected === index ? 'selected' : '' }" on:click={() => {handleItemOpen(index)}} tabindex={opened ? -1 : 0}>
-                <img src="{artist.backgroundImage}" alt="{artist.fullName}" draggable="false">
+                <img src="{$artist.backgroundImage}" alt="{$artist.fullName}" draggable="false">
                 <md-focus-ring></md-focus-ring>
                 
                 {#if selected === index} 
                     <div class="content-container" out:fade={{duration: 100}}>
                         <div class="content">
                             <div class="heading-line">
-                                <h1 class="display-medium semibold-weight">{artist.fullName}</h1>
+                                <h1 class="display-medium semibold-weight">{$artist.fullName}</h1>
                                 <md-icon-button on:click={closeContainer} role="button" tabindex=0 on:touchend={closeContainer} on:keyup={() => {}}>
                                     <md-icon class="material-symbols-outlined">close</md-icon>
                                 </md-icon-button>
@@ -135,13 +174,27 @@
                             <div class="content-details">
                                 <div class="right">
                                     <div class="card">
-                                        <div class="body-large medium-weight">{artist.votes} votes</div>
+                                        <div class="body-large medium-weight artist-vote-count">{$artist.votes} votes</div>
                                         <h1 class="display-medium semibold-weight" style="font-size: 64px">N. 17</h1>
-                                        <button class="vote-button label-large on-surface-text">
-                                            Cast Your Vote!
-                                            <md-ripple></md-ripple>
-                                            <md-focus-ring></md-focus-ring>
-                                        </button>
+                                        {#if !voted}
+                                            {#if !promisePending}
+                                                <form action="?/updateartistvotes" method="POST" on:submit|preventDefault={handleSubmit}>
+                                                    <input type="hidden" name="id" value={$artist.id}>
+                                                    <button type="submit" class="vote-button label-large on-surface-text">
+                                                        Cast Your Vote
+                                                        <md-ripple></md-ripple>
+                                                        <md-focus-ring></md-focus-ring>
+                                                    </button>
+                                                </form>
+                                            {:else}
+                                                <div>
+                                                    <md-circular-progress indeterminate></md-circular-progress>
+                                                </div>
+                                            {/if}
+                                        {:else}
+                                            <p>Your vote has been cast!</p>
+                                            <md-text-button href="/concerts">View leaderboards</md-text-button>
+                                        {/if}
                                     </div>
                                 </div>
                             </div>

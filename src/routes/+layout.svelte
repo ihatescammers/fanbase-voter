@@ -3,6 +3,7 @@
     import '@material/web/button/text-button';
     import '@material/web/icon/icon';
     import '@material/web/button/outlined-button';
+    import '@material/web/progress/circular-progress'
     // import '@material/web/textfield/outlined-text-field.js';
     import '../css/app.scss';
     import '../css/theme.css';

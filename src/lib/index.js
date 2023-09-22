@@ -1,7 +1,7 @@
 // place files you want to import through the `$lib` alias in this folder.
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
-import { collection, addDoc, getDocs } from 'firebase/firestore';
+import { getDoc, getFirestore, updateDoc } from "firebase/firestore";
+import { collection, addDoc, getDocs, doc } from 'firebase/firestore';
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -12,7 +12,8 @@ const firebaseConfig = {
   storageBucket: "fanbase-voter.appspot.com",
   messagingSenderId: "442591407052",
   appId: "1:442591407052:web:2a061d2f911bb900de4b69",
-  measurementId: "G-2NZX276N15"
+  measurementId: "G-2NZX276N15",
+//   clientId: "442591407052-q2oskicagqm3sga5cptnvb110eneh5hk.apps.googleusercontent.com"
 };
 
 // Initialize Firebase
@@ -20,11 +21,13 @@ export const app = initializeApp(firebaseConfig);
 // const analytics = getAnalytics(app);
 const db = getFirestore();
 
-// export const artists = await getDocs(collection(db, 'artists'));
+
 export const getArtists = async () => {
     const artists = await getDocs(collection(db, 'artists'));
+    console.log('fetched artists');
+
     return artists.docs.map(artist => ({
-        id: artist.data().id,
+        id: artist.id,
         first: artist.data().first,
         fullName: artist.data().first + ' ' + artist.data().last,
         votes: artist.data().votes,
@@ -42,6 +45,29 @@ export const addArtist = async (artist) => {
     }
 }
 
+export const updateArtistVotes = async (id) => {
+    const docRef = doc(db, "artists", id);
+    try {
+        const artistRef = await getDoc(docRef);
+        const artistData = artistRef.data();
+        const newVotes = artistData.votes + 1
+        const artistUpdate = await updateDoc(docRef, {
+            votes: newVotes
+        });
+        console.log(`Update artist ${artistRef.id}'s votes with new value: ${newVotes}`);
+        return {
+            status: true,
+            message: 'Your vote has been cast!',
+            votes: newVotes
+        }
+    } catch(e) {
+        console.log(`Error: ${e}`);
+        return {
+            status: false,
+            message: 'An error occurred, please try again later.'
+        }
+    }
+}
 
 
 
