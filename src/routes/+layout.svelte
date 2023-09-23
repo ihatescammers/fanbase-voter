@@ -12,6 +12,14 @@
     import Navrail from './components/navrail.svelte';
 
     import { fade } from 'svelte/transition';
+    import { onMount } from 'svelte';
+
+    import { app } from '$lib/index.js';
+    import { getAnalytics } from 'firebase/analytics';
+
+    onMount(() => {
+        const analytics = getAnalytics(app);
+    })
 
     // export let data;
 </script>

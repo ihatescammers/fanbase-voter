@@ -7,7 +7,7 @@ import { collection, addDoc, getDocs, doc } from 'firebase/firestore';
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyCvfmwSkKpiBEC-H0ZlkIv8m43Bg4zOGjk",
-  authDomain: "fanbase-voter.firebaseapp.com",
+  authDomain: "fanbase-voter.vercel.app",
   projectId: "fanbase-voter",
   storageBucket: "fanbase-voter.appspot.com",
   messagingSenderId: "442591407052",

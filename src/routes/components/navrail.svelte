@@ -4,27 +4,27 @@
   import CustomEase from "gsap/dist/CustomEase";
   import { onMount } from 'svelte';
 
-  import { getAuth } from 'firebase/auth';
-  import { GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
+  import { getAuth, signInWithPopup, signOut } from 'firebase/auth';
+  import { GoogleAuthProvider, signInWithRedirect, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
   import { app } from '$lib/index.js';
 
-  const auth = getAuth(app);
-  const provider = new GoogleAuthProvider({
-    client_id: '442591407052-q2oskicagqm3sga5cptnvb110eneh5hk.apps.googleusercontent.com'
-  });
-
-  onMount(() => {
+  // const auth = getAuth(app);
+  // const provider = new GoogleAuthProvider();
+  
+  let loggedIn = false;
+  let user;
+  onMount(async () => {
     gsap.registerPlugin(CustomEase);
     CustomEase.create("emphasized", "M0,0 C0.05,0 0.13333,0.06 0.16666,0.4 0.20833,0.82 0.25,1 1,1 ");
     
     const navtl = gsap.timeline();
     navtl.set('.navrail', {height: 88, scale: 0, y: window.innerHeight / 2 - 44 - 20, borderRight: '2px solid var(--md-sys-color-primary)', rotate: 420});
-    navtl.set('.nav-search-button, .navrail-button', {scale: 0, opacity: 0});
+    navtl.set('.nav-search-button, .navrail-button, .profile-button', {scale: 0, opacity: 0});
     navtl.to('.navrail', {
       scale: 1,
       ease: "elastic.out(1, 0.5)",
       duration: 0.85,
-      delay: 1.5
+      // delay: 1.5
     });
     navtl.to('.navrail', {
       rotate: 0,
@@ -41,43 +41,61 @@
       ease: "emphasized",
       duration: 1
     },"<+=0.1")
-    navtl.to('.nav-search-button, .navrail-button', {
+    navtl.to('.nav-search-button, .navrail-button, .profile-button', {
       opacity: 1,
       scale: 1,
       stagger: 0.1,
       duration: 0.75,
       ease: "elastic.out(1, 0.5)"
-    }, "<+=0.25")
+    }, "<+=0.25");
+    
+    
+    const auth = getAuth(app);
+    onAuthStateChanged(auth, (newUser) => {
+			user = newUser;
+      newUser === null ? loggedIn = false : loggedIn = true;
+		});
   })
 
-  const handleSignIn = async () => {
-        signInWithPopup(auth, provider)
-        .then((result) => {
-            // This gives you a Google Access Token. You can use it to access the Google API.
-            const credential = GoogleAuthProvider.credentialFromResult();
-            const token = credential.accessToken;
+  const handleSignIn = () => {
+      if (loggedIn) return;
+      const auth = getAuth(app);
+      signInWithRedirect(auth, new GoogleAuthProvider())
+      .then((result) => {
+          // This gives you a Google Access Token. You can use it to access the Google API.
+          const credential = provider.credentialFromResult(auth, result);
+          const token = credential.accessToken;
 
-            // the signed in user info
-            // IdP data available using getAdditionalUserInfo(result)
-            const user = result.user;
-            console.log(user)
-        })
-        .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
+          // the signed in user info
+          // IdP data available using getAdditionalUserInfo(result)
+          const user = result.user;
+          console.log(user)
+      })
+      .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
 
-            const email = error.customData;
-            const credential = GoogleAuthProvider.credentialFromError(error);
+          // const email = error.customData;
+          // const credential = GoogleAuthProvider.credentialFromError(error);
 
-            console.log(`Error ${errorCode}: ${error}`);
-        })
+          console.log(`Error ${errorCode}: ${errorMessage}`);
+      })
     }
+
+  const logout = async () => {
+		const auth = getAuth(app);
+		signOut(auth);
+	};
+
+  setTimeout(() => {
+    console.log(user);
+  }, 2000);
 </script>
 
 <!-- <div style="height: 1px; width: 100%; background-color: black; position: fixed; top: 50%;"></div> -->
 
 <nav class="navrail">
-  <md-icon-button class="nav-search-button">
+  <md-icon-button class="nav-search-button"  on:click={logout} role="button" tabindex=0 on:keyup={() => {}}>
     <md-icon class="material-symbols-outlined">search</md-icon>
   </md-icon-button>
   <div class="divider"></div>
@@ -96,26 +114,44 @@
         <md-focus-ring for="Concerts"></md-focus-ring>
       </span>
       <div class="text label-medium">Concerts</div>
-    </a>
-    <a href="/contact" data-sveltekit-noscroll class="navrail-button { $page.url.pathname === '/contact' ? 'active' : '' }" aria-label="Contact" id="contact">
+  </a>
+  <a href="/contact" data-sveltekit-noscroll class="navrail-button { $page.url.pathname === '/contact' ? 'active' : '' }" aria-label="Contact" id="contact">
       <span class="icon material-symbols-outlined">
         Mail
         <md-ripple for="contact"></md-ripple>
         <md-focus-ring for="contact"></md-focus-ring>
       </span>
       <div class="text label-medium">Contact</div>
-    </a>
-    <div style="flex: auto"></div>
-    <md-icon-button class="nav-search-button" on:click={handleSignIn} role="button" tabindex=0 on:keyup={() => {}}>
-      <md-icon class="material-symbols-outlined">account_circle</md-icon>
-    </md-icon-button>
+  </a>
+  <div style="flex: auto"></div>
+  <md-icon-button class="nav-search-button {loggedIn ? 'profile-button' : ''}" on:click={handleSignIn} role="button" tabindex=0 on:keyup={() => {}}>
+  {#if !loggedIn}
+    <md-icon class="material-symbols-outlined">account_circle</md-icon>
+  <!-- </md-icon-button> -->
+  {:else}
+    <!-- <md-icon-button class="profile-button"> -->
+      <img src={user.photoURL} alt="profile">
+  {/if}
+  </md-icon-button>
 </nav>
 <div class="navrail-filler"></div>
 
 <style lang="scss">
   // animation styles:
   .navrail {height: 88; scale: 0;}
-  .nav-search-button, .navrail-button {scale: 0; x: 0}
+  .nav-search-button, .navrail-button, .profile-button {scale: 0}
+  .profile-button {
+    // animation: scale-up 0.3s 1.85s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    img {
+      border-radius: 50%;
+      height: 36px;
+      width: 36px;
+    }
+    @keyframes scale-up {
+      0% {scale: 0}
+      100% {scale: 1}
+    }
+  }
 
   .navrail {
       display: flex;
@@ -124,7 +160,7 @@
       padding: 30px 0;
       gap: 30px;
       flex: 100px 0 0;
-      width: 88px;
+      width: 88px; 
       box-sizing: border-box;
       position: fixed;
       top: 20px;
