@@ -2,7 +2,7 @@
     "rewrites": [
         {
             "source": "/__/auth/(.*)", 
-            "destination": "https://fanbase-voter.firebaseapp.com/__/auth/"
+            "destination": "https://fanbase-voter.firebaseapp.com/__/auth/$1"
         }
     ]
 }
