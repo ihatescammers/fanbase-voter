@@ -18,37 +18,39 @@
     gsap.registerPlugin(CustomEase);
     CustomEase.create("emphasized", "M0,0 C0.05,0 0.13333,0.06 0.16666,0.4 0.20833,0.82 0.25,1 1,1 ");
     
-    const navtl = gsap.timeline();
-    navtl.set('.navrail', {height: 88, scale: 0, y: window.innerHeight / 2 - 44 - 20, borderRight: '2px solid var(--md-sys-color-primary)', rotate: 420});
-    navtl.set('.nav-search-button, .navrail-button, .profile-button', {scale: 0, opacity: 0});
-    navtl.to('.navrail', {
-      scale: 1,
-      ease: "elastic.out(1, 0.5)",
-      duration: 0.85,
-      delay: 1
-    });
-    navtl.to('.navrail', {
-      rotate: 0,
-      ease: "cubic.inOut",
-      duration: 1
-    }, "<")
-    navtl.to('.navrail', {
-      borderColor: 'rgba(0,0,0,0)',
-      duration: 0.25,
-    }, ">-=0.15")
-    navtl.to('.navrail', {
-      y: 0,
-      height: 'calc(100% - 40px)',
-      ease: "emphasized",
-      duration: 1
-    },"<+=0.1")
-    navtl.to('.nav-search-button, .navrail-button, .profile-button', {
-      opacity: 1,
-      scale: 1,
-      stagger: 0.1,
-      duration: 0.75,
-      ease: "elastic.out(1, 0.5)"
-    }, "<+=0.25");
+    if (window.innerWidth >= 560) {
+      const navtl = gsap.timeline();
+      navtl.set('.navrail', {height: 88, scale: 0, y: window.innerHeight / 2 - 44 - 20, borderRight: '2px solid var(--md-sys-color-primary)', rotate: 420});
+      navtl.set('.nav-search-button, .navrail-button, .profile-button', {scale: 0, opacity: 0});
+      navtl.to('.navrail', {
+        scale: 1,
+        ease: "elastic.out(1, 0.5)",
+        duration: 0.85,
+        delay: 1
+      });
+      navtl.to('.navrail', {
+        rotate: 0,
+        ease: "cubic.inOut",
+        duration: 1
+      }, "<")
+      navtl.to('.navrail', {
+        borderColor: 'rgba(0,0,0,0)',
+        duration: 0.25,
+      }, ">-=0.15")
+      navtl.to('.navrail', {
+        y: 0,
+        height: 'calc(100% - 40px)',
+        ease: "emphasized",
+        duration: 1
+      },"<+=0.1")
+      navtl.to('.nav-search-button, .navrail-button, .profile-button', {
+        opacity: 1,
+        scale: 1,
+        stagger: 0.1,
+        duration: 0.75,
+        ease: "elastic.out(1, 0.5)"
+      }, "<+=0.25");
+    }
   })
 
   const handleSignIn = () => {
@@ -80,10 +82,6 @@
 		const auth = getAuth(app);
 		signOut(auth);
 	};
-
-  setTimeout(() => {
-    console.log($user);
-  }, 3000);
 </script>
 
 <!-- <div style="height: 1px; width: 100%; background-color: black; position: fixed; top: 50%;"></div> -->
@@ -117,7 +115,7 @@
       </span>
       <div class="text label-medium">Contact</div>
   </a>
-  <div style="flex: auto"></div>
+  <div class="filler"></div>
   <md-icon-button class="nav-search-button {loggedIn ? 'profile-button' : ''}" on:click={handleSignIn} role="button" tabindex=0 on:keyup={() => {}}>
   {#if !loggedIn}
     <md-icon class="material-symbols-outlined">account_circle</md-icon>
@@ -132,8 +130,10 @@
 
 <style lang="scss">
   // animation styles:
-  .navrail {height: 88; scale: 0;}
-  .nav-search-button, .navrail-button, .profile-button {scale: 0}
+  @media (min-width: 560px) {
+    .navrail {height: 88; scale: 0;}
+    .nav-search-button, .navrail-button, .profile-button {scale: 0}
+  }
   .profile-button {
     // animation: scale-up 0.3s 1.85s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
     img {
@@ -238,9 +238,12 @@
       flex: 108px 0 0;
       width: 108px;
   }
+  .filler {
+    flex: auto;
+  }
 
   @media (max-width: 560px) { // mobile-width
-    .navrail-filler {
+    .filler, .divider {
       display: none;
     }
     .navrail {
@@ -255,7 +258,6 @@
       // background-color: var(--md-sys-color-surface-container);
       // background-color: rgba(241, 238, 229, 0.75);
       // backdrop-filter: blur(15px);
-      gap: 0px;
       view-transition-name: navrail;
 
       @media (prefers-color-scheme: dark) {
@@ -264,6 +266,9 @@
 
       .navrail-button.active {
         .text {font-weight: var(--bold-weight)}
+      }
+      md-icon-button {
+        margin: 0 10px;
       }
     }
   }

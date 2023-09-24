@@ -7,7 +7,8 @@ import { collection, addDoc, getDocs, doc } from 'firebase/firestore';
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyCvfmwSkKpiBEC-H0ZlkIv8m43Bg4zOGjk",
-  authDomain: "fanbase-voter.vercel.app",
+//   authDomain: "fanbase-voter.vercel.app", // add this before deployment, or auth wont work on firefox
+  authDomain: "fanbase-voter.firebaseapp.com", // remove this before deployment, or auth wont work on firefox
   projectId: "fanbase-voter",
   storageBucket: "fanbase-voter.appspot.com",
   messagingSenderId: "442591407052",
@@ -19,7 +20,7 @@ const firebaseConfig = {
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
 // const analytics = getAnalytics(app);
-const db = getFirestore();
+export const db = getFirestore();
 
 
 export const getArtists = async () => {
