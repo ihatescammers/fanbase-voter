@@ -50,8 +50,8 @@
     onAuthStateChanged(auth, (newUser) => {
 			user.set(newUser)
       newUser === null ? loggedIn = false : loggedIn = true;
-      console.log($user);
-		});
+      $user ? console.log($user.photoURL) : console.log(null);
+    });
   })
 
   const handleSignIn = () => {
@@ -85,8 +85,8 @@
 	};
 
   setTimeout(() => {
-    // console.log(user);
-  }, 2000);
+    console.log($user);
+  }, 3000);
 </script>
 
 <!-- <div style="height: 1px; width: 100%; background-color: black; position: fixed; top: 50%;"></div> -->
