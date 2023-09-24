@@ -10,6 +10,10 @@
   import { user } from '$lib/auth';
   
   let loggedIn = false;
+  user.subscribe((value) => {
+    value === null ? loggedIn = false : loggedIn = true;
+  })
+  
   onMount(async () => {
     gsap.registerPlugin(CustomEase);
     CustomEase.create("emphasized", "M0,0 C0.05,0 0.13333,0.06 0.16666,0.4 0.20833,0.82 0.25,1 1,1 ");
@@ -45,13 +49,6 @@
       duration: 0.75,
       ease: "elastic.out(1, 0.5)"
     }, "<+=0.25");
-    
-    const auth = getAuth(app);
-    onAuthStateChanged(auth, (newUser) => {
-			user.set(newUser)
-      newUser === null ? loggedIn = false : loggedIn = true;
-      $user ? console.log($user.photoURL) : console.log(null);
-    });
   })
 
   const handleSignIn = () => {
