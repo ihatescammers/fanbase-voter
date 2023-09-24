@@ -49,7 +49,7 @@
       ease: "elastic.out(1, 0.5)"
     }, "<+=0.25");
     
-    
+    // useless comment
     const auth = getAuth(app);
     onAuthStateChanged(auth, (newUser) => {
 			user = newUser;
