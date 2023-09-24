@@ -1,6 +1,6 @@
 import { writable } from 'svelte/store';
 import { onAuthStateChanged, getAuth } from 'firebase/auth';
-import { getDoc, updateDoc, doc, collection } from 'firebase/firestore';
+import { getDoc, setDoc, doc } from 'firebase/firestore';
 import { app, db } from './index.js';
 
 export const user = writable(null);
