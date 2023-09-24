@@ -6,14 +6,8 @@
     import Lenis from '@studio-freight/lenis';
     import { fade, scale, slide } from "svelte/transition";
     import { enhance } from '$app/forms';
-    
-    // import { getAuth } from 'firebase/auth';
-    // import { GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
-    // import { app } from '$lib/index.js';
-    
-    // import { preventDefault } from '@sveltejs/kit';
-    // import {fetch} from '$app/environment';
-    import { writable } from "svelte/store";
+
+    import { user } from "$lib/auth.js";
     
     export let data;
 
@@ -160,23 +154,30 @@
                                             in:fade={{duration: 100}}>{$artist.votes} votes</div>
                                         {/key}
                                         <h1 class="display-medium semibold-weight" style="font-size: 64px">N. 17</h1>
-                                        {#if !voted}
-                                            {#if !promisePending}
-                                                <form action="?/updateartistvotes" method="POST" on:submit|preventDefault={handleSubmit}>
-                                                    <input type="hidden" name="id" value={$artist.id}>
-                                                    <md-outlined-button type="submit">
-                                                        Cast Your Vote
-                                                    </md-outlined-button>
-                                                </form>
+                                        {#if $user !== null}
+                                            {#if !voted}
+                                                {#if !promisePending}
+                                                    <form action="?/updateartistvotes" method="POST" on:submit|preventDefault={handleSubmit}>
+                                                        <input type="hidden" name="id" value={$artist.id}>
+                                                        <md-outlined-button type="submit">
+                                                            Cast Your Vote
+                                                        </md-outlined-button>
+                                                    </form>
+                                                {:else}
+                                                    <div in:scale={{duration: 300}} out:fade>
+                                                        <md-circular-progress indeterminate></md-circular-progress>
+                                                    </div>
+                                                {/if}
                                             {:else}
-                                                <div in:scale={{duration: 300}} out:fade>
-                                                    <md-circular-progress indeterminate></md-circular-progress>
-                                                </div>
+                                                <!-- <p in:fade>Your vote has been cast!</p> -->
+                                                <md-filled-button in:fade href="/concerts">Voted! View leaderboards</md-filled-button>
                                             {/if}
                                         {:else}
-                                            <!-- <p in:fade>Your vote has been cast!</p> -->
-                                            <md-filled-button in:fade href="/concerts">Voted! View leaderboards</md-filled-button>
-                                        {/if}
+                                            <md-outlined-button>
+                                                Vote with Google
+                                            </md-outlined-button>
+                                            {/if}
+                                            {$user}
                                     </div>
                                 </div>
                             </div>
