@@ -46,7 +46,6 @@
       ease: "elastic.out(1, 0.5)"
     }, "<+=0.25");
     
-    // useless comment
     const auth = getAuth(app);
     onAuthStateChanged(auth, (newUser) => {
 			user.set(newUser)
@@ -128,7 +127,7 @@
   <!-- </md-icon-button> -->
   {:else}
     <!-- <md-icon-button class="profile-button"> -->
-      <img src={user.photoURL} alt="profile">
+      <img src={$user.photoURL} alt="profile">
   {/if}
   </md-icon-button>
 </nav>
