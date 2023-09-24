@@ -7,12 +7,9 @@
   import { getAuth, signInWithPopup, signOut } from 'firebase/auth';
   import { GoogleAuthProvider, signInWithRedirect, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
   import { app } from '$lib/index.js';
-
-  // const auth = getAuth(app);
-  // const provider = new GoogleAuthProvider();
+  import { user } from '$lib/auth';
   
   let loggedIn = false;
-  let user;
   onMount(async () => {
     gsap.registerPlugin(CustomEase);
     CustomEase.create("emphasized", "M0,0 C0.05,0 0.13333,0.06 0.16666,0.4 0.20833,0.82 0.25,1 1,1 ");
@@ -52,9 +49,9 @@
     // useless comment
     const auth = getAuth(app);
     onAuthStateChanged(auth, (newUser) => {
-			user = newUser;
+			user.set(newUser)
       newUser === null ? loggedIn = false : loggedIn = true;
-      console.log(user);
+      console.log($user);
 		});
   })
 
