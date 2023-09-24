@@ -24,7 +24,7 @@
       scale: 1,
       ease: "elastic.out(1, 0.5)",
       duration: 0.85,
-      // delay: 1.5
+      delay: 1
     });
     navtl.to('.navrail', {
       rotate: 0,
@@ -54,6 +54,7 @@
     onAuthStateChanged(auth, (newUser) => {
 			user = newUser;
       newUser === null ? loggedIn = false : loggedIn = true;
+      console.log(user);
 		});
   })
 
@@ -88,7 +89,7 @@
 	};
 
   setTimeout(() => {
-    console.log(user);
+    // console.log(user);
   }, 2000);
 </script>
 
