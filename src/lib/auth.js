@@ -4,6 +4,7 @@ import { getDoc, updateDoc, doc, collection } from 'firebase/firestore';
 import { app, db } from './index.js';
 
 export const user = writable(null);
+export const voted = writable(false);
 
 const auth = getAuth(app);
 onAuthStateChanged(auth, (newUser) => {
