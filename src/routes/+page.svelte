@@ -7,7 +7,7 @@
     import { fade, scale, slide } from "svelte/transition";
     import { enhance } from '$app/forms';
 
-    import { user } from "$lib/auth.js";
+    import { user, voted, setVoted } from "$lib/auth.js";
     import { app } from "$lib/index.js";
     import { signInWithRedirect, getAuth, GoogleAuthProvider } from "firebase/auth";
     
@@ -79,22 +79,22 @@
 
     function handleScroll(e) {
         if (e.shiftKey || opened) return;
-        document.documentElement.scrollLeft += e.deltaY + e.deltaX; 
+        // document.documentElement.scrollLeft += e.deltaY + e.deltaX; 
 
-        // goalPosition = Math.min(Math.max(goalPosition + e.deltaX + e.deltaY, 0), e.currentTarget.scrollWidth - window.innerWidth);
-        // e.preventDefault();
-        // gsap.to(window, {
-        //     scrollTo: {x: goalPosition},
-        //     ease: "expo.out",
-        //     duration: 1,
-        // });
+        goalPosition = Math.min(Math.max(goalPosition + e.deltaX + e.deltaY, 0), e.currentTarget.scrollWidth - window.innerWidth);
+        e.preventDefault();
+        gsap.to(window, {
+            scrollTo: {x: goalPosition},
+            ease: "expo.out",
+            duration: 1,
+        });
     }
 
     function handleTouchScroll(e) {
         if (opened) {e.preventDefault()}
     }
 
-    let promisePending = false, voted = false;
+    let promisePending = false;
     let promise;
     const handleSubmit = async (event) => {
         if (promisePending) {
@@ -104,10 +104,11 @@
         promisePending = true;
 
         const index = selected;
+        const formData = new FormData(event.target);
 
         promise = await fetch("?/updateartistvotes", {
             method: "POST",
-            body: new FormData(event.target)
+            body: formData
         })
 
         if (promise.ok) {
@@ -119,13 +120,12 @@
             promisePending = false;
             console.log(parsedData);
             if (parsedData[1] === true) {
-                voted = true;
+                setVoted(formData.get("id"));
             }
         } else {
             // handle error
             console.log(response.status);
             promisePending = false;
-            voted = false;
         }
     }
 
@@ -182,16 +182,16 @@
                                         {/key}
                                         <h1 class="display-medium semibold-weight" style="font-size: 64px">N. 17</h1>
                                         {#if $user !== null}
-                                            {#if !voted}
+                                            {#if !$voted}
                                                 {#if !promisePending}
                                                     <form action="?/updateartistvotes" method="POST" on:submit|preventDefault={handleSubmit}>
                                                         <input type="hidden" name="id" value={$artist.id}>
-                                                        <md-filled-button type="submit">
+                                                        <md-filled-button in:scale={{delay: 700, duration: 200}} type="submit">
                                                             Cast Your Vote
                                                         </md-filled-button>
                                                     </form>
                                                 {:else}
-                                                    <div in:scale={{duration: 300}} out:fade>
+                                                    <div>
                                                         <md-circular-progress indeterminate></md-circular-progress>
                                                     </div>
                                                 {/if}
