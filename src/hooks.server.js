@@ -120,7 +120,7 @@
 //     }
 //   ]
 
-// // use a batch to perform multiple operations
+// use a batch to perform multiple operations
 // const batch = writeBatch(db);
 
 // // add each object in the array to the batch
