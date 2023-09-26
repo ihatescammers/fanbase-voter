@@ -21,7 +21,7 @@ html, body {
     width: 100%;
     background: var(--md-sys-color-surface);
     color: var(--md-sys-color-on-surface);
-    overscroll-behavior-y: none;
+    // overscroll-behavior-y: none;
     scrollbar-gutter: stable;
 }
 html {overflow-x: scroll}
@@ -31,7 +31,8 @@ html {overflow-x: scroll}
 ::selection {background: var(--md-sys-color-primary); color: var(--md-sys-color-on-primary)}
 
 .column-text-outer {overflow: hidden}
-
+.card {border-radius: 36px;}
+.filler {flex: auto}
 
 @keyframes fade-in {
     0% {opacity: 0}

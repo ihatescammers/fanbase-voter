@@ -97,7 +97,15 @@
         <md-ripple for="artists"></md-ripple>
         <md-focus-ring for="artists"></md-focus-ring>
       </span>
-      <div class="text label-medium">Artists</div>
+      <div class="text label-medium">Vote</div>
+  </a>
+  <a href="/leaderboard" data-sveltekit-noscroll class="navrail-button { $page.url.pathname === '/leaderboard' ? 'active' : '' }" aria-label="leaderboard" id="leaderboard">
+      <span class="icon material-symbols-outlined">
+        social_leaderboard
+        <md-ripple for="leaderboard"></md-ripple>
+        <md-focus-ring for="leaderboard"></md-focus-ring>
+      </span>
+      <div class="text label-medium">Top Artists</div>
   </a>
   <a href="/concerts" data-sveltekit-noscroll class="navrail-button { $page.url.pathname.includes('/concerts') ? 'active' : '' }" aria-label="Concerts" id="Concerts">
       <span class="icon material-symbols-outlined">
@@ -106,14 +114,6 @@
         <md-focus-ring for="Concerts"></md-focus-ring>
       </span>
       <div class="text label-medium">Concerts</div>
-  </a>
-  <a href="/contact" data-sveltekit-noscroll class="navrail-button { $page.url.pathname === '/contact' ? 'active' : '' }" aria-label="Contact" id="contact">
-      <span class="icon material-symbols-outlined">
-        Mail
-        <md-ripple for="contact"></md-ripple>
-        <md-focus-ring for="contact"></md-focus-ring>
-      </span>
-      <div class="text label-medium">Contact</div>
   </a>
   <div class="filler"></div>
   <md-icon-button class="nav-search-button {loggedIn ? 'profile-button' : ''}" on:click={handleSignIn} role="button" tabindex=0 on:keyup={() => {}}>

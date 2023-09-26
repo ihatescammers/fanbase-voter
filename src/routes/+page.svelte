@@ -5,7 +5,6 @@
     import CustomEase from "gsap/dist/CustomEase";
     import Lenis from '@studio-freight/lenis';
     import { fade, scale, slide } from "svelte/transition";
-    import { enhance } from '$app/forms';
 
     import { user, voted, setVoted } from "$lib/auth.js";
     import { app } from "$lib/index.js";
@@ -17,7 +16,6 @@
     let lenis;
     let opened = false, selected = undefined;
     let goalPosition = 0;
-    
     // const auth = getAuth(app);
     // const provider = new GoogleAuthProvider({
     //     client_id: '442591407052-q2oskicagqm3sga5cptnvb110eneh5hk.apps.googleusercontent.com'
@@ -44,6 +42,16 @@
         })
         mtl.to('.section-underneath h1', {y: 0, duration: 1, ease: 'emphasized'}, "<+=0.15")
 
+        // const lenis = new Lenis({
+        //     orientation: 'horizontal',
+        //     gestureOrientation: 'both'
+        // });
+        // function raf(time) {
+        //     lenis.raf(time)
+        //     requestAnimationFrame(raf)
+        // }
+        // requestAnimationFrame(raf)
+        
     })
 
     
@@ -161,14 +169,14 @@
     <section class="image-list">
         {#each data.artists as $artist, index}
             <button type="button" class="img-container { selected === index ? 'selected' : '' }" on:click={() => {handleItemOpen(index)}} tabindex={opened ? -1 : 0}>
-                <img src="{$artist.backgroundImage}" alt="{$artist.fullName}" draggable="false">
+                <img src="{$artist.backgroundImage}" alt="{$artist.name}" draggable="false">
                 <md-focus-ring></md-focus-ring>
                 
                 {#if selected === index} 
                     <div class="content-container" out:fade={{duration: 100}}>
                         <div class="content">
                             <div class="heading-line">
-                                <h1 class="display-medium semibold-weight">{$artist.fullName}</h1>
+                                <h1 class="display-medium semibold-weight">{$artist.name}</h1>
                                 <md-icon-button on:click={closeContainer} role="button" tabindex=0 on:touchend={closeContainer} on:keyup={() => {}}>
                                     <md-icon class="material-symbols-outlined">close</md-icon>
                                 </md-icon-button>
@@ -197,7 +205,7 @@
                                                 {/if}
                                             {:else}
                                                 <!-- <p in:fade>Your vote has been cast!</p> -->
-                                                <md-outlined-button in:fade href="/concerts">Voted! View leaderboards</md-outlined-button>
+                                                <md-outlined-button in:fade href="/leaderboard">Voted! View leaderboards</md-outlined-button>
                                             {/if}
                                         {:else}
                                             <md-filled-button on:click={handleSignIn} role="button" tabindex=0 on:keyup={() => {}}>
@@ -216,11 +224,10 @@
             </button>
         {/each}
 
-        <div class="ending-filler">
-            <md-text-button>
-                <!-- <md-icon slot="icon"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M500-360q42 0 71-29t29-71v-220h120v-80H560v220q-13-10-28-15t-32-5q-42 0-71 29t-29 71q0 42 29 71t71 29ZM320-240q-33 0-56.5-23.5T240-320v-480q0-33 23.5-56.5T320-880h480q33 0 56.5 23.5T880-800v480q0 33-23.5 56.5T800-240H320Zm0-80h480v-480H320v480ZM160-80q-33 0-56.5-23.5T80-160v-560h80v560h560v80H160Zm160-720v480-480Z"/></svg></md-icon> -->
-                <md-icon slot="icon" class="material-symbols-outlined" style="font-size: 17px;">account_circle</md-icon>
-                Sign in
+        <div class="ending-filler"> <!-- 108px -->
+            <md-text-button on:click={scrollToZero} tabindex=0 on:keyup={() => {}} role="button">
+                <md-icon slot="icon" class="material-symbols-outlined" style="font-size: 17px;">arrow_back</md-icon>
+                Back
             </md-text-button>
         </div>
     </section>
@@ -228,15 +235,15 @@
 
 <div class="section-underneath">
     <div class="column-text-outer" style="padding-top: 45px;">
-        <h1 class="display-large bold-weight" style="translate: 0 100%; margin: 0;">Top Artists</h1>
+        <h1 class="display-large bold-weight" style="translate: 0 100%; margin: 0;">Vote for your Artist</h1>
     </div>
 </div>
 
 <style lang="scss">
-    :root {
-        overflow-y: hidden;
+    // :root {
+        // overflow-y: hidden;
         // scroll-behavior: smooth;
-    }
+    // }
     .image-list-container {
         height: 100vh;
         height: 100svh;

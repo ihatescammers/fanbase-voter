@@ -4,7 +4,7 @@ const artists = getArtists();
 
 export function load({ url, setHeaders }) {
     setHeaders({
-        'Cache-Control': 'no-cache'
+        // 'Cache-Control': 'no-cache'
     });
 
     return {

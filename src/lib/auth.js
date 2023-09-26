@@ -3,7 +3,7 @@ import { onAuthStateChanged, getAuth } from 'firebase/auth';
 import { getDoc, setDoc, doc } from 'firebase/firestore';
 import { app, db } from './index.js';
 
-export const user = writable(null);
+export const user = writable(null); 
 export const voted = writable(false);
 
 const auth = getAuth(app);
