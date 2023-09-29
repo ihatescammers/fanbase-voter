@@ -9,17 +9,15 @@
     import { user, voted, setVoted } from "$lib/auth.js";
     import { app } from "$lib/index.js";
     import { signInWithRedirect, getAuth, GoogleAuthProvider } from "firebase/auth";
-    
+    import { page } from "$app/stores";
+
     export let data;
 
     let container;
     let lenis;
     let opened = false, selected = undefined;
     let goalPosition = 0;
-    // const auth = getAuth(app);
-    // const provider = new GoogleAuthProvider({
-    //     client_id: '442591407052-q2oskicagqm3sga5cptnvb110eneh5hk.apps.googleusercontent.com'
-    // });
+    let artistId;
     
     onMount(() => {
         gsap.registerPlugin(CustomEase);
@@ -31,7 +29,7 @@
         
         const mtl = gsap.timeline();
         // mtl.set('.img-container')
-        mtl.to('.img-container', {
+        mtl.to('.img-container:nth-child(-n+6)', {
             // opacity: 1,
             scale: 1,
             duration: 0.5,
@@ -56,24 +54,29 @@
 
     
     const closeContainer = () => {
-        setTimeout(() => {opened = false}, 10)
-        selected = undefined;
+        // setTimeout(() => {opened = false}, 10)
+        // selected = undefined;
+        const url = new URL($page.url);
+        url.searchParams.delete('artist');
+        setTimeout(() => {
+            history.replaceState(history.state, '', url);
+            artistId = undefined;
+        }, 10);
     }
     
-    function handleItemOpen(index) {
-        if (!opened) {
-            opened = true;
-            selected = index;
-            const xPos = (window.innerHeight * 0.4 + 20) * index + 20 + 88 + 20;
-            gsap.to(window, {
-                duration: 1, 
-                scrollTo: {x: xPos}, 
-                ease: "emphasized",
-                // onStart: () => {document.documentElement.style.scrollBehavior = 'auto'},
-                // onComplete: () => {document.documentElement.style.scrollBehavior = 'smooth'},
-            });
-            goalPosition = xPos;
-        }
+    function handleItemOpen(id) {
+        const url = new URL($page.url);
+        url.searchParams.set('artist', id);
+        history.replaceState(history.state, '', url);
+        artistId = id;
+        const xPos = document.querySelector(`#artist-${id}`);
+        goalPosition = xPos.offsetLeft + 108;
+
+        gsap.to(window, {
+            duration: 1, 
+            scrollTo: {x: xPos}, 
+            ease: "emphasized",
+        });
     }
 
     function scrollToZero() {
@@ -165,14 +168,15 @@
 </script>
 
 
-<main class="image-list-container { opened ? 'opened' : '' }" bind:this={container} on:wheel={handleScroll} on:touchmove={handleTouchScroll} on:scroll={handleTouchScroll}>
+<main class="image-list-container { artistId !== null ? 'opened' : '' }" bind:this={container} on:wheel={handleScroll} on:touchmove={handleTouchScroll} on:scroll={handleTouchScroll}>
     <section class="image-list">
         {#each data.artists as $artist, index}
-            <button type="button" class="img-container { selected === index ? 'selected' : '' }" on:click={() => {handleItemOpen(index)}} tabindex={opened ? -1 : 0}>
+            <button type="button" class="img-container { artistId === $artist.id ? 'selected' : '' }" 
+            on:click={() => {handleItemOpen($artist.id)}} tabindex={opened ? -1 : 0} id="artist-{$artist.id}">
                 <img src="{$artist.backgroundImage}" alt="{$artist.name}" draggable="false">
                 <md-focus-ring></md-focus-ring>
                 
-                {#if selected === index} 
+                {#if artistId === $artist.id} 
                     <div class="content-container" out:fade={{duration: 100}}>
                         <div class="content">
                             <div class="heading-line">
@@ -205,7 +209,7 @@
                                                 {/if}
                                             {:else}
                                                 <!-- <p in:fade>Your vote has been cast!</p> -->
-                                                <md-outlined-button in:fade href="/leaderboard">Voted! View leaderboards</md-outlined-button>
+                                                <md-outlined-button data-sveltekit-noscroll in:fade href="/leaderboard">Voted! View leaderboards</md-outlined-button>
                                             {/if}
                                         {:else}
                                             <md-filled-button on:click={handleSignIn} role="button" tabindex=0 on:keyup={() => {}}>
@@ -269,8 +273,8 @@
                 width: 40vh;
                 width: 40svh;
                 transition: 1000ms var(--custom-easing) width, 1000ms var(--custom-easing) height;
-                scale: 0;
-                // opacity: 0;
+
+                &:nth-child(-n+6) {scale: 0}
 
                 --md-focus-ring-shape: 24px;
 

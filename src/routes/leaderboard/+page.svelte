@@ -58,9 +58,7 @@
             </div>
         {/each}
     </div>
-    <!-- {:else} -->
-    
-    <!-- {/if} -->
+    <div class="bottom-spacer"></div>
 </div>
 
 
@@ -70,6 +68,9 @@
         width: 100%;
         box-sizing: border-box;
         padding: 0 20px;
+    }
+    .bottom-spacer {
+        height: 20px;
     }
     .heading-line {
         margin: 45px 0;
@@ -82,7 +83,6 @@
         border-radius: 36px;
         background: var(--md-sys-color-surface-container-blurred);
         backdrop-filter: blur(var(--background-blur-value));
-        // margin-bottom: 20px;
         
         --md-ripple-hover-opacity: 0.025;
         --md-ripple-pressed-opacity: 0.1;
@@ -112,27 +112,30 @@
                     object-fit: cover;
                 }
             }
-
-            // &:nth-child(1) {
-            //     height: 300px;
-            //     justify-content: center;
-            //     gap: 40px;
-            //     .filler {display: none}
-            //     .leaderboard-position, .name, .votes {
-            //         font-family: var(--md-sys-typescale-display-large-font-family-name);
-            //         font-style: var(--md-sys-typescale-display-large-font-family-style);
-            //         font-weight: var(--md-sys-typescale-display-large-font-weight);
-            //         font-size: var(--md-sys-typescale-display-large-font-size);
-            //         letter-spacing: var(--md-sys-typescale-display-large-tracking);
-            //         line-height: var(--md-sys-typescale-display-large-height);
-            //         text-transform: var(--md-sys-typescale-display-large-text-transform);
-            //         text-decoration: var(--md-sys-typescale-display-large-text-decoration);
-            //     }
-            //     .profile-picture {
-            //         width: 256px;
-            //         height: 256px;
-            //     }
-            // }
+        }
+    }
+    @media (max-width: 560px) {
+        .heading-line {
+            text-align: center;
+            h1 {
+                font-family: var(--md-sys-typescale-headline-large-font-family-name);
+                font-style: var(--md-sys-typescale-headline-large-font-family-style);
+                font-size: var(--md-sys-typescale-headline-large-font-size);
+                letter-spacing: var(--md-sys-typescale-headline-large-tracking);
+                line-height: var(--md-sys-typescale-headline-large-height);
+                text-transform: var(--md-sys-typescale-headline-large-text-transform);
+                text-decoration: var(--md-sys-typescale-headline-large-text-decoration);
+            }
+        }
+        .leaderboard {
+            .leaderboard-artist {
+                height: 88px;
+                gap: 15px;
+            }
+        }
+        .bottom-spacer {
+            height: 100px;
+            opacity: 0;
         }
     }
 </style>

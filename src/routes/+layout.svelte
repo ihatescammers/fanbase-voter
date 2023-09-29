@@ -8,6 +8,8 @@
     // import '@material/web/textfield/outlined-text-field.js';
     import '../css/app.scss';
     import '../css/theme.css';
+
+    export let data;
    
     import Navrail from './components/navrail.svelte';
 
@@ -31,7 +33,7 @@
     <section class="route-container" in:fade={{duration: 100, delay: 100}} out:fade={{duration: 100}}>
         <slot />
     </section>
-    <!-- {/key} -->
+    <!-- {/key  } -->
 </main>
 
 <style lang="scss">

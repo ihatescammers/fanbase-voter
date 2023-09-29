@@ -201,12 +201,17 @@
 
             &.material-symbols-outlined {transition-duration: 1s; animation-duration: 1s;}
           }
-          .text {font-weight: var(--semibold-weight)}
+          .text {font-weight: var(--semibold-weight); text-align: center;}
 
           @media (pointer: fine) {
             &:hover {
                 .icon {
                 background-color: var(--md-sys-color-surface-container-blurred);
+                font-variation-settings:
+                'FILL' 1,
+                'wght' 400,
+                'GRAD' 0,
+                'opsz' 24
                 }
                 .text {
                 font-weight: var(--bold-weight);
@@ -244,6 +249,9 @@
 
   @media (max-width: 560px) { // mobile-width
     .filler, .divider {
+      display: none;
+    }
+    .navrail-filler {
       display: none;
     }
     .navrail {
