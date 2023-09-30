@@ -170,6 +170,7 @@
             height: 100%;
             overflow-x: hidden;
             overflow-y: visible;
+            scroll-snap-type: y mandatory;
         }
     }
     .img-container {
