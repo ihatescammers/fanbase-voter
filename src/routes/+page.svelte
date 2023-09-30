@@ -41,6 +41,7 @@
                 scrub: true,
                 invalidateOnRefresh: true
             });
+            console.log(mn.contexts)
         })
         
         mn.add("(prefers-reduced-motion: no-preference)", () => {
@@ -56,9 +57,6 @@
                         return window.innerWidth >= 560 ? -window.innerWidth * 0.075 : 0
                     },
                     scrollTrigger: {
-                        scroller: () => {
-                            return 
-                        },
                         trigger: item,
                         start: 'top bottom',
                         end: () => {
@@ -88,7 +86,7 @@
         ScrollTrigger.refresh(true);
         setTimeout(() => {
             ScrollTrigger.refresh(true);
-        }, 5000)
+        }, 150)
 
         const lenis = new Lenis({
             lerp: 0.2
@@ -101,6 +99,7 @@
 
         return () => {
             lenis.destroy();
+            ScrollTrigger.killAll();
         }
     })
 </script>
