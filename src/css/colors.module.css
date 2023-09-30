@@ -292,3 +292,6 @@
 .surface-bright-text {
   color: var(--md-sys-color-surface-bright);
 }
+.surface-container-blurred {
+  background-color: var(--md-sys-color-surface-container-blurred);
+}

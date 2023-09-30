@@ -4,6 +4,7 @@
     import '@material/web/icon/icon';
     import '@material/web/button/outlined-button';
     import '@material/web/button/filled-button';
+    import '@material/web/button/filled-tonal-button';
     import '@material/web/progress/circular-progress'
     // import '@material/web/textfield/outlined-text-field.js';
     import '../css/app.scss';
@@ -22,28 +23,31 @@
     onMount(() => {
         const analytics = getAnalytics(app);
     })
-
-    // export let data;
 </script>
 
 <main class="app-container">
     <Navrail />
     
-    <!-- {#key data.url} -->
-    <section class="route-container" in:fade={{duration: 100, delay: 100}} out:fade={{duration: 100}}>
+    {#key data.url}
+    <section class="route-container" in:fade={{duration: 150, delay: 150}} out:fade={{duration: 150}}>
         <slot />
     </section>
-    <!-- {/key  } -->
+    {/key  }
 </main>
 
 <style lang="scss">
     main.app-container {
-        display: flex;
-        width: 100%;
-        height: 100%;
+        // display: flex;
+        width: 100vw;
+        height: 100vh;
+        height: 100svh;
 
         .route-container {
-            flex: auto;
+            width: 100vw;
+            height: 100vh;
+            height: 100svh;
+            display: flex;
+            justify-content: stretch;
         }
     }
 </style>

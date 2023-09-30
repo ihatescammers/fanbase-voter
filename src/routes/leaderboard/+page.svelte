@@ -11,7 +11,6 @@
         CustomEase.create("emphasized", "M0,0 C0.05,0 0.13333,0.06 0.16666,0.4 0.20833,0.82 0.25,1 1,1 ");
         
         const mtl = gsap.timeline();
-        mtl.to('.heading-line h1', {y: 0, duration: 1, ease: 'emphasized'});
         mtl.to('.leaderboard-artist .profile-picture', {
             scale: 1, 
             ease: "elastic.out(1, 0.5)",
@@ -24,14 +23,18 @@
             ease: "emphasized",
             stagger: 0.025
         }, "<")
-    }, "<")
+
+        setTimeout(() => {
+            document.documentElement.scrollTop = 0;
+        }, 10)
+    })
 
     </script>
 
-<!-- <img src="https://misc-six.vercel.app/cln/images/3.jpg" alt="background" style="position: fixed; width: 100%; height: 100%; top: 0; left: 0; object-fit: cover; z-index: 0"> -->
+<div class="navbar-filler"></div>
 <div class="container">
     <div class="heading-line column-text-outer" style="padding-top: 45px;">
-        <h1 class="display-large bold-weight" style="translate: 0 100%;">Leaderboard</h1>
+        <h1 class="display-large bold-weight column-text-in">Leaderboard</h1>
     </div>
     <!-- {#if $voted} -->
     <div class="leaderboard">

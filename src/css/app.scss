@@ -21,12 +21,18 @@ html, body {
     width: 100%;
     background: var(--md-sys-color-surface);
     color: var(--md-sys-color-on-surface);
-    // overscroll-behavior-y: none;
+    overscroll-behavior-x: none;
     scrollbar-gutter: stable;
 }
-html {overflow-x: scroll}
+html {overflow-x: hidden}
+html.lenis {height: auto; scroll-behavior: auto;}
 
-::-webkit-scrollbar {width: 0px; height: 0px;}
+.lenis.lenis-scrolling iframe {
+    pointer-events: none;
+}
+
+
+::-webkit-scrollbar {width: 4px;}
 ::-webkit-scrollbar-thumb {background-color: var(--md-sys-color-secondary); border-radius: 10px;}
 ::selection {background: var(--md-sys-color-primary); color: var(--md-sys-color-on-primary)}
 
@@ -34,7 +40,25 @@ html {overflow-x: scroll}
 .card {border-radius: 36px;}
 .filler {flex: auto}
 
+.column-text-in {
+    translate: 0 100%;
+    animation: column-text-in var(--md-sys-motion-duration-long4) 0.25s var(--md-sys-motion-easing-emphasized-decelerate) forwards;
+}
+
+.navbar-filler {
+    width: 108px;
+    height: 100%;
+
+    @media (max-width: 560px) {
+        display: none;
+    }
+}
+
 @keyframes fade-in {
     0% {opacity: 0}
     100% {opacity: 1}
+}
+@keyframes column-text-in {
+    0% {translate: 0 100%}
+    100% {translate: 0 0}
 }

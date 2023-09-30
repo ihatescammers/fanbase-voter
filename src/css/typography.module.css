@@ -149,6 +149,6 @@
   text-decoration: var(--md-sys-typescale-title-small-text-decoration);
 }
 .bold-weight {font-weight: 700}
-.semibold-weight {font-weight: 700}
+.semibold-weight {font-weight: 600}
 .medium-weight {font-weight: 500}
 .regular-weight {font-weight: 400}

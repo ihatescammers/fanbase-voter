@@ -18,8 +18,11 @@
     gsap.registerPlugin(CustomEase);
     CustomEase.create("emphasized", "M0,0 C0.05,0 0.13333,0.06 0.16666,0.4 0.20833,0.82 0.25,1 1,1 ");
     
-    if (window.innerWidth >= 560) {
-      const navtl = gsap.timeline();
+    let mn = gsap.matchMedia();
+    const navtl = gsap.timeline();
+
+    mn.add("(min-width: 560px)", () => {
+      navtl.resume();
       navtl.set('.navrail', {height: 88, scale: 0, y: window.innerHeight / 2 - 44 - 20, borderRight: '2px solid var(--md-sys-color-primary)', rotate: 420});
       navtl.set('.nav-search-button, .navrail-button, .profile-button', {scale: 0, opacity: 0});
       navtl.to('.navrail', {
@@ -50,7 +53,13 @@
         duration: 0.75,
         ease: "elastic.out(1, 0.5)"
       }, "<+=0.25");
-    }
+    })
+
+    mn.add("(max-width: 560px)", () => {
+      document.querySelector('.navrail').style = '';
+      document.querySelectorAll('.navrail-button, .navrail md-icon-button').forEach(button => {button.style = ''})
+    })
+
   })
 
   const handleSignIn = () => {
@@ -165,15 +174,6 @@
       height: calc(100% - 40px);
       border-radius: 44px;
 
-      // animation: navrail-animation-1 0.75s cubic-bezier(0.2, 0, 0, 1) forwards;
-
-      // animation-name: outward-grow, outward-shrink;
-      // animation-delay: 0s,calc(var(--md-focus-ring-duration, 600ms)*.25);
-      // animation-duration: calc(var(--md-focus-ring-duration, 600ms)*.25),calc(var(--md-focus-ring-duration, 600ms)*.75);
-      // animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
-
-
-
       // --md-icon-button-state-layer-size: 48px;
 
       .navrail-button {
@@ -198,10 +198,15 @@
             justify-content: center;
             transition: var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-emphasized);
             position: relative;
-
-            &.material-symbols-outlined {transition-duration: 1s; animation-duration: 1s;}
           }
-          .text {font-weight: var(--semibold-weight); text-align: center;}
+          .text {
+            font-weight: var(--semibold-weight); 
+            text-align: center;
+            
+            @media (max-width: 560px) {
+              display: none;
+            }
+          }
 
           @media (pointer: fine) {
             &:hover {
