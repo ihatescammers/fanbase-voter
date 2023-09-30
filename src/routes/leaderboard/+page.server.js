@@ -8,3 +8,5 @@
 //         leaderboard: artists
 //     }
 // }
+
+// removed this as its being provided in the layout.server.js file
