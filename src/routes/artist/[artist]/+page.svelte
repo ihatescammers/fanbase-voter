@@ -12,19 +12,19 @@
 
     let x, y, distanceX, distanceY, artistCard;
 
-    function handleMouseMove(e) {
-        [x, y] = [e.clientX, e.clientY];
-        [distanceX, distanceY] = 
-            [x - artistCard.offsetLeft - artistCard.offsetWidth / 2, y - artistCard.offsetTop - artistCard.offsetHeight / 2];
-        gsap.to(artistCard, {
-            rotationX: distanceY / 20, 
-            rotationY: distanceX / 20, 
-            perspective: '10px',
-            transformStyle: 'preserve-3d',
-            duration: 0.5, 
-            ease: "power2.out"
-        })
-    }
+    // function handleMouseMove(e) {
+    //     [x, y] = [e.clientX, e.clientY];
+    //     [distanceX, distanceY] = 
+    //         [x - artistCard.offsetLeft - artistCard.offsetWidth / 2, y - artistCard.offsetTop - artistCard.offsetHeight / 2];
+    //     gsap.to(artistCard, {
+    //         rotationX: distanceY / 20, 
+    //         rotationY: distanceX / 20, 
+    //         perspective: '10px',
+    //         transformStyle: 'preserve-3d',
+    //         duration: 0.5, 
+    //         ease: "power2.out"
+    //     })
+    // }
 
     const handleSignIn = () => {
         if ($user !== null) return;
