@@ -25,15 +25,24 @@
         gsap.registerPlugin(ScrollTrigger);
         CustomEase.create("emphasized", "M0,0 C0.05,0 0.13333,0.06 0.16666,0.4 0.20833,0.82 0.25,1 1,1 ");
 
-        ScrollTrigger.defaults({
-            // scroller: ".image-list-container",
-            scrub: true
-        });
-
+        
         const imageContainers = gsap.utils.toArray('.img-container');
-
+        
         let mn = gsap.matchMedia();
-
+        mn.add('(pointer: coarse)', () => {
+            ScrollTrigger.defaults({
+                scroller: ".image-list-container",
+                scrub: true,
+                invalidateOnRefresh: true
+            });
+        })
+        mn.add('(pointer: fine)', () => {
+            ScrollTrigger.defaults({
+                scrub: true,
+                invalidateOnRefresh: true
+            });
+        })
+        
         mn.add("(prefers-reduced-motion: no-preference)", () => {
             imageContainers.forEach((item, index) => {
                 gsap.fromTo(item.children[0], 
@@ -47,12 +56,14 @@
                         return window.innerWidth >= 560 ? -window.innerWidth * 0.075 : 0
                     },
                     scrollTrigger: {
+                        scroller: () => {
+                            return 
+                        },
                         trigger: item,
                         start: 'top bottom',
                         end: () => {
                             return window.innerWidth >= 560 ? 'bottom top' : 'center center'
                         },
-                        invalidateOnRefresh: true,
                     }
                 })
                 mn.add("(min-width: 560px)", () => {
@@ -68,7 +79,6 @@
                             trigger: item,
                             start: 'top bottom',
                             end: 'bottom top',
-                            invalidateOnRefresh: true
                         }
                     })
                 }) 
@@ -78,7 +88,7 @@
         ScrollTrigger.refresh(true);
         setTimeout(() => {
             ScrollTrigger.refresh(true);
-        }, 150)
+        }, 5000)
 
         const lenis = new Lenis({
             lerp: 0.2
@@ -150,16 +160,17 @@
         gap: 200px 2rem;
         box-sizing: border-box;
         padding: 0 2rem 2rem 2rem;
-        // height: 100%;
-        // overflow-x: hidden;
-        // overflow-y: scroll;
-        // scroll-snap-type: y mandatory;
-        // scroll-behavior: smooth;
         user-select: none;
 
         @media (max-width: 560px) {
             gap: 100px 20px;
             padding: 1rem;
+        }
+
+        @media (pointer: coarse) {
+            height: 100%;
+            overflow-x: hidden;
+            overflow-y: visible;
         }
     }
     .img-container {

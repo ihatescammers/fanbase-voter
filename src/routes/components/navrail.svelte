@@ -267,6 +267,7 @@
       border-radius: 0;
       flex-flow: row nowrap;
       width: 100%;
+      gap: 0;
       justify-content: space-evenly;
       // background-color: var(--md-sys-color-surface-container);
       // background-color: rgba(241, 238, 229, 0.75);
