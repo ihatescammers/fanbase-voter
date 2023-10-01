@@ -20,10 +20,17 @@
     import { app } from '$lib/index.js';
     import { getAnalytics } from 'firebase/analytics';
 
+    import { pwaInfo } from 'virtual:pwa-info'; 
+    $: webManifestLink = pwaInfo ? pwaInfo.webManifest.linkTag : '' 
+
     onMount(() => {
         const analytics = getAnalytics(app);
     })
 </script>
+
+<svelte:head>
+    {@html webManifestLink} 
+</svelte:head>
 
 <main class="app-container">
     <Navrail />

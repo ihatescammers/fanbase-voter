@@ -1,0 +1,33 @@
+{
+    "short_name": "FanAwards",
+    "name": "Fan Awards",
+    "start_url": "/",
+    "icons": [
+      {
+        "src": "512x512.png",
+        "type": "image/png",
+        "sizes": "512x512"
+      }
+    ],
+    "background_color": "#fdf9f0",
+    "display": "standalone",
+    "scope": "/",
+    "theme_color": "#fdf9f0",
+    "shortcuts": [
+      {
+        "name": "Artists",
+        "short_name": "Artists",
+        "description": "Vote for your favourite Artist",
+        "url": "/?source=pwa",
+        "icons": [{ "src": "512x512.png", "sizes": "512x512" }]
+      },
+      {
+        "name": "Artist Leaderboard",
+        "short_name": "Leaderboard",
+        "description": "Artist leaderboard",
+        "url": "/leaderboard?source=pwa",
+        "icons": [{ "src": "512x512.png", "sizes": "512x512" }]
+      }
+    ],
+    "description": "There are awards for all kinds of artists, musicians and actors, but never one for their fanbases. Vote for your favourite artist to prove that they have the most dedicated fans!"
+}

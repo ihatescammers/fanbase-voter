@@ -387,7 +387,15 @@
         grid-column: span 2;
         // place-self: start;
         @media (max-width: 560px) {
-            // display: none;
+            h1 {
+                font-family: var(--md-sys-typescale-headline-large-font-family-name);
+                font-style: var(--md-sys-typescale-headline-large-font-family-style);
+                font-size: var(--md-sys-typescale-headline-large-font-size);
+                letter-spacing: var(--md-sys-typescale-headline-large-tracking);
+                line-height: var(--md-sys-typescale-headline-large-height);
+                text-transform: var(--md-sys-typescale-headline-large-text-transform);
+                text-decoration: var(--md-sys-typescale-headline-large-text-decoration);
+            }
         }
     }
 </style>
