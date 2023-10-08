@@ -134,6 +134,12 @@
       <img src={$user.photoURL} alt="profile">
   {/if}
   </md-icon-button>
+
+  <style global>
+    ::view-transition-group(navrail) {
+      z-index: 2;
+    }
+  </style>
 </nav>
 <div class="navrail-filler"></div>
 
@@ -173,6 +179,7 @@
       backdrop-filter: blur(var(--background-blur-value));
       height: calc(100% - 40px);
       border-radius: 44px;
+      view-transition-name: navrail;
 
       // --md-icon-button-state-layer-size: 48px;
 
@@ -287,4 +294,3 @@
     }
   }
 </style>
-

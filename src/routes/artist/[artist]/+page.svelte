@@ -78,7 +78,7 @@
                 Back
             </md-text-button>
         </div>
-        <div class="artist-card" bind:this={artistCard} id="artist-{artist.id}">
+        <div class="artist-card" bind:this={artistCard} id="artist-{artist.id}" style="view-transition-name: artist-card;">
             <div class="card-content">
                 <div class="image-parallax-wrapper">
                     <img src="{artist.backgroundImage}" alt="{artist.name}" draggable="false">
@@ -98,7 +98,7 @@
                             </div>
                             <div class="column-text-outer title-medium bold-weight" style="text-transform: uppercase">
                                 <div class="column-text-inner difference">{artist.name}</div>
-                                <div class="column-text-inner opaque">{artist.name}</div>
+                                <!-- <div class="column-text-inner opaque">{artist.name}</div> -->
                             </div>
                             <div class="lines-wrapper">
                                 <div class="line-opaque"></div>
@@ -263,7 +263,8 @@
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
-                // scale: 1.1;
+                scale: 1.05;
+                filter: blur(5px);
                 transition: var(--md-sys-motion-duration-medium4) var(--md-sys-motion-easing-emphasized) scale,
                 var(--md-sys-motion-duration-medium4) var(--md-sys-motion-easing-emphasized) filter;
             }
@@ -280,10 +281,11 @@
 
                 .plus-icon {
                     position: absolute;
-                    transition: var(--md-sys-motion-duration-long4) cubic-bezier(0.175, 0.885, 0.32, 1.275) rotate;
+                    transition: var(--md-sys-motion-duration-long4) cubic-bezier(0.175, 0.885, 0.32, 1.275) rotate,
+                    var(--md-sys-motion-duration-long4) cubic-bezier(0.175, 0.885, 0.32, 1.275) scale;
                     rotate: 90deg;
-                    mix-blend-mode: difference;
-                    color: var(--md-sys-color-surface);
+                    // mix-blend-mode: difference;
+                    // color: var(--md-sys-color-surface);
 
                     &:nth-child(1) {top: 40px; left: 40px}
                     &:nth-child(2) {bottom: 40px; left: 40px}
@@ -316,12 +318,12 @@
                                 transition: var(--md-sys-motion-duration-medium4) var(--md-sys-motion-easing-emphasized) flex;
                             }
                             .line-difference {
-                                mix-blend-mode: difference;
+                                // mix-blend-mode: difference;
                                 background-color: var(--md-sys-color-on-surface);
                                 flex: 1;
                             }
                             .line-opaque {
-                                background-color: var(--md-sys-color-on-surface);
+                                background-color: transparent;
                                 flex: 0;
                             }
 
@@ -343,7 +345,7 @@
                             .difference {
                                 translate: 0 0;
                                 // mix-blend-mode: difference;
-                                color: var(--md-sys-color-on-surface);
+                                // color: var(--md-sys-color-on-surface);
                             }
                         }
                     }
@@ -357,29 +359,30 @@
                 height: 100%;
                 border-radius: 24px;
                 transition: var(--md-sys-motion-duration-medium4) var(--md-sys-motion-easing-emphasized) background-color;
-                background-color: rgba(255,255,255,0.2);
+                background-color: rgba(255,255,255,0.3);
     
                 @media (prefers-color-scheme: dark) {
-                    background-color: rgba(0,0,0,0.225);
+                    background-color: rgba(0,0,0,0.35);
                 }
             }
 
             @media (pointer: fine) {
                 &:hover {
                     .image-parallax-wrapper img {
-                        scale: 1.05 !important;
-                        filter: blur(5px);
+                        scale: 1 !important;
+                        filter: blur(0px);
                     }
                     .overlay {
                         .plus-icon {
                             rotate: 0deg;
+                            scale: 0;
                             mix-blend-mode: normal;
-                            color: var(--md-sys-color-on-surface);
+                            // color: var(--md-sys-color-on-surface);
                         }
                         .overlay-flex-container .content-beneath {
                             gap: 20px;
                             .lines-wrapper {
-                                width: 50px;
+                                width: 55px;
                                 .line-opaque {flex: 1}
                                 .line-difference {flex: 0}
                             }
@@ -389,43 +392,12 @@
                         }
                     }
                     .overlay-background {
-                        background-color: rgba(255,255,255,0.3);
+                        background-color: rgba(255,255,255,0);
     
                         @media (prefers-color-scheme: dark) {
-                            background-color: rgba(0,0,0,0.35);
+                            background-color: rgba(0,0,0,0);
                         }
                     }
-                }
-            }
-        }
-        &:focus-visible {
-            .image-parallax-wrapper img {
-                scale: 1.05 !important;
-                filter: blur(5px);
-            }
-            .overlay {
-                .plus-icon {
-                    scale: 1;
-                    rotate: 0deg;
-                }
-                .overlay-flex-container .content-beneath {
-                    gap: 20px;
-                    .lines-wrapper {
-                        width: 50px;
-                        .line-opaque {flex: 1}
-                        .line-difference {flex: 0}
-                    }
-                    .column-text-outer{
-                        .difference, .opaque {translate: 0 -40px;}
-                    }
-                }
-            }
-            .overlay-background {
-                background-color: rgba(255,255,255,0.3);
-                // background: linear-gradient(0deg, rgba(2,0,36,0) 0%, rgba(0,0,0,0) 30%, rgba(0,0,0,0.25) 50%, rgba(0,0,0,0) 70%, rgba(0,0,0,0) 100%);
-
-                @media (prefers-color-scheme: dark) {
-                    background-color: rgba(0,0,0,0.35);
                 }
             }
         }

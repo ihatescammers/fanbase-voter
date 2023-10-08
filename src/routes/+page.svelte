@@ -41,7 +41,6 @@
                 scrub: true,
                 invalidateOnRefresh: true
             });
-            console.log(mn.contexts)
         })
         
         mn.add("(prefers-reduced-motion: no-preference)", () => {
@@ -102,6 +101,10 @@
             ScrollTrigger.killAll();
         }
     })
+
+    function setViewTransitionName(id) {
+        document.querySelector(`#${id} .card-content`).style.setProperty('view-transition-name', 'artist-card');
+    }
 </script>
 
 <div class="navbar-filler"></div>
@@ -111,7 +114,7 @@
     </div>
     {#each data.artists as $artist, index}
         <a data-sveltekit-noscroll href="/artist/{$artist.id}" class="img-container { artistId === $artist.id ? 'selected' : '' }"
-        id="artist-{$artist.id}">
+        id="artist-{$artist.id}" on:click={() => {setViewTransitionName(`artist-${$artist.id}`)}}>
             <div class="card-content">
                 <div class="image-parallax-wrapper">
                     <img src="{$artist.backgroundImage}" alt="{$artist.name}" draggable="false">
@@ -182,7 +185,7 @@
         gap: 10px;
         max-width: 450px;
 
-        animation: fade-in var(--md-sys-motion-duration-short4) var(--md-sys-motion-duration-medium4) var(--md-sys-motion-easing-emphasized) forwards;
+        animation: fade-in var(--md-sys-motion-duration-medium1) var(--md-sys-motion-duration-medium4) var(--md-sys-motion-easing-emphasized) forwards;
         opacity: 0;
 
         &:nth-child(even) {
@@ -345,38 +348,6 @@
                 }
             }
         }
-        &:focus-visible {
-            .image-parallax-wrapper img {
-                scale: 1.05 !important;
-                filter: blur(5px);
-            }
-            .overlay {
-                .plus-icon {
-                    scale: 1;
-                    rotate: 0deg;
-                }
-                .overlay-flex-container .content-beneath {
-                    gap: 20px;
-                    .lines-wrapper {
-                        width: 50px;
-                        .line-opaque {flex: 1}
-                        .line-difference {flex: 0}
-                    }
-                    .column-text-outer{
-                        .difference, .opaque {translate: 0 -40px;}
-                    }
-                }
-            }
-            .overlay-background {
-                background-color: rgba(255,255,255,0.3);
-                // background: linear-gradient(0deg, rgba(2,0,36,0) 0%, rgba(0,0,0,0) 30%, rgba(0,0,0,0.25) 50%, rgba(0,0,0,0) 70%, rgba(0,0,0,0) 100%);
-
-                @media (prefers-color-scheme: dark) {
-                    background-color: rgba(0,0,0,0.35);
-                }
-            }
-        }
-
         // &:active {
         //     scale: 0.995;
         // }
