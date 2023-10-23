@@ -5,7 +5,7 @@
     import '@material/web/button/outlined-button';
     import '@material/web/button/filled-button';
     import '@material/web/button/filled-tonal-button';
-    import '@material/web/progress/circular-progress'
+    import '@material/web/progress/circular-progress';
     // import '@material/web/textfield/outlined-text-field.js';
     import '../css/app.scss';
     import '../css/theme.css';
@@ -24,6 +24,7 @@
     import { getAnalytics } from 'firebase/analytics';
 
     import { pwaInfo } from 'virtual:pwa-info'; 
+    import Clouds from './components/clouds.svelte';
     $: webManifestLink = pwaInfo ? pwaInfo.webManifest.linkTag : '' 
 
     onMount(() => {
@@ -66,6 +67,8 @@
 <svelte:head>
     {@html webManifestLink} 
 </svelte:head>
+
+<Clouds />
 
 <main class="app-container">
     <Navrail />

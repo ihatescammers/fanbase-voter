@@ -316,6 +316,7 @@
 
             @media (pointer: fine) {
                 &:hover {
+                    // scale: 0.95 !important;
                     .image-parallax-wrapper img {
                         scale: 1.05 !important;
                         filter: blur(5px);

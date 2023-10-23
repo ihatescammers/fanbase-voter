@@ -1,7 +1,7 @@
 <script>
     import { page } from "$app/stores";
     import gsap from "gsap";
-    import { getAuth, signInWithRedirect, GoogleAuthProvider } from "firebase/auth";
+    import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
     import { app } from "$lib/index.js";
     import { user, voted, setVoted } from "$lib/auth.js";
 
@@ -29,7 +29,7 @@
     const handleSignIn = () => {
         if ($user !== null) return;
         const auth = getAuth(app);
-        signInWithRedirect(auth, new GoogleAuthProvider())
+        signInWithPopup(auth, new GoogleAuthProvider())
     }
 
     let promisePending = false;
@@ -207,6 +207,8 @@
                 flex: 1 0 0;
                 align-self: stretch;
                 border-radius: 24px;
+                position: relative;
+                z-index: 1;
             }
             .button {
                 all: unset;
@@ -217,7 +219,8 @@
                 gap: 10px;
                 height: 56px;
                 border-radius: 56px;
-                outline: 1px solid var(--md-sys-color-outline);
+                // outline: 1px solid var(--md-sys-color-outline);
+                background-color: var(--md-sys-color-surface-container-blurred);
                 position: relative;
                 cursor: pointer;
 

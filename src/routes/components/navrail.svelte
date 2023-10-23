@@ -65,26 +65,7 @@
   const handleSignIn = () => {
       if (loggedIn) return;
       const auth = getAuth(app);
-      signInWithRedirect(auth, new GoogleAuthProvider())
-      .then((result) => {
-          // This gives you a Google Access Token. You can use it to access the Google API.
-          const credential = provider.credentialFromResult(auth, result);
-          const token = credential.accessToken;
-
-          // the signed in user info
-          // IdP data available using getAdditionalUserInfo(result)
-          const user = result.user;
-          console.log(user)
-      })
-      .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-
-          // const email = error.customData;
-          // const credential = GoogleAuthProvider.credentialFromError(error);
-
-          console.log(`Error ${errorCode}: ${errorMessage}`);
-      })
+      signInWithPopup(auth, new GoogleAuthProvider())
     }
 
   const logout = async () => {

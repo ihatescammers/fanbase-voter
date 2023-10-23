@@ -420,8 +420,10 @@
   --medium-weight: 500;
   --regular-weight: 400;
 
+  --md-sys-color-surface-container-blurred-light: rgba(255, 255, 255, 0.4);
+  --md-sys-color-surface-container-blurred-dark: rgba(32, 32, 32, 0.4);
   /* --md-sys-color-surface-container-blurred-light: rgba(241, 238, 229, 0.5); */
   /* --md-sys-color-surface-container-blurred-dark: rgba(32, 32, 26, 0.5); */
-  --md-sys-color-surface-container-blurred-light: var(--md-sys-color-surface-container-light);
-  --md-sys-color-surface-container-blurred-dark: var(--md-sys-color-surface-container-dark);
+  /* --md-sys-color-surface-container-blurred-light: var(--md-sys-color-surface-container-light); */
+  /* --md-sys-color-surface-container-blurred-dark: var(--md-sys-color-surface-container-dark); */
 }
