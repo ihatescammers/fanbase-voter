@@ -72,12 +72,6 @@
 
 <main class="app-container">
     <Navrail />
-    
-    <!-- {#key data.url}
-    <section class="route-container" in:fade={{duration: 150, delay: 150}} out:fade={{duration: 150}}>
-        <slot />
-    </section>
-    {/key} -->
 
     <section class="route-container">
         <slot />

@@ -65,7 +65,7 @@
   const handleSignIn = () => {
       if (loggedIn) return;
       const auth = getAuth(app);
-      signInWithPopup(auth, new GoogleAuthProvider())
+      signInWithRedirect(auth, new GoogleAuthProvider())
     }
 
   const logout = async () => {
@@ -87,7 +87,7 @@
         <md-ripple for="artists"></md-ripple>
         <md-focus-ring for="artists"></md-focus-ring>
       </span>
-      <div class="text label-medium">Vote</div>
+      <div class="text">Vote</div>
   </a>
   <a href="/leaderboard" data-sveltekit-noscroll class="navrail-button { $page.url.pathname === '/leaderboard' ? 'active' : '' }" aria-label="leaderboard" id="leaderboard">
       <span class="icon material-symbols-outlined">
@@ -95,7 +95,7 @@
         <md-ripple for="leaderboard"></md-ripple>
         <md-focus-ring for="leaderboard"></md-focus-ring>
       </span>
-      <div class="text label-medium">Top Artists</div>
+      <div class="text">Top Artists</div>
   </a>
   <a href="/concerts" data-sveltekit-noscroll class="navrail-button { $page.url.pathname.includes('/concerts') ? 'active' : '' }" aria-label="Concerts" id="Concerts">
       <span class="icon material-symbols-outlined">
@@ -103,7 +103,7 @@
         <md-ripple for="Concerts"></md-ripple>
         <md-focus-ring for="Concerts"></md-focus-ring>
       </span>
-      <div class="text label-medium">Concerts</div>
+      <div class="text">Concerts</div>
   </a>
   <div class="filler"></div>
   <md-icon-button class="nav-search-button {loggedIn ? 'profile-button' : ''}" on:click={handleSignIn} role="button" tabindex=0 on:keyup={() => {}}>
@@ -172,7 +172,7 @@
           gap: 4px;
           cursor: pointer;
           position: relative;
-          font-size: 12px;
+          font-size: 11px;
           font-weight: 600;
 
           --md-ripple-hover-opacity: 0;

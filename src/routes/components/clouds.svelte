@@ -19,7 +19,7 @@
         }
 
         let renderer, scene, camera;
-        let mesh;
+        let mesh, mesh2;
 
         init();
         animate();
@@ -36,7 +36,9 @@
         camera = new THREE.PerspectiveCamera( 30, (window.innerWidth) / (window.innerHeight), 0.25, 25 );
         camera.position.set( 0, 0, 0.9 );
 
-        // new OrbitControls( camera, renderer.domElement );
+        // add a basic THREE.box here
+        // mesh2 = new THREE.Mesh( new THREE.BoxGeometry( 0.2, 0.2, 0.2 ), new THREE.MeshBasicMaterial({}) );
+        // scene.add( mesh2 );
 
         // Sky k
 
@@ -298,6 +300,8 @@
             mesh.material.uniforms.cameraPos.value.copy( camera.position );
             mesh.rotation.y = - performance.now() * 0.00025; //7500
             mesh.rotation.x = - performance.now() * 0.000025; //7500
+            // mesh2.rotation.y = - performance.now() * 0.00025; //7500
+            // mesh2.rotation.x = - performance.now() * 0.00025; //7500
 
             mesh.material.uniforms.frame.value ++;
 

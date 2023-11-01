@@ -50,6 +50,7 @@ html.lenis {height: auto; scroll-behavior: auto;}
 
 .navbar-filler {
     width: 108px;
+    flex: 108px 0 0;
     height: 100%;
 
     @media (max-width: 560px) {
