@@ -35,7 +35,7 @@ html.lenis {height: auto; scroll-behavior: auto;}
 }
 
 
-::-webkit-scrollbar {width: 3px;}
+::-webkit-scrollbar {width: 0;}
 ::-webkit-scrollbar-thumb {background-color: var(--md-sys-color-secondary); border-radius: 10px;}
 ::selection {background: var(--md-sys-color-primary); color: var(--md-sys-color-on-primary)}
 
@@ -56,6 +56,11 @@ html.lenis {height: auto; scroll-behavior: auto;}
     @media (max-width: 560px) {
         display: none;
     }
+}
+
+#imgGroup .imgBox {
+    display: flex;
+    flex-flow: column nowrap;
 }
 
 @keyframes fade-in {
