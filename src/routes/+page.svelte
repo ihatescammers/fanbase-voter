@@ -218,6 +218,8 @@
 
         @media (max-width: 560px) {
             grid-template-columns: 1fr;
+            place-items: center;
+            gap: 50px;
         }
 
         --hover-transition: 1s cubic-bezier(0.77, 0, 0.175, 1);
@@ -234,9 +236,13 @@
             transition: border-radius var(--hover-transition);
             cursor: pointer;
             text-decoration: none;
-            
             border-radius: 250px 250px 4px 48px;
-            // &:nth-of-type(even) {border-radius: 250px 250px 48px 4px;}
+
+            @media (max-width: 560px) {
+                width: 90%;
+                max-width: 90%;
+            }
+
 
             .text-wrapper {
                 color: var(--dark-text);

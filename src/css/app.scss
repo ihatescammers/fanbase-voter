@@ -13,7 +13,7 @@
 
     --background-blur-value: 0px;
 
-    --background: #1a0b00;
+    --background: #190a00;
     --beige: rgb(255, 242, 224);
     --text: rgb(255, 239, 234);
     --dark-text: var(--background);
@@ -26,11 +26,7 @@ html, body {
     width: 100%;
     background: var(--background);
     color: var(--text);
-    overscroll-behavior-x: none;
-    // scrollbar-gutter: stable;
-    // background-size: 110px 110px;
-    // background-position: 0px 0px,55px 55px;
-    // background-image: radial-gradient(50% 50% at 50% 50%, transparent 0%, transparent 75%, #B6CC66 76%, #B6CC66 85%, #EDFFDB 86%, #EDFFDB 94%, #FFFFFF 95%, #FFFFFF 103%, #D9E6A7 104%, #D9E6A7 112%, #798B3C 113%, #798B3C 121%, #FFFFFF 122%, #FFFFFF 130%, #E0EAD7 131%, #E0EAD7 140%),radial-gradient(50% 50% at 50% 50%, #FFFFFFFF 0%, #FFFFFFFF 75%, #B6CC66 76%, #B6CC66 85%, #EDFFDB 86%, #EDFFDB 94%, #FFFFFF 95%, #FFFFFF 103%, #D9E6A7 104%, #D9E6A7 112%, #798B3C 113%, #798B3C 121%, #FFFFFF 122%, #FFFFFF 130%, #E0EAD7 131%, #E0EAD7 140%);
+    // background: linear-gradient(126deg, #1a0b00 0%, rgb(21, 5, 0) 51%);
 }
 html {overflow-x: hidden}
 html.lenis {height: auto; scroll-behavior: auto;}
