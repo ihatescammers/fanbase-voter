@@ -68,10 +68,10 @@
     {@html webManifestLink} 
 </svelte:head>
 
-<Clouds />
+<!-- <Clouds /> -->
 
 <main class="app-container">
-    <Navrail />
+    <!-- <Navrail /> -->
 
     <section class="route-container">
         <slot />
