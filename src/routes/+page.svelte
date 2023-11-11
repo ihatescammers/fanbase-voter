@@ -26,7 +26,7 @@
         gsap.registerPlugin(ScrollToPlugin);
         CustomEase.create("emphasized", "M0,0 C0.05,0 0.13333,0.06 0.16666,0.4 0.20833,0.82 0.25,1 1,1 ");
 
-        ScrollTrigger.normalizeScroll(true);
+        // ScrollTrigger.normalizeScroll(true);
         
         let mn = gsap.matchMedia();
     
