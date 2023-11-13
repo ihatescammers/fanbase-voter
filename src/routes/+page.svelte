@@ -14,21 +14,21 @@
 
     export let data;
 
-    let container;
-    let lenis;
-    let opened = false, selected = undefined;
-    let goalPosition = 0;
-    let artistId;
+    // let container;
+    // let lenis;
+    // let opened = false, selected = undefined;
+    // let goalPosition = 0;
+    // let artistId;
     
     onMount(() => {
-        gsap.registerPlugin(CustomEase);
-        gsap.registerPlugin(ScrollTrigger);
-        gsap.registerPlugin(ScrollToPlugin);
-        CustomEase.create("emphasized", "M0,0 C0.05,0 0.13333,0.06 0.16666,0.4 0.20833,0.82 0.25,1 1,1 ");
+        // gsap.registerPlugin(CustomEase);
+        // gsap.registerPlugin(ScrollTrigger);
+        // gsap.registerPlugin(ScrollToPlugin);
+        // CustomEase.create("emphasized", "M0,0 C0.05,0 0.13333,0.06 0.16666,0.4 0.20833,0.82 0.25,1 1,1 ");
 
         // ScrollTrigger.normalizeScroll(true);
         
-        let mn = gsap.matchMedia();
+        // let mn = gsap.matchMedia();
     
         // ScrollTrigger.refresh(true);
         // setTimeout(() => {
@@ -51,16 +51,75 @@
         // }
     })
 
-    function setViewTransitionName(id) {
-        document.querySelector(`#${id} .card-content`).style.setProperty('view-transition-name', 'artist-card');
-    }
+    // function setViewTransitionName(id) {
+    //     document.querySelector(`#${id} .card-content`).style.setProperty('view-transition-name', 'artist-card');
+    // }
 </script>
 
 <section class="container">
-    <div class="top">
-        <h2 class="headline-small " style="font-family: 'Playfair Display'"><b>Stan <i>Awards</i></b></h2>
-    </div>
     <div class="cards">
+        <div class="card">
+            <div class="overlay-image">
+                <img src="https://static.vecteezy.com/system/resources/previews/022/012/091/original/grunge-dots-and-points-texture-background-abstract-grainy-overlay-graphic-illustration-with-transparent-background-png.png" alt="grain">
+            </div>
+            <div class="image-circle">
+                <img src="https://misc-six.vercel.app/cln/images/3.jpg" alt="pretty thing">
+                <img src="https://misc-six.vercel.app/cln/images/3.jpg" alt="pretty thing">
+            </div>
+            <div class="text-wrapper">
+                <div class="top-text label-small">Stan</div>
+                <div class="card-title">
+                    <svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="128" height="128"/>
+                        <circle cx="64" cy="64.5" r="57.5" stroke="#1A0B00"/>
+                        <circle cx="64.5" cy="122" r="3.5" fill="#1A0B00"/>
+                        <circle cx="64.5" cy="102.5" r="3.5" fill="#1A0B00"/>
+                        <circle cx="64.5" cy="26" r="3.5" fill="#1A0B00"/>
+                        <circle cx="64.5" cy="6.5" r="3.5" transform="rotate(90 64.5 6.5)" fill="#1A0B00"/>
+                    </svg>    
+                    <div class="headline-small column-text-outer">
+                        <div><i>award categories</i></div>
+                        <div><i>award categories</i></div>
+                    </div>
+                </div>
+                <div class="bottom-text label-small">Awards</div>
+                <div class="dots">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="overlay-image">
+                <img src="https://static.vecteezy.com/system/resources/previews/022/012/091/original/grunge-dots-and-points-texture-background-abstract-grainy-overlay-graphic-illustration-with-transparent-background-png.png" alt="grain">
+            </div>
+            <div class="image-circle">
+                <img src="https://misc-six.vercel.app/cln/images/3.jpg" alt="pretty thing">
+                <img src="https://misc-six.vercel.app/cln/images/3.jpg" alt="pretty thing">
+            </div>
+            <div class="text-wrapper">
+                <div class="top-text label-small">Stan</div>
+                <div class="card-title">
+                    <svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="128" height="128"/>
+                        <circle cx="64" cy="64.5" r="57.5" stroke="#1A0B00"/>
+                        <circle cx="64.5" cy="122" r="3.5" fill="#1A0B00"/>
+                        <circle cx="64.5" cy="102.5" r="3.5" fill="#1A0B00"/>
+                        <circle cx="64.5" cy="26" r="3.5" fill="#1A0B00"/>
+                        <circle cx="64.5" cy="6.5" r="3.5" transform="rotate(90 64.5 6.5)" fill="#1A0B00"/>
+                    </svg>    
+                    <div class="headline-small column-text-outer">
+                        <div><i>award categories</i></div>
+                        <div><i>award categories</i></div>
+                    </div>
+                </div>
+                <div class="bottom-text label-small">Awards</div>
+                <div class="dots">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+            </div>
+        </div>
         <a class="card" href="/leaderboard">
             <div class="overlay-image">
                 <img src="https://static.vecteezy.com/system/resources/previews/022/012/091/original/grunge-dots-and-points-texture-background-abstract-grainy-overlay-graphic-illustration-with-transparent-background-png.png" alt="grain">
@@ -92,102 +151,6 @@
                 </div>
             </div>
         </a>
-        <div class="card">
-            <div class="overlay-image">
-                <img src="https://static.vecteezy.com/system/resources/previews/022/012/091/original/grunge-dots-and-points-texture-background-abstract-grainy-overlay-graphic-illustration-with-transparent-background-png.png" alt="grain">
-            </div>
-            <div class="image-circle">
-                <img src="https://misc-six.vercel.app/cln/images/3.jpg" alt="pretty thing">
-                <img src="https://misc-six.vercel.app/cln/images/3.jpg" alt="pretty thing">
-            </div>
-            <div class="text-wrapper">
-                <div class="top-text label-small">Stan</div>
-                <div class="card-title">
-                    <svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="128" height="128"/>
-                        <circle cx="64" cy="64.5" r="57.5" stroke="#1A0B00"/>
-                        <circle cx="64.5" cy="122" r="3.5" fill="#1A0B00"/>
-                        <circle cx="64.5" cy="102.5" r="3.5" fill="#1A0B00"/>
-                        <circle cx="64.5" cy="26" r="3.5" fill="#1A0B00"/>
-                        <circle cx="64.5" cy="6.5" r="3.5" transform="rotate(90 64.5 6.5)" fill="#1A0B00"/>
-                    </svg>    
-                    <div class="headline-small column-text-outer">
-                        <div><i>award categories</i></div>
-                        <div><i>award categories</i></div>
-                    </div>
-                </div>
-                <div class="bottom-text label-small">Awards</div>
-                <div class="dots">
-                    <div class="dot"></div>
-                    <div class="dot"></div>
-                </div>
-            </div>
-        </div>
-        <div class="card">
-            <div class="overlay-image">
-                <img src="https://static.vecteezy.com/system/resources/previews/022/012/091/original/grunge-dots-and-points-texture-background-abstract-grainy-overlay-graphic-illustration-with-transparent-background-png.png" alt="grain">
-            </div>
-            <div class="image-circle">
-                <img src="https://misc-six.vercel.app/cln/images/5.jpg" alt="pretty thing">
-                <img src="https://misc-six.vercel.app/cln/images/5.jpg" alt="pretty thing">
-            </div>
-            <div class="text-wrapper">
-                <div class="top-text label-small">Stan</div>
-                <div class="card-title">
-                    <svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="128" height="128"/>
-                        <circle cx="64" cy="64.5" r="57.5" stroke="#1A0B00"/>
-                        <circle cx="64.5" cy="122" r="3.5" fill="#1A0B00"/>
-                        <circle cx="64.5" cy="102.5" r="3.5" fill="#1A0B00"/>
-                        <circle cx="64.5" cy="26" r="3.5" fill="#1A0B00"/>
-                        <circle cx="64.5" cy="6.5" r="3.5" transform="rotate(90 64.5 6.5)" fill="#1A0B00"/>
-                    </svg>    
-                    <div class="headline-small column-text-outer">
-                        <div><i>upcoming concerts</i></div>
-                        <div><i>upcoming concerts</i></div>
-                    </div>
-                </div>
-                <div class="bottom-text label-small">Awards</div>
-                <div class="dots">
-                    <div class="dot"></div>
-                    <div class="dot"></div>
-                </div>
-            </div>
-        </div>
-        <div class="card">
-            <div class="overlay-image">
-                <img src="https://static.vecteezy.com/system/resources/previews/022/012/091/original/grunge-dots-and-points-texture-background-abstract-grainy-overlay-graphic-illustration-with-transparent-background-png.png" alt="grain">
-            </div>
-            <div class="image-circle">
-                <img src="https://misc-six.vercel.app/cln/images/4.jpg" alt="pretty thing">
-                <img src="https://misc-six.vercel.app/cln/images/4.jpg" alt="pretty thing">
-            </div>
-            <div class="text-wrapper">
-                <div class="top-text label-small">Stan</div>
-                <div class="card-title">
-                    <svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="128" height="128"/>
-                        <circle cx="64" cy="64.5" r="57.5" stroke="#1A0B00"/>
-                        <circle cx="64.5" cy="122" r="3.5" fill="#1A0B00"/>
-                        <circle cx="64.5" cy="102.5" r="3.5" fill="#1A0B00"/>
-                        <circle cx="64.5" cy="26" r="3.5" fill="#1A0B00"/>
-                        <circle cx="64.5" cy="6.5" r="3.5" transform="rotate(90 64.5 6.5)" fill="#1A0B00"/>
-                    </svg>    
-                    <div class="headline-small column-text-outer">
-                        <div>about <i>stan awards</i></div>
-                        <div>about <i>stan awards</i></div>
-                    </div>
-                </div>
-                <div class="bottom-text label-small">Awards</div>
-                <div class="dots">
-                    <div class="dot"></div>
-                    <div class="dot"></div>
-                </div>
-            </div>
-        </div>
-        <!-- {#each data.artists as $artist, index}
-            <img src="{$artist.backgroun    dImage}" data-x="{() => {Math.floor(-500 + Math.random() * 500)}}" data-y="{() => {Math.floor(-500 + Math.random() * 500)}}" alt="Sepia tone beach">
-        {/each} -->
     </div>
 </section>
 
@@ -210,7 +173,7 @@
         flex: auto;
         width: 100%;
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr;
         gap: 25px;
         place-items: end;
         padding: 25px;

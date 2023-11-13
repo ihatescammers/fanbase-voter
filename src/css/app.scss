@@ -17,6 +17,8 @@
     --beige: rgb(255, 242, 224);
     --text: rgb(255, 239, 234);
     --dark-text: var(--background);
+    --translucent-background: rgba(217, 217, 217, 0.15);
+    --translucent-foreground: rgba(255, 242, 224, 0.75);
 }
 
 html, body {
@@ -48,6 +50,9 @@ html.lenis {height: auto; scroll-behavior: auto;}
     translate: 0 100%;
     animation: column-text-in var(--md-sys-motion-duration-long4) 0.25s var(--md-sys-motion-easing-emphasized-decelerate) forwards;
 }
+
+.playfair {font-family: 'Playfair Display' !important;}
+.raleway {font-family: 'Raleway' !important;}
 
 .navbar-filler {
     width: 108px;

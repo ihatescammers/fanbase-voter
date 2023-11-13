@@ -1,6 +1,6 @@
 import { writable } from 'svelte/store';
 import { onAuthStateChanged, getAuth } from 'firebase/auth';
-import { getDoc, setDoc, doc } from 'firebase/firestore';
+import { getDoc, setDoc, doc, getDocs } from 'firebase/firestore';
 import { app, db } from './index.js';
 
 export const user = writable(null); 
@@ -57,7 +57,6 @@ user.subscribe(async (changedUser) => {
     }
 });
 
-
 export const setVoted = async (artistID) => {
     try {
         const userRef = doc(db, "users", userValue.uid);
@@ -69,3 +68,27 @@ export const setVoted = async (artistID) => {
         console.log(e)
     }
 }
+
+
+// select all users and update them to have a "remainingVotes" property, and set that property to 1
+const updateAllUsers = async () => {
+    const usersRef = collection(db, "users");
+    const usersSnapshot = await getDocs(usersRef);
+    const batch = writeBatch(db);
+
+    usersSnapshot.forEach((userDoc) => {
+        const userRef = doc(db, "users", userDoc.id);
+        batch.update(userRef, {
+            remainingVotes: 1
+        });
+    });
+
+    try {
+        await batch.commit();
+        console.log("All users updated with 'remainingVotes' property set to 1");
+    } catch (e) {
+        console.log(`Error updating users: ${e}`);
+    }
+};
+
+// updateAllUsers();
