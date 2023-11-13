@@ -123,7 +123,7 @@
 <nav class="nav-drawer playfair">
   <div class="top">
     <a href="/" class="title playfair title-large">Stan <i>Awards</i></a>
-    <div class="search-box">
+    <div class="full-width-button  search-box">
       Search for artists...
     </div>
   </div>
@@ -136,23 +136,29 @@
   </div>
   <div class="bot">
     {#if loggedIn}
-    <a href="/profile" class="profile-button">
+    <a href="/profile" class="full-width-button profile-button">
       <img src={$user.photoURL} alt="profile">
       {$user.displayName}
       <div class="filler"></div>
       <span class="material-symbols-outlined">settings</span>
     </a>
     {:else}
-    <a class="profile-button">
+    <a class="full-width-button profile-button">
       <span class="material-symbols-outlined">account_circle</span>
       Login
     </a>
     {/if}
   </div>
 </nav>
+<div class="nav-filler"></div>
 
 <style lang="scss">
+  .nav-filler {
+    flex: 366px 0 0;
+  }
   .nav-drawer {
+    width: 350px;
+    height: calc(100% - 16px);
     background: var(--translucent-background);
     display: flex;
     flex-flow: column nowrap;
@@ -161,9 +167,10 @@
     border-radius: 8px;
     margin: 8px;
     box-sizing: border-box;
-    // width: 450px;
-    flex: 350px 0 0;
     padding: 24px 12px;
+    position: fixed;
+    top: 0;
+    left: 0;
 
     .top {
       display: flex;
@@ -194,7 +201,7 @@
       width: 100%;
     }
 
-    .search-box, .profile-button {
+    .full-width-button {
       height: 52px;
       background: var(--translucent-background);
       color: var(--translucent-foreground);
@@ -205,6 +212,7 @@
       align-items: center;
       box-sizing: border-box;
       gap: 10px;
+      cursor: pointer;
 
       &.profile-button {
         padding: 0 12px;

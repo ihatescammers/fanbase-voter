@@ -1,7 +1,7 @@
 import { getArtists } from '$lib/index.js';
 import { getOrderedArtists } from '../lib/index.js';
 
-const artists = getArtists();
+// const artists = getArtists();
 const leaderboard = getOrderedArtists();
 
 export function load({ url, setHeaders }) {
@@ -11,7 +11,7 @@ export function load({ url, setHeaders }) {
 
     return {
         url: url.pathname,
-        artists: artists,
+        artists: leaderboard,
         leaderboard: leaderboard
     }
 }

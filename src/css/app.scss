@@ -54,6 +54,12 @@ html.lenis {height: auto; scroll-behavior: auto;}
 .playfair {font-family: 'Playfair Display' !important;}
 .raleway {font-family: 'Raleway' !important;}
 
+.small-caps-text {
+    text-transform: uppercase;
+    font-weight: 800;
+    font-size: 10px;
+}
+
 .navbar-filler {
     width: 108px;
     flex: 108px 0 0;
