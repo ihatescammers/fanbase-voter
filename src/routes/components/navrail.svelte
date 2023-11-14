@@ -57,7 +57,7 @@
 
     mn.add("(max-width: 560px)", () => {
       document.querySelector('.navrail').style = '';
-      document.querySelectorAll('.navrail-button, .navrail md-icon-button').forEach(button => {button.style = ''})
+      // document.querySelectorAll('.navrail-button, .navrail md-icon-button').forEach(button => {button.style = ''})
     })
 
   })
@@ -226,6 +226,13 @@
     a {color: var(--beige); text-decoration: none}
   }
   @media (max-width: 560px) {
-
+    .nav-drawer {
+      width: calc(100% - 16px);
+      height: calc(100% - 16px);
+      translate: -105% 0;
+    }
+    .nav-filler {
+      display: none;
+    }
   }
 </style>

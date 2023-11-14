@@ -60,16 +60,6 @@ html.lenis {height: auto; scroll-behavior: auto;}
     font-size: 10px;
 }
 
-.navbar-filler {
-    width: 108px;
-    flex: 108px 0 0;
-    height: 100%;
-
-    @media (max-width: 560px) {
-        display: none;
-    }
-}
-
 #imgGroup {
     .imgBox {
         display: flex;

@@ -284,9 +284,9 @@
                 left: 0;
                 width: 100%;
                 height: 100%;
-                mix-blend-mode: overlay;
+                mix-blend-mode:multiply;
                 z-index: 2;
-                opacity: 0.75;
+                opacity: 0.05;
                 pointer-events: none;
                 img {
                     width: 100%;

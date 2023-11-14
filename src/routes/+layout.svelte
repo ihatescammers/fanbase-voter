@@ -92,5 +92,9 @@
             display: flex;
             justify-content: stretch;
         }
+
+        @media (max-width: 560px) {
+            flex-flow: column nowrap;
+        }
     }
 </style>

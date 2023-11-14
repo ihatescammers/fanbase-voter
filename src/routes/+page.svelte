@@ -58,31 +58,38 @@
 
 <section class="container">
     <div class="top-artist">
-        <div class="card">
+        <a href="/artist/{data.leaderboard[0].id}" class="card">
             <div class="overlay-image">
                 <img src="https://static.vecteezy.com/system/resources/previews/022/012/091/original/grunge-dots-and-points-texture-background-abstract-grainy-overlay-graphic-illustration-with-transparent-background-png.png" alt="grain">
             </div>
             <div class="image-circle">
                 <img src="{data.leaderboard[0].backgroundImage}" alt="top artist">
-                <img src="{data.leaderboard[0].backgroundImage}" alt="top artist">
+                <div class="glass">
+                    <div>
+                        <span style="font-size: 48px">#</span>
+                        <span style="font-size: 64px">1</span>
+                    </div>
+                </div>
             </div>
             <div class="text-wrapper">
                 <div class="top-text label-small">Stan</div>
                 <div class="card-title"> 
-                    <div class="headline-small column-text-outer">
-                        <div><i>{data.leaderboard[0].name}</i></div>
-                        <div><i>{data.leaderboard[0].name}</i></div>
+                    <div class="center-text-wrapper">
+                        <div class="headline-small column-text-outer">
+                            <div><i>{data.leaderboard[0].name}</i></div>
+                            <div><i>{data.leaderboard[0].name}</i></div>
+                        </div>
+                        <div class="small-caps-text">{data.leaderboard[0].votes} votes</div>
                     </div>
                 </div>
                 <div class="bottom-text label-small">Awards</div>
-                <div class="small-caps-text">{data.leaderboard[0].votes} votes</div>
                 <div class="dots">
                     <div class="dot"></div>
                     <div class="dot"></div>
                 </div>
             </div>
-        </div>
-        <div class="card bottom-card">
+        </a>
+        <a href="/leaderboard" class="card bottom-card">
             <div class="overlay-image">
                 <img src="https://static.vecteezy.com/system/resources/previews/022/012/091/original/grunge-dots-and-points-texture-background-abstract-grainy-overlay-graphic-illustration-with-transparent-background-png.png" alt="grain">
             </div>
@@ -98,8 +105,8 @@
                         <circle cx="64.5" cy="6.5" r="3.5" transform="rotate(90 64.5 6.5)" fill="#1A0B00"/>
                     </svg>    
                     <div class="headline-small column-text-outer">
-                        <div><i>award categories</i></div>
-                        <div><i>award categories</i></div>
+                        <div>the <i>artist leaderboard</i></div>
+                        <div>the <i>artist leaderboard</i></div>
                     </div>
                 </div>
                 <div class="bottom-text label-small">Awards</div>
@@ -108,7 +115,7 @@
                     <div class="dot"></div>
                 </div>
             </div>
-        </div>
+        </a>
     </div>
     <div class="second-column"></div>
 </section>
@@ -123,11 +130,20 @@
         padding: 20px 8px 8px 8px;
         --hover-transition: 1s cubic-bezier(0.77, 0, 0.175, 1);
 
+        @media (max-width: 560px) {
+            flex-flow: column nowrap;
+        }
+
         .top-artist {
             flex: 1;
             display: flex;
             flex-flow: column nowrap;
             gap: 10px;
+            width: 100%;
+            
+            @media (max-width: 560px) {
+                align-items: center;
+            }
 
             .card {
                 background-color: var(--beige);
@@ -139,7 +155,8 @@
                 transition: border-radius var(--hover-transition);
                 cursor: pointer;
                 text-decoration: none;
-                border-radius: 250px 250px 4px 48px;
+                border-radius: 250px 250px 4px 4px;
+                color: var(--text);
                 
                 &.bottom-card {
                     border-radius: 4px 4px 4px 48px;
@@ -155,6 +172,24 @@
                 }
                 &:not(.bottom-card) {
                     flex: 1;
+                    .center-text-wrapper {
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        translate: -50% -50%;
+                        width: 100%;
+                        display: flex;
+                        flex-flow: column;
+                        justify-content: center;
+                        align-items: center;
+                        .headline-small {
+                            position: static !important;
+                            translate: 0 0 !important;
+                        }
+                        .small-caps-text {
+                            text-transform: none;
+                        }
+                    }   
                 }
 
                 @media (max-width: 560px) {
@@ -187,7 +222,7 @@
                             top: 50%;
                             left: 50%;
                             translate: -50% -50%;
-                            width: 100%;
+                            width: 90%;
                             text-align: center;
                             background: var(--beige);
                             // padding: 6px 0;
@@ -248,6 +283,23 @@
                             clip-path: circle(40% at 50% 50%);
                         }
                     }
+                    .glass {
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        translate: -50% -50%;
+                        width: 50%;
+                        height: 50%;
+                        border-radius: 50%;
+                        background: var(--translucent-background);
+                        backdrop-filter: blur(25px);
+                        z-index: 10;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        box-shadow: 0px 2px 5px 4px rgba(0,0,0,0.1);
+                        transition: var(--hover-transition);
+                    }
                 }
                 
                 .overlay-image {
@@ -256,9 +308,9 @@
                     left: 0;
                     width: 100%;
                     height: 100%;
-                    mix-blend-mode: overlay;
+                    mix-blend-mode:multiply;
                     z-index: 2;
-                    opacity: 0.75;
+                    opacity: 0.05;
                     pointer-events: none;
                     img {
                         width: 100%;
@@ -277,9 +329,10 @@
                         }
                         .dots .dot:nth-child(1) {translate: 12px -12px;}
                         .dots .dot:nth-child(2) {translate: -12px 0px;}
+                        .image-circle .glass {
+                            scale: 0.96;
+                        }
                     }
-                    &:nth-of-type(odd):hover {.image-circle img:nth-child(2) {rotate: 15deg}}
-                    &:nth-of-type(even):hover {.image-circle img:nth-child(2) {rotate: -15deg}}
                 }
                 &:active {
                     background: rgb(250, 239, 220);
