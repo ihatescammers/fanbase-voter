@@ -133,11 +133,11 @@
     </div>
   </div>
   <div class="mid">
-    <a href="/" class="link title-medium playfair">The <i>Stan Home</i></a>
-    <a href="/leaderboard" class="link title-medium playfair">The Artist Leaderboard</a>
-    <a href="/categories" class="link title-medium playfair">Award Categories</a>
-    <a href="/concerts" class="link title-medium playfair">Upcoming Concerts</a>
-    <a href="/about" class="link title-medium playfair">About <i>Stan Awards</i></a>
+    <a href="/" class="link title-medium playfair" on:click={openMenu}>The <i>Stan Home</i></a>
+    <a href="/leaderboard" class="link title-medium playfair" on:click={openMenu}>The Artist Leaderboard</a>
+    <a href="/categories" class="link title-medium playfair" on:click={openMenu}>Award Categories</a>
+    <a href="/concerts" class="link title-medium playfair" on:click={openMenu}>Upcoming Concerts</a>
+    <a href="/about" class="link title-medium playfair" on:click={openMenu}>About <i>Stan Awards</i></a>
   </div>
   <div class="bot">
     {#if loggedIn}
