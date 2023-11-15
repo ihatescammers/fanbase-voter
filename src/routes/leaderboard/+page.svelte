@@ -63,7 +63,7 @@
     <div class="bottom-spacer"></div> -->
     <div class="leaderboard">
         {#each data.leaderboard as artist, index}
-        <div class="card">
+        <a href="/artist/{artist.id}" class="card">
             <div class="overlay-image">
                 <img src="https://static.vecteezy.com/system/resources/previews/022/012/091/original/grunge-dots-and-points-texture-background-abstract-grainy-overlay-graphic-illustration-with-transparent-background-png.png" alt="grain">
             </div>
@@ -93,7 +93,7 @@
                     <div class="dot"></div>
                 </div>
             </div>
-        </div>
+        </a>
         {/each}
     </div>
 </div>
