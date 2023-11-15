@@ -194,7 +194,6 @@
         flex-flow: row wrap;
         box-sizing: border-box;
         padding: 20px 8px 8px 8px;
-        --hover-transition: 1s cubic-bezier(0.77, 0, 0.175, 1);
         gap: 10px;
 
         @media (max-width: 560px) {

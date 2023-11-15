@@ -19,6 +19,8 @@
     --dark-text: var(--background);
     --translucent-background: rgba(217, 217, 217, 0.15);
     --translucent-foreground: rgba(255, 242, 224, 0.75);
+    --hover-transition: 1s cubic-bezier(0.77, 0, 0.175, 1);
+
 }
 
 html, body {

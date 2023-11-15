@@ -36,8 +36,7 @@
     <div class="heading-line column-text-outer" style="padding-top: 45px;">
         <h1 class="display-large bold-weight column-text-in playfair">L<i>eaderboard</i></h1>
     </div>
-    <!-- {#if $voted} -->
-    <div class="leaderboard">
+    <!-- <div class="leaderboard">
         {#each data.leaderboard as artist, index}
             <div class="leaderboard-artist">
                 <div class="position medium-weight title-large column-text-outer">
@@ -61,37 +60,41 @@
             </div>
         {/each}
     </div>
-    <div class="bottom-spacer"></div>
-    <div class="card">
-        <div class="overlay-image">
-            <img src="https://static.vecteezy.com/system/resources/previews/022/012/091/original/grunge-dots-and-points-texture-background-abstract-grainy-overlay-graphic-illustration-with-transparent-background-png.png" alt="grain">
-        </div>
-        <div class="image-circle">
-            <img src="https://misc-six.vercel.app/cln/images/3.jpg" alt="pretty thing">
-            <img src="https://misc-six.vercel.app/cln/images/3.jpg" alt="pretty thing">
-        </div>
-        <div class="text-wrapper">
-            <div class="top-text label-small">Stan</div>
-            <div class="card-title">
-                <svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="128" height="128"/>
-                    <circle cx="64" cy="64.5" r="57.5" stroke="#1A0B00"/>
-                    <circle cx="64.5" cy="122" r="3.5" fill="#1A0B00"/>
-                    <circle cx="64.5" cy="102.5" r="3.5" fill="#1A0B00"/>
-                    <circle cx="64.5" cy="26" r="3.5" fill="#1A0B00"/>
-                    <circle cx="64.5" cy="6.5" r="3.5" transform="rotate(90 64.5 6.5)" fill="#1A0B00"/>
-                </svg>    
-                <div class="headline-small column-text-outer">
-                    <div><i>award categories</i></div>
-                    <div><i>award categories</i></div>
+    <div class="bottom-spacer"></div> -->
+    <div class="leaderboard">
+        {#each data.leaderboard as artist, index}
+        <div class="card">
+            <div class="overlay-image">
+                <img src="https://static.vecteezy.com/system/resources/previews/022/012/091/original/grunge-dots-and-points-texture-background-abstract-grainy-overlay-graphic-illustration-with-transparent-background-png.png" alt="grain">
+            </div>
+            <div class="image-circle">
+                <img src="{artist.backgroundImage}" alt="{artist.name}">
+                <img src="{artist.backgroundImage}" alt="{artist.name}">
+            </div>
+            <div class="text-wrapper">
+                <div class="top-text label-small">no. {index + 1}</div>
+                <div class="card-title">
+                    <svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="128" height="128"/>
+                        <circle cx="64" cy="64.5" r="57.5" stroke="#1A0B00"/>
+                        <circle cx="64.5" cy="122" r="3.5" fill="#1A0B00"/>
+                        <circle cx="64.5" cy="102.5" r="3.5" fill="#1A0B00"/>
+                        <circle cx="64.5" cy="26" r="3.5" fill="#1A0B00"/>
+                        <circle cx="64.5" cy="6.5" r="3.5" transform="rotate(90 64.5 6.5)" fill="#1A0B00"/>
+                    </svg>    
+                    <div class="headline-small column-text-outer">
+                        <div><i>{artist.name}</i></div>
+                        <div><i>{artist.name}</i></div>
+                    </div>
+                </div>
+                <div class="bottom-text label-small">{artist.votes} votes</div>
+                <div class="dots">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
                 </div>
             </div>
-            <div class="bottom-text label-small">Awards</div>
-            <div class="dots">
-                <div class="dot"></div>
-                <div class="dot"></div>
-            </div>
         </div>
+        {/each}
     </div>
 </div>
 
@@ -102,76 +105,120 @@
         width: 100%;
         box-sizing: border-box;
         padding: 0 20px;
-    }
-    .bottom-spacer {
-        height: 20px;
-    }
-    .heading-line {
-        margin: 45px 0;
-        h1 {margin: 0}
+        @media (max-width: 560px) {
+            padding: 0 10px;
+        }
     }
     .leaderboard {
-        width: 100%;
-        box-sizing: border-box;
-        padding: 20px 0px;
-        border-radius: 36px;
-        background: var(--md-sys-color-surface-container-blurred);
-        backdrop-filter: blur(var(--background-blur-value));
-        
-        --md-ripple-hover-opacity: 0.025;
-        --md-ripple-pressed-opacity: 0.1;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 40px 20px;
+        place-items: center;
 
-        opacity: 0;
-        animation: fade-in 250ms 100ms cubic-bezier(0.445, 0.05, 0.55, 0.95) forwards;
+        .card {
+            &:nth-of-type(3n - 2) {translate: 0 0}
+            &:nth-of-type(3n - 1) {translate: 0 75px}
+            &:nth-of-type(3n) {translate: 0 150px}
+        }
+        @media (max-width: 1200px) {
+            grid-template-columns: 1fr 1fr;
 
-        .leaderboard-artist {
-            height: 80px;
-            display: flex;
-            align-items: center;
-            padding: 0 20px;
-            gap: 25px;
-            position: relative;
+            .card {
+                &:nth-of-type(3n) {translate: none}
+                &:nth-of-type(3n - 2) {translate: none}
+                &:nth-of-type(3n - 1) {translate: none}
 
-            .profile-picture {
-                width: 48px;
-                height: 48px;
-                border-radius: 50%;
-                background-color: var(--md-sys-color-surface-container-high);
-                overflow: hidden;
-                scale: 0;
+                &:nth-of-type(even) {translate: 0 75px}
+            }
+        }
+        @media (max-width: 560px) {
+            gap: 20px 10px;
+            .card {
+                .text-wrapper {
+                    min-height: none;
+                    gap: 15px;
 
-                img {
-                    width: 100%;
-                    height: 100%;
-                    object-fit: cover;
+                    .card-title {
+                        .headline-small, .headline-medium, .title-medium, .title-large {
+                            font-size: 20px;
+                            height: 26.4px;
+                        }
+                        svg {
+                            scale: 0.9;
+                        }
+                    }
                 }
             }
         }
     }
-    @media (max-width: 560px) {
-        .heading-line {
-            text-align: center;
-            h1 {
-                font-family: var(--md-sys-typescale-headline-large-font-family-name);
-                font-style: var(--md-sys-typescale-headline-large-font-family-style);
-                font-size: var(--md-sys-typescale-headline-large-font-size);
-                letter-spacing: var(--md-sys-typescale-headline-large-tracking);
-                line-height: var(--md-sys-typescale-headline-large-height);
-                text-transform: var(--md-sys-typescale-headline-large-text-transform);
-                text-decoration: var(--md-sys-typescale-headline-large-text-decoration);
-            }
-        }
-        .leaderboard {
-            .leaderboard-artist {
-                height: 88px;
-                gap: 15px;
-            }
-        }
-        .bottom-spacer {
-            height: 100px;
-            opacity: 0;
-        }
+    .heading-line {
+        margin: 45px 0;
+        width: 100%;
+        text-align: center;
+        h1 {margin: 0}
     }
+    // .leaderboard {
+    //     width: 100%;
+    //     box-sizing: border-box;
+    //     padding: 20px 0px;
+    //     border-radius: 36px;
+    //     background: var(--md-sys-color-surface-container-blurred);
+    //     backdrop-filter: blur(var(--background-blur-value));
+        
+    //     --md-ripple-hover-opacity: 0.025;
+    //     --md-ripple-pressed-opacity: 0.1;
+
+    //     opacity: 0;
+    //     animation: fade-in 250ms 100ms cubic-bezier(0.445, 0.05, 0.55, 0.95) forwards;
+
+    //     .leaderboard-artist {
+    //         height: 80px;
+    //         display: flex;
+    //         align-items: center;
+    //         padding: 0 20px;
+    //         gap: 25px;
+    //         position: relative;
+
+    //         .profile-picture {
+    //             width: 48px;
+    //             height: 48px;
+    //             border-radius: 50%;
+    //             background-color: var(--md-sys-color-surface-container-high);
+    //             overflow: hidden;
+    //             scale: 0;
+
+    //             img {
+    //                 width: 100%;
+    //                 height: 100%;
+    //                 object-fit: cover;
+    //             }
+    //         }
+    //     }
+    // }
+    // @media (max-width: 560px) {
+    //     .heading-line {
+    //         text-align: center;
+    //         h1 {
+    //             font-family: var(--md-sys-typescale-headline-large-font-family-name);
+    //             font-style: var(--md-sys-typescale-headline-large-font-family-style);
+    //             font-size: var(--md-sys-typescale-headline-large-font-size);
+    //             letter-spacing: var(--md-sys-typescale-headline-large-tracking);
+    //             line-height: var(--md-sys-typescale-headline-large-height);
+    //             text-transform: var(--md-sys-typescale-headline-large-text-transform);
+    //             text-decoration: var(--md-sys-typescale-headline-large-text-decoration);
+    //         }
+    //     }
+    //     .leaderboard {
+    //         .leaderboard-artist {
+    //             height: 88px;
+    //             gap: 15px;
+    //         }
+    //     }
+    //     .bottom-spacer {
+    //         height: 100px;
+    //         opacity: 0;
+    //     }
+    // }
     .card {
             background-color: var(--beige);
             // aspect-ratio: 4/7;
@@ -185,12 +232,6 @@
             cursor: pointer;
             text-decoration: none;
             border-radius: 250px 250px 4px 48px;
-
-            @media (max-width: 560px) {
-                width: 90%;
-                max-width: 90%;
-            }
-
 
             .text-wrapper {
                 color: var(--dark-text);
@@ -210,7 +251,7 @@
                     align-items: center;
                     justify-content: center;
                     width: 100%;
-                    .headline-small {
+                    .headline-small, .headline-medium, .title-medium, .title-large {
                         font-family: 'Playfair Display';
                         position: absolute;
                         top: 50%;
@@ -228,7 +269,7 @@
                             &:nth-child(2) {font-weight: 800}
                         }
                     }
-                    svg {scale: 0.97;}
+                    svg {scale: 0.95;}
                 }
                 .top-text, .bottom-text {
                     text-transform: uppercase;
@@ -272,8 +313,8 @@
                     left: 0;
                     
                     &:nth-child(2) {
-                        transition: rotate var(--hover-transition);
-                        clip-path: circle(40% at 50% 50%);
+                        transition: var(--hover-transition);
+                        clip-path: circle(42.5% at 50% 50%);
                     }
                 }
             }
@@ -305,9 +346,14 @@
                     }
                     .dots .dot:nth-child(1) {translate: 12px -12px;}
                     .dots .dot:nth-child(2) {translate: -12px 0px;}
+                    .image-circle img:nth-child(2) {
+                        clip-path: circle(0% at 50% 50%);
+                        rotate: 10deg;
+                        // filter: blur(2.5px);
+                    }
                 }
-                &:nth-of-type(odd):hover {.image-circle img:nth-child(2) {rotate: 15deg}}
-                &:nth-of-type(even):hover {.image-circle img:nth-child(2) {rotate: -15deg}}
+                // &:nth-of-type(odd):hover {.image-circle img:nth-child(2) {rotate: 15deg}}
+                // &:nth-of-type(even):hover {.image-circle img:nth-child(2) {rotate: -15deg}}
             }
             &:active {
                 background: rgb(250, 239, 220);
