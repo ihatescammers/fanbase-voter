@@ -85,6 +85,60 @@ html.lenis {height: auto; scroll-behavior: auto;}
     100% {opacity: 0}
 }
 
+.flex-center-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.flex-column {
+    flex-flow: column;
+}
+.full-width {width: 100%;}
+.full-height {height: 100%;}
+
+.large-button {
+    height: 48px;
+    padding: 0 24px;
+    border-radius: 48px;
+    border: 1px solid var(--text);
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-family: 'Playfair Display';
+    overflow: hidden;
+
+    .background {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 0;
+    }
+    &:hover {
+        text-decoration: none !important;
+    }
+
+    &.inverse {
+        border: 1px solid var(--background);
+        color: var(--background);
+    }
+    &.filled {
+        background: var(--background);
+        color: var(--beige);
+    }
+    &.inverse-filled {
+        background: var(--beige);
+        color: var(--background);
+    }
+}
+
+a {
+    text-decoration: none;
+    color: var(--text);
+}
+
 ::view-transition-old(root),
 ::view-transition-new(root) {
     // animation-duration: 250ms;

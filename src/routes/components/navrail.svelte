@@ -56,7 +56,7 @@
     // })
 
     mn.add("(max-width: 560px)", () => {
-      document.querySelector('.navrail').style = '';
+      // document.querySelector('.navrail').style = '';
       // document.querySelectorAll('.navrail-button, .navrail md-icon-button').forEach(button => {button.style = ''})
     })
 
@@ -72,6 +72,10 @@
 		const auth = getAuth(app);
 		signOut(auth);
 	};
+  let menuOpened;
+  function openMenu() {
+    menuOpened = !menuOpened;
+  }
 </script>
 
 <!-- <nav class="navrail" style="position: fixed;">
@@ -120,7 +124,8 @@
 </nav>
 <div class="navrail-filler"></div> -->
 
-<nav class="nav-drawer playfair">
+<nav class="nav-drawer playfair {menuOpened ? 'opened' : ''}">
+  <button class="close-button" on:click={openMenu}><span class="material-symbols-outlined">close</span></button>
   <div class="top">
     <a href="/" class="title playfair title-large">Stan <i>Awards</i></a>
     <div class="full-width-button  search-box">
@@ -150,11 +155,15 @@
     {/if}
   </div>
 </nav>
-<div class="nav-filler"></div>
+<div class="nav-filler">
+  <a href="/">Stan Awards</a>
+  <button class="menu-button" on:click={openMenu}>Menu</button>
+</div>
 
 <style lang="scss">
   .nav-filler {
     flex: 366px 0 0;
+    * {display: none;}
   }
   .nav-drawer {
     width: 350px;
@@ -171,6 +180,10 @@
     position: fixed;
     top: 0;
     left: 0;
+
+    .close-button {
+      display: none;
+    }
 
     .top {
       display: flex;
@@ -230,9 +243,43 @@
       width: calc(100% - 16px);
       height: calc(100% - 16px);
       translate: -105% 0;
+      transition: translate var(--md-sys-motion-duration-medium3) var(--md-sys-motion-easing-emphasized-accelerate);
+      z-index: 3;
+      backdrop-filter: blur(25px);
+      background: rgba(0,0,0,0.25);
+      
+      .close-button {
+        all: unset;
+        position: absolute;
+        top: 18px;
+        right: 12px;
+        color: white;
+        height: 48px;
+        width: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      &.opened {
+        translate: 0 0;
+        transition: translate var(--md-sys-motion-duration-long4) var(--md-sys-motion-easing-emphasized-decelerate);
+      }
     }
     .nav-filler {
-      display: none;
+      display: flex;
+      width: 100%;
+      // height: 45px;
+      flex: 72px 0 0;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      box-sizing: border-box;
+      font-family: 'Playfair Display';
+      a {display: block}
+      .menu-button {
+        all: unset;
+      }
     }
   }
 </style>

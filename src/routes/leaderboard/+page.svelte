@@ -34,7 +34,7 @@
 <div class="navbar-filler"></div>
 <div class="container">
     <div class="heading-line column-text-outer" style="padding-top: 45px;">
-        <h1 class="display-large bold-weight column-text-in">Leaderboard</h1>
+        <h1 class="display-large bold-weight column-text-in playfair">L<i>eaderboard</i></h1>
     </div>
     <!-- {#if $voted} -->
     <div class="leaderboard">

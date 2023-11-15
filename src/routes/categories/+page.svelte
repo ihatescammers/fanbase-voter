@@ -1,5 +1,5 @@
 <div class="container">
-    <h1 class="display-large playfair ">Upcoming <i>Concerts</i></h1>
+    <h1 class="display-large playfair ">The <i>Award Categories</i></h1>
     <p class="body-large">Coming soon...</p>
 </div>
 
