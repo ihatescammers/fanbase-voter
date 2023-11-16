@@ -12,20 +12,6 @@
 
     let x, y, distanceX, distanceY, artistCard;
 
-    // function handleMouseMove(e) {
-    //     [x, y] = [e.clientX, e.clientY];
-    //     [distanceX, distanceY] = 
-    //         [x - artistCard.offsetLeft - artistCard.offsetWidth / 2, y - artistCard.offsetTop - artistCard.offsetHeight / 2];
-    //     gsap.to(artistCard, {
-    //         rotationX: distanceY / 20, 
-    //         rotationY: distanceX / 20, 
-    //         perspective: '10px',
-    //         transformStyle: 'preserve-3d',
-    //         duration: 0.5, 
-    //         ease: "power2.out"
-    //     })
-    // }
-
     const handleSignIn = () => {
         if ($user !== null) return;
         const auth = getAuth(app);
@@ -69,8 +55,7 @@
 
 </script>
 
-<!-- svelte-ignore a11y-no-static-element-interactions -->
-<section class="container">
+<!-- <section class="container">
     <div class="grid">
         <div class="back-button-container">
             <md-text-button href="/">
@@ -90,15 +75,43 @@
                     <div class="material-symbols-outlined plus-icon">add</div>
                     <div class="material-symbols-outlined plus-icon">add</div>
                     <div class="overlay-flex-container">
-                        <!-- <div class="filler"></div> -->
                         <div class="content-beneath">
                             <div class="lines-wrapper">
                                 <div class="line-difference"></div>
                                 <div class="line-opaque"></div>
                             </div>
                             <div class="column-text-outer title-medium bold-weight" style="text-transform: uppercase">
-                                <div class="column-text-inner difference">{artist.name}</div>
-                                <!-- <div class="column-text-inner opaque">{artist.name}</div> -->
+                                <div class="column-text-inner difference">{artist.name}</div>        <a href="/artist/{artist.id}" class="card">
+            <div class="overlay-image">
+                <img src="https://static.vecteezy.com/system/resources/previews/022/012/091/original/grunge-dots-and-points-texture-background-abstract-grainy-overlay-graphic-illustration-with-transparent-background-png.png" alt="grain">
+            </div>
+            <div class="image-circle">
+                <img src="{artist.backgroundImage}" alt="{artist.name}">
+                <img src="{artist.backgroundImage}" alt="{artist.name}">
+            </div>
+            <div class="text-wrapper">
+                <div class="top-text label-small">no. {index + 1}</div>
+                <div class="card-title">
+                    <svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="128" height="128"/>
+                        <circle cx="64" cy="64.5" r="57.5" stroke="#1A0B00"/>
+                        <circle cx="64.5" cy="122" r="3.5" fill="#1A0B00"/>
+                        <circle cx="64.5" cy="102.5" r="3.5" fill="#1A0B00"/>
+                        <circle cx="64.5" cy="26" r="3.5" fill="#1A0B00"/>
+                        <circle cx="64.5" cy="6.5" r="3.5" transform="rotate(90 64.5 6.5)" fill="#1A0B00"/>
+                    </svg>    
+                    <div class="headline-small column-text-outer">
+                        <div><i>{artist.name}</i></div>
+                        <div><i>{artist.name}</i></div>
+                    </div>
+                </div>
+                <div class="bottom-text label-small">{artist.votes} votes</div>
+                <div class="dots">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+            </div>
+        </a>
                             </div>
                             <div class="lines-wrapper">
                                 <div class="line-opaque"></div>
@@ -150,259 +163,99 @@
         </button>
         {/if}
     </div>
-</section>
+</section> -->
+
+<div class="container">
+    <a class="card global-card">
+        <div class="overlay-image">
+            <img src="https://static.vecteezy.com/system/resources/previews/022/012/091/original/grunge-dots-and-points-texture-background-abstract-grainy-overlay-graphic-illustration-with-transparent-background-png.png" alt="grain">
+        </div>
+        <div class="image-circle">
+            <img src="{artist.backgroundImage}" alt="{artist.name}">
+            <img src="{artist.backgroundImage}" alt="{artist.name}">
+        </div>
+        <div class="text-wrapper">
+            <div class="top-text label-small">Stan</div>
+            <div class="card-title">
+                <svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="128" height="128"/>
+                    <circle cx="64" cy="64.5" r="57.5" stroke="#1A0B00"/>
+                    <circle cx="64.5" cy="122" r="3.5" fill="#1A0B00"/>
+                    <circle cx="64.5" cy="102.5" r="3.5" fill="#1A0B00"/>
+                    <circle cx="64.5" cy="26" r="3.5" fill="#1A0B00"/>
+                    <circle cx="64.5" cy="6.5" r="3.5" transform="rotate(90 64.5 6.5)" fill="#1A0B00"/>
+                </svg>    
+                <div class="headline-small column-text-outer">
+                    <div><i>{artist.name}</i></div>
+                    <div><i>{artist.name}</i></div>
+                </div>
+            </div>
+            <div class="bottom-text label-small">Awards</div>
+            <div class="dots">
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+        </div>
+    </a>
+    <div class="voter-card">
+        <div class="votes">
+            <h1 class="display-medium playfair">{artist.votes}</h1>
+            <p class="playfair body-large"><i>votes</i></p>
+        </div>
+        <div class="filler"></div>
+        <a class="large-button inverse">Vote with Google</a>
+    </div>
+</div>
 
 <style lang="scss">
     .container {
-        flex: 1 1 0;
-        height: 100%;
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 20px;
-        box-sizing: border-box;
-        padding-left: 128px;
+        width: 100%;
+        height: 100%;
+        gap: 18px;
 
-        @media (max-width: 560px) {
-            padding: 20px 20px 20px 20px;
-            // box-sizing: content-box;
-            align-items: flex-start;
+        --card-height: 600px;
 
-            div.grid {
-                padding-bottom: 100px;
-                .artist-card, .leaderboard-card {grid-column: span 5}
-                .leaderboard-card {
-                    gap: 20px;
-                    .display-large {font-size: var(--md-sys-typescale-display-medium-font-size)}
-                    .body-large {font-size: var(--md-sys-typescale-body-medium-font-size)}
-                }
-                .artist-card {
-                    max-width: auto;
-                    width: 100%;
-                    max-height: 40vh;
-                    max-height: 40svh;
-                }
-            }
+        .card {
+            max-width: 350px;
+            width: 350px;
+            height: var(--card-height);
+            img {box-sizing: border-box;}
+            svg {scale: 0.85}
         }
 
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 20px;
-            
-            .back-button-container {
-                grid-column: span 5;
-                // --md-filled-tonal-button-hover-container-elevation: 0;
-            }
-            .artist-card {
-                grid-column: span 3;
-            }
-            .leaderboard-card {
-                grid-column: span 2;
-                display: flex;
-                padding: 20px 0px;  
-                flex-direction: column;
-                justify-content: space-between;
-                align-items: center;
-                flex: 1 0 0;
-                align-self: stretch;
-                border-radius: 24px;
-                position: relative;
-                z-index: 1;
-            }
-            .button {
-                all: unset;
-                grid-column: span 5;
+        .voter-card {
+            width: 325px;
+            background: var(--beige);
+            color: var(--dark-text);
+            padding: 10px;
+            border-radius: 200px 200px 4px 4px;
+            height: calc(var(--card-height) - 20px);
+            display: flex;
+            flex-flow: column nowrap;
+
+            .votes {
+                width: 100%;
+                aspect-ratio: 1;
+                border-radius: 50%;
+                border: 1px solid var(--background);
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                flex-flow: column nowrap;
                 gap: 10px;
+                h1, p {margin: 0}
+            }
+
+            .large-button {
                 height: 56px;
-                border-radius: 56px;
-                // outline: 1px solid var(--md-sys-color-outline);
-                background-color: var(--md-sys-color-surface-container-blurred);
-                position: relative;
-                cursor: pointer;
-
-                --md-ripple-hover-opacity: 0.025;
             }
-
         }
-    }
-
-    .artist-card {
-        all: unset;
-        position: relative;
-        display: flex;
-        flex-flow: column nowrap;
-        align-items: flex-start;
-        gap: 10px;
-        max-width: 450px;
-        user-select: none;
-
-        // animation: fade-in var(--md-sys-motion-duration-short4) var(--md-sys-motion-duration-medium4) var(--md-sys-motion-easing-emphasized) forwards;
-        // opacity: 0;
-
-        .card-content {
-            position: relative;
-            width: 100%;
-            aspect-ratio: 4/3;
-            cursor: pointer;
-
-            --md-focus-ring-shape: 24px;
-            --md-ripple-hover-opacity: 0;
-            
-            @media (max-width: 560px) {
-                aspect-ratio: 4/5;
-            }
-
-            .image-parallax-wrapper {
-                width: 100%;
-                height: 100%;
-                overflow: hidden;
-                border-radius: 24px;
-            }
-            img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-                scale: 1.05;
-                filter: blur(5px);
-                transition: var(--md-sys-motion-duration-medium4) var(--md-sys-motion-easing-emphasized) scale,
-                var(--md-sys-motion-duration-medium4) var(--md-sys-motion-easing-emphasized) filter;
-            }
-            md-ripple {border-radius: 24px;}
-            .overlay {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                border-radius: 24px;
-                // background: linear-gradient(0deg, rgba(2,0,36,0) 0%, rgba(0,0,0,0) 30%, rgba(255,255,255,0.25) 50%, rgba(0,0,0,0) 70%, rgba(0,0,0,0) 100%);
-
-
-                .plus-icon {
-                    position: absolute;
-                    transition: var(--md-sys-motion-duration-long4) cubic-bezier(0.175, 0.885, 0.32, 1.275) rotate,
-                    var(--md-sys-motion-duration-long4) cubic-bezier(0.175, 0.885, 0.32, 1.275) scale;
-                    rotate: 90deg;
-                    // mix-blend-mode: difference;
-                    // color: var(--md-sys-color-surface);
-
-                    &:nth-child(1) {top: 40px; left: 40px}
-                    &:nth-child(2) {bottom: 40px; left: 40px}
-                    &:nth-child(3) {top: 40px; right: 40px}
-                    &:nth-child(4) {bottom: 40px; right: 40px}
-                }
-
-                .overlay-flex-container {
-                    width: 100%;
-                    height: 100%;
-                    display: flex;
-                    flex-flow: column nowrap;
-                    align-items: center;
-                    justify-content: center;
-                    
-                    .content-beneath {
-                        display: flex;
-                        align-items: center;
-                        gap: 15px;
-                        height: 60px;
-                        transition: var(--md-sys-motion-duration-medium4) var(--md-sys-motion-easing-emphasized) gap;
-                        filter: drop-shadow(0 0 0.75rem var(--md-sys-color-on-surface));
-                        .lines-wrapper {
-                            width: 45px;
-                            height: 2px;
-                            display: flex;
-                            transition: var(--md-sys-motion-duration-medium4) var(--md-sys-motion-easing-emphasized) width;
-                            .line-difference, .line-opaque {
-                                height: 100%;
-                                transition: var(--md-sys-motion-duration-medium4) var(--md-sys-motion-easing-emphasized) flex;
-                            }
-                            .line-difference {
-                                // mix-blend-mode: difference;
-                                background-color: var(--md-sys-color-on-surface);
-                                flex: 1;
-                            }
-                            .line-opaque {
-                                background-color: transparent;
-                                flex: 0;
-                            }
-
-                            @media (max-width: 560px) {
-                                display: none;
-                            }
-                        }
-                        .column-text-outer {
-                            height: 40px;
-                            font-family: 'Playfair Display', 'Raleway', system-ui, sans-serif;
-                            .difference, .opaque {
-                                height: 40px;
-                                display: flex;
-                                align-items: center;
-                                justify-content: center;
-                                text-align: center;
-                                transition: var(--md-sys-motion-duration-medium4) var(--md-sys-motion-easing-emphasized) translate;
-                            }
-                            .difference {
-                                translate: 0 0;
-                                // mix-blend-mode: difference;
-                                // color: var(--md-sys-color-on-surface);
-                            }
-                        }
-                    }
-                }
-            }
-            .overlay-background {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                border-radius: 24px;
-                transition: var(--md-sys-motion-duration-medium4) var(--md-sys-motion-easing-emphasized) background-color;
-                background-color: rgba(255,255,255,0.3);
-    
-                @media (prefers-color-scheme: dark) {
-                    background-color: rgba(0,0,0,0.35);
-                }
-            }
-
-            @media (pointer: fine) {
-                &:hover {
-                    .image-parallax-wrapper img {
-                        scale: 1 !important;
-                        filter: blur(0px);
-                    }
-                    .overlay {
-                        .plus-icon {
-                            rotate: 0deg;
-                            scale: 0;
-                            mix-blend-mode: normal;
-                            // color: var(--md-sys-color-on-surface);
-                        }
-                        .overlay-flex-container .content-beneath {
-                            gap: 20px;
-                            .lines-wrapper {
-                                width: 55px;
-                                .line-opaque {flex: 1}
-                                .line-difference {flex: 0}
-                            }
-                            .column-text-outer{
-                                .difference, .opaque {translate: 0 -40px;}
-                            }
-                        }
-                    }
-                    .overlay-background {
-                        background-color: rgba(255,255,255,0);
-    
-                        @media (prefers-color-scheme: dark) {
-                            background-color: rgba(0,0,0,0);
-                        }
-                    }
-                }
-            }
+        
+        @media (max-width: 560px) {
+            padding: 20px 20px 20px 20px;
         }
     }
 </style>
