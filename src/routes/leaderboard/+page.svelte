@@ -85,7 +85,6 @@
                         <circle cx="64.5" cy="26" r="3.5" fill="#1A0B00"/>
                         <circle cx="64.5" cy="6.5" r="3.5" transform="rotate(90 64.5 6.5)" fill="#1A0B00"/>
                     </svg>    
-                    <!--  -->
                     <div class="headline-small column-text-outer">
                         <div><i>{artist.name}</i></div>
                         <div><i>{artist.name}</i></div>
