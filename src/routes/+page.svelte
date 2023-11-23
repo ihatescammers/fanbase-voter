@@ -440,12 +440,6 @@
                         }
                     }
                 }
-                &:active {
-                    background: rgb(250, 239, 220);
-                    .text-wrapper .card-title .headline-small {
-                        background: rgb(250, 239, 220);
-                    }
-                }
             }
         }
         .second-column {
@@ -676,12 +670,6 @@
                         }
                     }
                 }
-                &:active {
-                    background: rgb(250, 239, 220);
-                    .text-wrapper .card-title .headline-small {
-                        background: rgb(250, 239, 220);
-                    }
-                }
             }
         }
     }
@@ -839,12 +827,6 @@
         //         }
         //         &:nth-of-type(odd):hover {.image-circle img:nth-child(2) {rotate: 15deg}}
         //         &:nth-of-type(even):hover {.image-circle img:nth-child(2) {rotate: -15deg}}
-        //     }
-        //     &:active {
-        //         background: rgb(250, 239, 220);
-        //         .text-wrapper .card-title .headline-small {
-        //             background: rgb(250, 239, 220);
-        //         }
         //     }
         // }
     // }

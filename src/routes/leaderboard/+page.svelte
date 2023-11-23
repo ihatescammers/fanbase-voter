@@ -123,11 +123,12 @@
         grid-template-columns: 1fr 1fr 1fr;
         gap: 40px 20px;
         place-items: center;
+        padding-bottom: 220px;
 
         .card {
             &:nth-of-type(3n - 2) {translate: 0 0}
-            &:nth-of-type(3n - 1) {translate: 0 75px}
-            &:nth-of-type(3n) {translate: 0 150px}
+            &:nth-of-type(3n - 1) {translate: 0 100px}
+            &:nth-of-type(3n) {translate: 0 200px}
 
             svg circle {
                 stroke: var(--beige);
@@ -374,12 +375,6 @@
                 }
                 // &:nth-of-type(odd):hover {.image-circle img:nth-child(2) {rotate: 15deg}}
                 // &:nth-of-type(even):hover {.image-circle img:nth-child(2) {rotate: -15deg}}
-            }
-            &:active {
-                background: rgb(250, 239, 220);
-                .text-wrapper .card-title .headline-small {
-                    background: rgb(250, 239, 220);
-                }
             }
         }
 </style>

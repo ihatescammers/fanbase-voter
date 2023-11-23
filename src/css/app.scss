@@ -262,12 +262,6 @@ html.lenis {height: auto; scroll-behavior: auto;}
             }
         }
     }
-    &:active {
-        background: rgb(250, 239, 220);
-        .text-wrapper .card-title .headline-small {
-            background: rgb(250, 239, 220);
-        }
-    }
 }
 
 @keyframes fade-in {
