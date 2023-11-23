@@ -77,16 +77,21 @@
             <div class="text-wrapper">
                 <div class="top-text label-small">no. {index + 1}</div>
                 <div class="card-title">
-                    <svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="128" height="128"/>
-                        <circle cx="64" cy="64.5" r="57.5" stroke="#1A0B00"/>
-                        <circle cx="64.5" cy="122" r="3.5" fill="#1A0B00"/>
-                        <circle cx="64.5" cy="102.5" r="3.5" fill="#1A0B00"/>
-                        <circle cx="64.5" cy="26" r="3.5" fill="#1A0B00"/>
-                        <circle cx="64.5" cy="6.5" r="3.5" transform="rotate(90 64.5 6.5)" fill="#1A0B00"/>
-                    </svg>    
-                    <!--  -->
-                    <div class="headline-small column-text-outer">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" height=128 width=128 viewBox="0 0 128 128" style="enable-background:new 0 0 128 128;" xml:space="preserve">
+                        <style type="text/css">
+                            .st0{fill:none;}
+                            .st1{fill:none;stroke:#FFF2E0;}
+                            .st2{fill:#FFF2E0;}
+                        </style>
+                        <rect x="0.2" y="-0.2" class="st0" width="128" height="128"/>
+                        <path class="st1" d="M23.6,23.6C34,13.2,48.4,6.8,64.2,6.8s30.3,6.4,40.7,16.8"/>
+                        <path class="st1" d="M104.9,104.9c-10.4,10.4-24.8,16.8-40.7,16.8s-30.3-6.4-40.7-16.8"/>
+                        <circle class="st2" cx="64.7" cy="121.8" r="3.5"/>
+                        <circle class="st2" cx="64.7" cy="102.3" r="3.5"/>
+                        <circle class="st2" cx="64.7" cy="25.8" r="3.5"/>
+                        <circle class="st2" cx="64.7" cy="6.3" r="3.5"/>
+                        </svg> 
+                    <div class="headline-medium column-text-outer">
                         <div><i>{artist.name}</i></div>
                         <div><i>{artist.name}</i></div>
                     </div>
@@ -276,7 +281,7 @@
                         text-align: center;
                         // background: var(--translucent-background);
                         // padding: 6px 0;
-                        height: 32px;
+                        height: 42px;
                         font-weight: 500;
                         i {font-weight: 600}
                         div {
