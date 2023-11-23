@@ -40,17 +40,6 @@
                     scrub: true
                 }
             })
-            gsap.utils.toArray('.about-container .subheading .subheading-text').forEach((elem) => {
-                gsap.to(elem, {
-                    y: 0,
-                    ease: "quint.out",
-                    duration: 0.75,
-                    scrollTrigger: {
-                        trigger: elem,
-                        start: 'top 90%',
-                    }
-                })
-            })
             gsap.utils.toArray('.about-container .inner-about-image').forEach((elem) => {
                 gsap.fromTo(elem, {
                     scale: 1.25,
@@ -66,17 +55,30 @@
                     }
                 })
             })
-            gsap.utils.toArray('.about-container .translate-100').forEach((elem, index) => {
-                gsap.to(elem, {
-                    y: 0,
-                    ease: "quint.out",
-                    duration: 1,
-                    delay: index * 0.025,
-                    scrollTrigger: {
-                        trigger: elem,
-                        start: 'top 90%',
-                    }
-                })
+
+        })
+        
+        gsap.utils.toArray('.about-container .subheading .subheading-text').forEach((elem) => {
+            gsap.to(elem, {
+                y: 0,
+                ease: "quint.out",
+                duration: 0.75,
+                scrollTrigger: {
+                    trigger: elem,
+                    start: 'top 90%',
+                }
+            })
+        })
+        gsap.utils.toArray('.about-container .translate-100').forEach((elem, index) => {
+            gsap.to(elem, {
+                y: 0,
+                ease: "quint.out",
+                duration: 1,
+                delay: index * 0.025,
+                scrollTrigger: {
+                    trigger: elem,
+                    start: 'top 90%',
+                }
             })
         })
 
