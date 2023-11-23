@@ -20,20 +20,11 @@
     // let goalPosition = 0;
     // let artistId;
     
-    onMount(() => {
-        // gsap.registerPlugin(CustomEase);
-        // gsap.registerPlugin(ScrollTrigger);
-        // gsap.registerPlugin(ScrollToPlugin);
-        // CustomEase.create("emphasized", "M0,0 C0.05,0 0.13333,0.06 0.16666,0.4 0.20833,0.82 0.25,1 1,1 ");
+    let currentTopArtistIndex = 0;
 
-        // ScrollTrigger.normalizeScroll(true);
-        
-        // let mn = gsap.matchMedia();
-    
-        // ScrollTrigger.refresh(true);
-        // setTimeout(() => {
-        //     ScrollTrigger.refresh(true);
-        // }, 150)
+    onMount(() => {
+        gsap.registerPlugin(CustomEase);
+        CustomEase.create("emphasized", "M0,0 C0.05,0 0.13333,0.06 0.16666,0.4 0.20833,0.82 0.25,1 1,1 ");
 
         // const lenis = new Lenis({
         //     lerp: 0.07,
@@ -49,12 +40,43 @@
         //     lenis.destroy();
         //     ScrollTrigger.killAll();
         // }
+        
+        let swapperFlag = true, lastValue = 0;
+        const artistInterval = setInterval(() => {
+            const tl = gsap.timeline();
+            tl.to('.top-artist-card', {
+                scale: 0.975,
+                filter: 'blur(15px)',
+                opacity: 0,
+                duration: 1,
+                ease: "quint.inOut",
+                onComplete: () => {
+                    if (swapperFlag) {
+                        currentTopArtistIndex = lastValue + 1;
+                        lastValue = currentTopArtistIndex;
+                    } else {
+                        currentTopArtistIndex = 0;
+                    }
+                    swapperFlag = !swapperFlag;
+                }
+            });
+            tl.to('.top-artist-card', {
+                scale: 1,
+                filter: 'blur(0px)',
+                opacity: 1,
+                duration: 1,
+                ease: "quint.inOut"
+            });
+        }, 7500)
 
         const interval = setInterval(() => {
             timeRemaining = getTimeRemaining();
         }, 1000);
 
-        return () => clearInterval(interval);
+        return () => {
+            clearInterval(interval)
+            clearInterval(artistInterval)
+        };
     })
 
     function getTimeRemaining() {
@@ -77,18 +99,18 @@
     $: timeRemaining = getTimeRemaining();
 </script>
 
-<section class="container">
+<section class="container relative">
     <div class="top-artist">
-        <a href="/artist/{data.leaderboard[0].id}" class="card">
+        <a href="/artist/{data.leaderboard[currentTopArtistIndex].id}" class="card top-artist-card">
             <div class="overlay-image">
                 <img src="https://static.vecteezy.com/system/resources/previews/022/012/091/original/grunge-dots-and-points-texture-background-abstract-grainy-overlay-graphic-illustration-with-transparent-background-png.png" alt="grain">
             </div>
             <div class="image-circle">
-                <img src="{data.leaderboard[0].backgroundImage}" alt="top artist">
+                <img src="{data.leaderboard[currentTopArtistIndex].backgroundImage}" alt="top artist">
                 <div class="glass">
                     <div>
-                        <span style="font-size: 48px">#</span>
-                        <span style="font-size: 64px">1</span>
+                        <span style="font-size: 48px"></span>
+                        <span style="font-size: 64px">{currentTopArtistIndex + 1}</span>
                     </div>
                 </div>
             </div>
@@ -97,10 +119,10 @@
                 <div class="card-title"> 
                     <div class="center-text-wrapper">
                         <div class="headline-small column-text-outer">
-                            <div><i>{data.leaderboard[0].name}</i></div>
-                            <div><i>{data.leaderboard[0].name}</i></div>
+                            <div><i>{data.leaderboard[currentTopArtistIndex].name}</i></div>
+                            <div><i>{data.leaderboard[currentTopArtistIndex].name}</i></div>
                         </div>
-                        <div class="small-caps-text">{data.leaderboard[0].votes} votes</div>
+                        <div class="small-caps-text">{data.leaderboard[currentTopArtistIndex].votes} votes</div>
                     </div>
                 </div>
                 <div class="bottom-text label-small">Awards</div>
@@ -167,6 +189,13 @@
             <div class="text-bottom playfair">remaining until next concert</div>
             <a class="text-bottom large-button" href="https://tickermaster.com">Purchase Tickets</a>
         </div>
+        <div class="small-caps-text text-center">
+            <div class="">
+                {#each [0] as bing}
+                <!-- ** INSERT ANIMATION HERE ** ** Join the <b class="text-xs">15918</b> voters by voting for your favourite artist! ** ** INSERT ANIMATION HERE ** -->
+                {/each}
+            </div>
+        </div>
         <div class="card bottom-card">
             <div class="overlay-image">
                 <img src="https://static.vecteezy.com/system/resources/previews/022/012/091/original/grunge-dots-and-points-texture-background-abstract-grainy-overlay-graphic-illustration-with-transparent-background-png.png" alt="grain">
@@ -174,7 +203,7 @@
             <div class="text-wrapper">
                 <div class="top-text label-small">What are the stan awards?</div>
                 <div class="card-title">
-                    <a href="/about" class="large-button inverse">About Stan Awards</a>
+                    <a href="/about" class="large-button">About Stan Awards</a>
                 </div>
                 <div class="bottom-text label-small"><a href="/categories">Explore our categories</a></div>
                 <div class="dots">
@@ -211,8 +240,19 @@
                 align-items: center;
             }
 
+            .card svg circle {
+                stroke: var(--beige);
+                &[fill] {
+                    fill: var(--beige);
+                }
+            }
+            .card div.text-wrapper div.dots div.dot {
+                &:nth-child(1) {border-color: var(--beige)}
+                &:nth-child(2) {background-color: var(--beige)}
+            }
+
             .card {
-                background-color: var(--beige);
+                background-color: var(--translucent-background);
                 max-width: 100%;
                 display: flex;
                 flex-flow: column nowrap;
@@ -222,7 +262,7 @@
                 cursor: pointer;
                 text-decoration: none;
                 border-radius: 250px 250px 4px 4px;
-                color: var(--text);
+                color: var(--beige);
                 
                 &.bottom-card {
                     border-radius: 4px 4px 4px 48px;
@@ -264,7 +304,7 @@
                 }
 
                 .text-wrapper {
-                    color: var(--dark-text);
+                    color: var(--beige);
                     display: flex;
                     flex-flow: column nowrap;
                     min-height: 180px;
@@ -272,7 +312,7 @@
                     justify-content: space-between;
                     box-sizing: border-box;
                     padding-top: 18px;
-                    padding: 24px 0 6px 0;
+                    padding: 6px 0 6px 0;
                     width: 100%;
                     height: 100%;
                     justify-content: space-between;
@@ -290,7 +330,7 @@
                             translate: -50% -50%;
                             width: 90%;
                             text-align: center;
-                            background: var(--beige);
+                            // background: var(--beige);
                             // padding: 6px 0;
                             height: 32px;
                             font-weight: 500;
@@ -330,7 +370,7 @@
                     flex-shrink: 0;
                     position: relative;
                     aspect-ratio: 1;
-                    scale: 1.095; // 1.1 was the estimated match
+                    scale: 0.95; // 1.1 was the estimated match
                     // overflow: hidden;
                     border-radius: 50%;
                     img {
@@ -339,7 +379,7 @@
                         object-fit: cover;
                         box-sizing: border-box;
                         border-radius: 50%;
-                        border: 15px solid var(--background);
+                        // border: 15px solid var(--background);
                         position: absolute;
                         top: 0;
                         left: 0;
@@ -437,7 +477,7 @@
             }
 
             .card {
-                background-color: var(--beige);
+                background-color: var(--translucent-background);
                 max-width: 100%;
                 display: flex;
                 flex-flow: column nowrap;
@@ -446,8 +486,19 @@
                 transition: border-radius var(--hover-transition);
                 text-decoration: none;
                 border-radius: 250px 250px 4px 48px;
-                color: var(--text);
-                a {color: var(--dark-text); &:hover {text-decoration: underline;}}
+                color: var(--beige);
+                a {color: var(--beige); &:hover {text-decoration: underline;}}
+
+                svg circle {
+                    stroke: var(--beige);
+                    &[fill] {
+                        fill: var(--beige);
+                    }
+                }
+                div.text-wrapper div.dots div.dot {
+                    &:nth-child(1) {border-color: var(--beige)}
+                    &:nth-child(2) {background-color: var(--beige)}
+                }
                 
                 &.bottom-card {
                     border-radius: 4px 4px 48px 4px;
@@ -489,7 +540,7 @@
                 }
 
                 .text-wrapper {
-                    color: var(--dark-text);
+                    color: var(--beige);
                     display: flex;
                     flex-flow: column nowrap;
                     min-height: 180px;

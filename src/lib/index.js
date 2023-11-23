@@ -39,6 +39,7 @@ export const getOrderedArtists = async () => {
     try {
         const q = query(collection(db, 'artists'), orderBy("votes", "desc"));
         const artists = await getDocs(q);
+
         return artists.docs.map(artist => ({
             id: artist.id,
             name: artist.data().name,

@@ -3,6 +3,8 @@
     import gsap from "gsap";
     import CustomEase from "gsap/dist/CustomEase";
     import { voted } from "$lib/auth.js";
+    import Lenis from '@studio-freight/lenis';
+    
 
     export let data;
 
@@ -10,23 +12,24 @@
         gsap.registerPlugin(CustomEase);
         CustomEase.create("emphasized", "M0,0 C0.05,0 0.13333,0.06 0.16666,0.4 0.20833,0.82 0.25,1 1,1 ");
         
-        const mtl = gsap.timeline();
-        mtl.to('.leaderboard-artist .profile-picture', {
-            scale: 1, 
-            ease: "elastic.out(1, 0.5)",
-            duration: 1,
-            stagger: 0.075
-        }, "<+=0.25")
-        mtl.to('.leaderboard-artist .name, .leaderboard-artist .leaderboard-position, .leaderboard-artist .votes', {
-            y: 0,
-            duration: 1,
-            ease: "emphasized",
-            stagger: 0.025
-        }, "<")
 
         setTimeout(() => {
             document.documentElement.scrollTop = 0;
         }, 10)
+
+
+        const tl = gsap.timeline();
+
+        const lenis = new Lenis({});
+        function raf(time) {
+            lenis.raf(time)
+            requestAnimationFrame(raf)
+        }
+        requestAnimationFrame(raf)
+
+        return () => {
+            lenis.destroy();
+        }
     })
 
     </script>
@@ -119,6 +122,17 @@
             &:nth-of-type(3n - 2) {translate: 0 0}
             &:nth-of-type(3n - 1) {translate: 0 75px}
             &:nth-of-type(3n) {translate: 0 150px}
+
+            svg circle {
+                stroke: var(--beige);
+                &[fill] {
+                    fill: var(--beige);
+                }
+            }
+            div.text-wrapper div.dots div.dot {
+                &:nth-child(1) {border-color: var(--beige)}
+                &:nth-child(2) {background-color: var(--beige)}
+            }
         }
         @media (max-width: 1200px) {
             grid-template-columns: 1fr 1fr;
@@ -220,7 +234,7 @@
     //     }
     // }
     .card {
-            background-color: var(--beige);
+            background-color: var(--translucent-background);
             // aspect-ratio: 4/7;
             max-width: 100%;
             max-height: 100%;
@@ -234,7 +248,7 @@
             border-radius: 250px 250px 4px 48px;
 
             .text-wrapper {
-                color: var(--dark-text);
+                color: var(--beige);
                 display: flex;
                 flex-flow: column nowrap;
                 min-height: 225px;
@@ -259,7 +273,7 @@
                         translate: -50% -50%;
                         width: 100%;
                         text-align: center;
-                        background: var(--beige);
+                        // background: var(--translucent-background);
                         // padding: 6px 0;
                         height: 32px;
                         font-weight: 500;
@@ -298,7 +312,7 @@
                 width: 100%;
                 position: relative;
                 aspect-ratio: 1;
-                scale: 1.095; // 1.1 was the estimated match
+                scale: 0.95; // 1.1 was the estimated match
                 // overflow: hidden;
                 border-radius: 50%;
                 img {
@@ -307,7 +321,7 @@
                     object-fit: cover;
                     box-sizing: border-box;
                     border-radius: 50%;
-                    border: 15px solid var(--background);
+                    // border: 15px solid var(--background);
                     position: absolute;
                     top: 0;
                     left: 0;

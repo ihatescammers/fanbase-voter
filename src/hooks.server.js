@@ -231,4 +231,6 @@ const artists = [
 //     console.log(`Error adding batch of documents: ${e}`);
 // }
 
+// iterate through all artists, and add their votes to one total votes variable
+
 

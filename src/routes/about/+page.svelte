@@ -112,19 +112,16 @@
             y: 0,
             ease: "quint.out",
             duration: 1,
-        })
-        tl.to('.loader', {
-            opacity: 0,
-            display: 'none',
             onComplete: () => {
                 loaded = true;
+                tl.set('.loader', {display: 'none'})
             }
-        }, "<+=0.5")
+        })
     }
 </script>
 
 <div class="about-container w-full flex flex-col items-center relative {loaded ? '' : 'h-screen overflow-hidden'}">
-    <div class="loader absolute w-full h-screen top-0 left-0 z-10 background text-beige flex items-center justify-center flex-col gap-3">
+    <div class="loader absolute w-full h-screen top-0 left-0 z-10 flex items-center justify-center flex-col gap-3">
         <div class="bar-container h-1 rounded-full overflow-hidden w-64 flex">
             <div class="transparent-bar"></div>
             <div class="beige-bar beige"></div>
@@ -133,7 +130,7 @@
             <h1 class="display-large playfair relative z-1 text-center" style="translate: 0 100%">{@html data.about.title}</h1>
         </div>
     </div>
-    <div class="flex flex-wrap w-full h-screen flex-shrink-0 items-center justify-center relative overflow-hidden">
+    <div class="flex flex-wrap w-full h-screen flex-shrink-0 items-center justify-center relative overflow-hidden {loaded ? '' : 'opacity-0'} transition-opacity duration-500">
         <img class="backgroundimage object-cover h-screen w-full absolute top-0 left-0" 
             style="filter: blur(0px) brightness(0.33)" src="{data.about.backgroundimage}" alt="concert">
         <h1 class="display-large playfair relative z-1 drop-shadow-md text-center">{@html data.about.title}</h1>
