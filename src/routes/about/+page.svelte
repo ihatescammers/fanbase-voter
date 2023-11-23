@@ -28,43 +28,58 @@
         }
         requestAnimationFrame(raf)
 
-
-        gsap.to('.about-container .backgroundimage', {
-            scale: 1.25,
-            filter: 'blur(20px) brightness(0.33)',
-            scrollTrigger: {
-                trigger: '.about-container .backgroundimage',
-                start: 'top top',
-                end: 'bottom top',
-                scrub: true
-            }
-        })
-        gsap.utils.toArray('.about-container .subheading .subheading-text').forEach((elem) => {
-            gsap.to(elem, {
-                y: 0,
-                ease: "quint.out",
-                duration: 0.75,
-                scrollTrigger: {
-                    trigger: elem,
-                    start: 'top 90%',
-                }
-            })
-        })
-        gsap.utils.toArray('.about-container .inner-about-image').forEach((elem) => {
-            gsap.fromTo(elem, {
+        let mn = gsap.matchMedia();
+        mn.add("(pointer: fine)", () => {
+            gsap.to('.about-container .backgroundimage', {
                 scale: 1.25,
-                yPercent: -12.5
-            }, {
-                scale: 1.25,
-                yPercent: 12.5,
+                filter: 'blur(20px) brightness(0.33)',
                 scrollTrigger: {
-                    trigger: elem,
-                    start: 'top bottom',
+                    trigger: '.about-container .backgroundimage',
+                    start: 'top top',
                     end: 'bottom top',
                     scrub: true
                 }
             })
+            gsap.utils.toArray('.about-container .subheading .subheading-text').forEach((elem) => {
+                gsap.to(elem, {
+                    y: 0,
+                    ease: "quint.out",
+                    duration: 0.75,
+                    scrollTrigger: {
+                        trigger: elem,
+                        start: 'top 90%',
+                    }
+                })
+            })
+            gsap.utils.toArray('.about-container .inner-about-image').forEach((elem) => {
+                gsap.fromTo(elem, {
+                    scale: 1.25,
+                    yPercent: -12.5
+                }, {
+                    scale: 1.25,
+                    yPercent: 12.5,
+                    scrollTrigger: {
+                        trigger: elem,
+                        start: 'top bottom',
+                        end: 'bottom top',
+                        scrub: true
+                    }
+                })
+            })
+            gsap.utils.toArray('.about-container .translate-100').forEach((elem, index) => {
+                gsap.to(elem, {
+                    y: 0,
+                    ease: "quint.out",
+                    duration: 1,
+                    delay: index * 0.025,
+                    scrollTrigger: {
+                        trigger: elem,
+                        start: 'top 90%',
+                    }
+                })
+            })
         })
+
 
         return () => {
             lenis.destroy();
@@ -146,22 +161,26 @@
                 <div class="flex flex-col gap-1.5">
                     <ul class="flex flex-col gap-1">
                         {#each data.about.footer.sponsors as sponsor, index}
-                        <li class="{index === 0 ? 'playfair title-large pb-1.5 font-bold': 'pl-0'}">{sponsor}</li>
+                        <li class="column-text-outer {index === 0 ? 'playfair title-large pb-1.5 font-bold': 'pl-0'}">
+                            <div class="translate-100">{sponsor}</div>
+                        </li>
                         {/each}
                     </ul>
                 </div>
                 <div class="flex flex-col gap-1.5 sm:w-1/4">
                     <ul class="flex flex-col gap-1">
-                        <li class="playfair title-large pb-1.5 font-bold">Links:</li>
-                        <li><a href="/" class="font-semibold pl-0 hover:underline">Home</a></li>
-                        <li><a href="/leaderboard" class="font-semibold pl-0 hover:underline">Leaderboard</a></li>
-                        <li><a href="/categories" class="font-semibold pl-0 hover:underline">Categories</a></li>
-                        <li><a href="/concerts" class="font-semibold pl-0 hover:underline">Concerts</a></li>
-                        <li><a href="/shop" class="font-semibold pl-0 hover:underline">Shop</a></li>
+                        <li class="playfair column-text-outer title-large pb-1.5 font-bold"><div class="translate-100">Links:</div></li>
+                        <li class="column-text-outer"><div class="translate-100"><a href="/" class="font-semibold pl-0 hover:underline">Home</a></div></li>
+                        <li class="column-text-outer"><div class="translate-100"><a href="/leaderboard" class="font-semibold pl-0 hover:underline">Leaderboard</a></div></li>
+                        <li class="column-text-outer"><div class="translate-100"><a href="/categories" class="font-semibold pl-0 hover:underline">Categories</a></div></li>
+                        <li class="column-text-outer"><div class="translate-100"><a href="/concerts" class="font-semibold pl-0 hover:underline">Concerts</a></div></li>
+                        <li class="column-text-outer"><div class="translate-100"><a href="/shop" class="font-semibold pl-0 hover:underline">Shop</a></div></li>
                     </ul>
                 </div>
             </div>
-            <div class="title-medium playfair relative z-10">Copyright &copy; <i>Stan Awards</i> {currentYear}. All Rights Reserved.</div>
+            <div class="title-medium playfair relative z-10 column-text-outer">
+                <div class="translate-100">Copyright &copy; <i>Stan Awards</i> {currentYear}. All Rights Reserved.</div>
+            </div>
             <div class="w-full h-0.5 background opacity-10 relative z-10"></div>
             <div class="flex gap-9 items-end hidden lg:flex">
                 <div class="font-bold text-7xl lg:text-[210px]">Stan</div>
