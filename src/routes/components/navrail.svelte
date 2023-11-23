@@ -125,6 +125,9 @@
 <div class="navrail-filler"></div> -->
 
 <nav class="nav-drawer playfair {menuOpened ? 'opened' : ''}">
+  <div class="absolute top-0 left-0 w-full h-full z-0 opacity-10 pointer-events-none">
+    <img class="blur-2xl object-cover h-full w-full" src="https://as1.ftcdn.net/v2/jpg/01/40/12/92/1000_F_140129299_rdGmmAN13sm04eJchcULL3Szt5BJ7bVp.jpg" alt="concert background">
+  </div>
   <button class="close-button" on:click={openMenu}><span class="material-symbols-outlined">close</span></button>
   <div class="top">
     <a href="/" class="title playfair title-large">Stan <i>Awards</i></a>
@@ -276,6 +279,9 @@
       padding: 0 20px;
       box-sizing: border-box;
       font-family: 'Playfair Display';
+      position: sticky;
+      top: 0;
+      z-index: 1;
       a {display: block}
       .menu-button {
         all: unset;
