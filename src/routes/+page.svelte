@@ -167,7 +167,7 @@
             <div class="text-bottom playfair">remaining until next concert</div>
             <a class="text-bottom large-button" href="https://tickermaster.com">Purchase Tickets</a>
         </div>
-        <a class="card bottom-card">
+        <div class="card bottom-card">
             <div class="overlay-image">
                 <img src="https://static.vecteezy.com/system/resources/previews/022/012/091/original/grunge-dots-and-points-texture-background-abstract-grainy-overlay-graphic-illustration-with-transparent-background-png.png" alt="grain">
             </div>
@@ -182,7 +182,7 @@
                     <div class="dot"></div>
                 </div>
             </div>
-        </a>
+        </div>
     </div>
 </section>
 
