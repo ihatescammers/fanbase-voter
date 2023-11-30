@@ -1,4 +1,4 @@
-import { writeBatch, doc, collection } from "firebase/firestore";
+import { writeBatch, getDocs, doc, collection, addDoc, updateDoc } from "firebase/firestore";
 import { app, db  } from "./lib/index.js";
 
 // try {
@@ -214,23 +214,88 @@ const artists = [
     },
 ]
 
-// use a batch to perform multiple operations
-// const batch = writeBatch(db);
 
-// // add each object in the array to the batch
-// artists.forEach((artist) => {
-//     const docRef = doc(collection(db, "artists"));
-//     batch.set(docRef, artist);
-// })
+// const updateAllUsers = async () => {
+//     const usersRef = collection(db, "users");
+//     const usersSnapshot = await getDocs(usersRef);
+//     const batch = writeBatch(db);
+//     usersSnapshot.forEach((userDoc) => {
+//         const userRef = doc(db, "users", userDoc.id);
+//         batch.update(userRef, {
+//             votesRemaining: 1,
+//             purchases: 0
+//         });
+//     });
+//     try {
+//         await batch.commit();
+//         console.log("All users updated with 'votesRemaining' property set to 1");
+//     } catch (e) {
+//         console.log(`Error updating users: ${e}`);
+//     }
 
-// // commit the batch
-// try {
-//     await batch.commit();
-//     console.log('Batch of documents added successfully');
-// } catch(e) {
-//     console.log(`Error adding batch of documents: ${e}`);
 // }
 
-// iterate through all artists, and add their votes to one total votes variable
+// updateAllUsers();
 
+
+// create a collection called "categories" and fill it with an array of strings
+
+// const createCategories = async () => {
+//   // Define the array of strings
+//   const categories = [
+//     "Artist of the Year",
+//     "New Artist of the Year",
+//     "Collaboration of the Year",
+//     "Favorite Touring Artist",
+//     "Favorite Music Video",
+//     "Favorite Male Pop Artist",
+//     "Favorite Female Pop Artist",
+//     "Favorite Pop Duo or Group",
+//     "Favorite Pop Album",
+//     "Favorite Pop Song",
+//     "Favorite Male Country Artist",
+//     "Favorite Female Country Artist",
+//     "Favorite Country Duo or Group",
+//     "Favorite Country Album",
+//     "Favorite Country Song",
+//     "Favorite Male Hip-Hop Artist",
+//     "Favorite Female Hip-Hop Artist",
+//     "Favorite Hip-Hop Album",
+//     "Favorite Hip-Hop Song",
+//     "Favorite Male R&B Artist",
+//     "Favorite Female R&B Artist",
+//     "Favorite R&B Album",
+//     "Favorite R&B Song",
+//     "Favorite Male Latin Artist",
+//     "Favorite Female Latin Artist",
+//     "Favorite Latin Duo or Group",
+//     "Favorite Latin Album",
+//     "Favorite Latin Song",
+//     "Favorite Rock Artist",
+//     "Favorite Rock Song",
+//     "Favorite Rock Album",
+//     "Favorite Inspirational Artist",
+//     "Favorite Gospel Artist",
+//     "Favorite Dance/Electronic Artist",
+//     "Favorite Soundtrack",
+//     "Favorite Afrobeats Artist",
+//     "Favorite K-Pop Artist"
+//   ];
+  
+
+//   try {
+//         // select the document with the key: categories and update it to the new value
+//         const docRef = doc(db, "categories", "categories");
+//         await updateDoc(docRef, {
+//             categories: categories
+//         });
+//         console.log("Document updated successfully!");
+//     } 
+//     catch (e) {
+//         console.log(`Error adding categories to collection: ${e}`);
+//     }
+// };
+
+// // Call the function to create categories
+// createCategories();
 

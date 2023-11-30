@@ -21,8 +21,11 @@
     // let artistId;
     
     let currentTopArtistIndex = 0;
+    let mounted = false;
 
     onMount(() => {
+        mounted = true;
+
         gsap.registerPlugin(CustomEase);
         CustomEase.create("emphasized", "M0,0 C0.05,0 0.13333,0.06 0.16666,0.4 0.20833,0.82 0.25,1 1,1 ");
 
@@ -40,6 +43,13 @@
         //     lenis.destroy();
         //     ScrollTrigger.killAll();
         // }
+
+        // gsap.to('.circle, .text-bottom', {
+        //     scale: 1,
+        //     stagger: 0.1,
+        //     duration: 0.75,
+        //     ease: 'emphasized'
+        // })
         
         let swapperFlag = true, lastValue = 0;
         const artistInterval = setInterval(() => {
@@ -52,7 +62,8 @@
                 ease: "quint.inOut",
                 onComplete: () => {
                     if (swapperFlag) {
-                        currentTopArtistIndex = lastValue + 1;
+                        currentTopArtistIndex = Math.min(lastValue + 1, data.leaderboard.length - 1);
+                        lastValue + 1 === data.leaderboard.length && (currentTopArtistIndex = 0);
                         lastValue = currentTopArtistIndex;
                     } else {
                         currentTopArtistIndex = 0;
@@ -457,6 +468,7 @@
                 flex: auto;
                 gap: 0px;
                 .flex-center-container {gap: 15px;}
+                position: relative;
                 
                 .circle {
                     width: 120px;
@@ -464,6 +476,7 @@
                     border-radius: 50%;
                     border: 2px dashed var(--beige);
                     gap: 7px;
+                    filter: drop-shadow(0 0 0.75rem crimson);
                 }
                 .text-bottom {
                     margin-top: 20px;

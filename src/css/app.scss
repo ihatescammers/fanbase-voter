@@ -20,6 +20,8 @@
     --translucent-background: rgba(217, 217, 217, 0.15);
     --translucent-foreground: rgba(255, 242, 224, 0.75);
     --hover-transition: 1s cubic-bezier(0.77, 0, 0.175, 1);
+
+    --md-ripple-hover-color: var(--md-sys-color-primary);
 }
 
 .text-beige {color: var(--beige) !important}
@@ -27,6 +29,13 @@
 .beige {background-color: var(--beige) !important}
 .background {background-color: var(--background) !important}
 .translucent-background {background-color: var(--translucent-background) !important}
+.translucent-foreground {background-color: var(--translucent-foreground) !important}
+.translucent-background-hover:hover {
+    background-color: var(--translucent-foreground) !important
+}
+.translucent-foreground-hover:hover {
+    background-color: var(--translucent-background) !important
+}
 
 .translate-100 {
     translate: 0 100%;

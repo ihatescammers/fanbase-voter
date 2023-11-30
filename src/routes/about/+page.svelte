@@ -180,7 +180,7 @@
             <div class="title-medium playfair relative z-10 column-text-outer">
                 <div class="translate-100">Copyright &copy; <i>Stan Awards</i> {currentYear}. All Rights Reserved.</div>
             </div>
-            <div class="w-full h-0.5 background opacity-10 relative z-10"></div>
+            <div class="w-full h-0.5 beige opacity-10 relative z-10"></div>
             <div class="flex gap-9 items-end hidden lg:flex">
                 <div class="font-bold text-7xl lg:text-[210px]">Stan</div>
                 <div class="font-bold text-7xl italic playfair">Awards</div>

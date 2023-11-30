@@ -1,12 +1,21 @@
-// import { getOrderedArtists } from '$lib/index.js';
+import { collection, query, getDocs, orderBy } from 'firebase/firestore';
+import { db } from '$lib';
 
-// const artists = getOrderedArtists();
+export async function load() {
+    try {
+        const q = query(collection(db, 'artists'), orderBy("votes", "desc"));
+        const artists = await getDocs(q);
 
-// export function load({ url, setHeaders }) {
-//     return {
-//         url: url.pathname,
-//         leaderboard: artists
-//     }
-// }
-
-// removed this as its being provided in the layout.server.js file
+        return {
+            leaderboard: artists.docs.map(artist => ({
+                            id: artist.id,
+                            name: artist.data().name,
+                            votes: artist.data().votes,
+                            backgroundImage: artist.data().backgroundImage,
+                        })),
+        }
+    } catch(e) {
+        console.log(`Error fetching artists: ${e}`);
+        return;
+    }
+}
