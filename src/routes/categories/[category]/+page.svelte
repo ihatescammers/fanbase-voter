@@ -7,6 +7,7 @@
     import { getAuth, signInWithRedirect, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
     import { app, updateArtistVotes } from "$lib";
     import { user, voted, setVoted, additionalUserInfo } from "$lib/auth.js";
+    import {enhance} from "$app/forms";
 
     export let data;
 
@@ -65,9 +66,9 @@
         setTimeout(closeVotingModal, 1500)
     }
 
-    console.log($additionalUserInfo)
-
     let shopModalOpen = false;
+    let shopSelectedVotes;
+    $: shopTotal = shopSelectedVotes * 1.49;
     function openShopModal() {
         shopModalOpen = true;
     }
@@ -180,6 +181,28 @@
     <div in:fly={{duration: 350, y: 10, ease: cubicOut}} out:fade={{duration: 150}} class="w-11/12 w-[75%] min-h-[450px] z-30 fixed top-1/2 left-1/2 text-center -translate-y-1/2 
     -translate-x-1/2 translucent-foreground text-black rounded-2xl p-6 flex flex-col gap-6 items-center">
         <h1 class="headline-large playfair">Purchase <i>votes</i></h1>
+        <form class="flex flex-col gap-3 h-full flex-auto" action="?/purchaseVotes" method="post" use:enhance on:submit={() => {setTimeout(() => {closeShopModal(); location.reload()}, 1500)}}>
+            <div class="flex items-center gap-3 w-full">
+                <input class="w-full p-3 translucent-foreground rounded-2xl" type="number" bind:value={shopSelectedVotes} name="votesAmount" placeholder="Amount of Votes" />
+            </div>
+            <input type="hidden" name="uid" value={$user?.uid}>
+            <input class="w-full p-3 translucent-foreground rounded-2xl" type="number" placeholder="Card Number" />
+            <div class="flex items-center gap-3 w-full">
+                <input class="w-full p-3 translucent-foreground rounded-2xl" type="number" placeholder="Expires..." />
+                <input class="w-full p-3 translucent-foreground rounded-2xl" type="number" placeholder="CVC" />
+            </div>
+            <div class="flex-auto flex items-end justify-between">
+                <div class="text-2xl font-semibold">
+                    {shopSelectedVotes && shopSelectedVotes > 3 ? shopSelectedVotes : 3} votes
+                </div>
+                <div class="text-2xl font-semibold">
+                    ${shopSelectedVotes && shopSelectedVotes > 3 ? shopSelectedVotes * 0.75 : 3 * 0.75}
+                </div>
+            </div>
+            <button type="submit" class="w-full h-12 rounded-full border border-black flex items-center justify-center playfair">
+                Checkout
+            </button>
+        </form>
     </div>
 {/if}
 

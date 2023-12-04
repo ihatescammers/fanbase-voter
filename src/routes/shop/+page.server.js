@@ -1,6 +1,6 @@
 import { getDoc, addDoc, collection, doc, deleteDoc, query, getDocs, orderBy, updateDoc } from 'firebase/firestore';
 import { app, db } from '$lib';
-import { additionalUserInfo } from '../../../lib/auth.js';
+import { additionalUserInfo } from '$lib/auth.js';
 
 export const actions = {
     purchaseVotes: async ({ request }) => {

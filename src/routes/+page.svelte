@@ -218,7 +218,7 @@
                 <img src="https://static.vecteezy.com/system/resources/previews/022/012/091/original/grunge-dots-and-points-texture-background-abstract-grainy-overlay-graphic-illustration-with-transparent-background-png.png" alt="grain">
             </div>
             <div class="text-wrapper">
-                <div class="top-text label-small">What are the stan awards?</div>
+                <a href="/shop" class="top-text label-small">Visit the shop</a>
                 <div class="card-title">
                     <a href="/about" class="large-button">About Stan Awards</a>
                 </div>

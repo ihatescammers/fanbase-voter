@@ -32,7 +32,10 @@ user.subscribe(async (changedUser) => {
 
         if (userSnap.exists()) { // document exists, access its data
             console.log('This user exists')
-            additionalUserInfo.set(userSnap.data());
+            additionalUserInfo.set({
+                ...userSnap.data(),
+                id: userSnap.id
+            });
             if (!userSnap.data().votedIn || userSnap.data().votedIn.length === 0) {
                 // user has not voted
                 voted.set([]);
@@ -66,7 +69,7 @@ user.subscribe(async (changedUser) => {
 let votedInValue;
 voted.subscribe((changedVoted) => {
     votedInValue = changedVoted;
-    console.log(changedVoted)
+    // console.log(changedVoted)
 })
 
 export const setVoted = async (category) => {
