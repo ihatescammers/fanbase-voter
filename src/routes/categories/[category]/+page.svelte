@@ -67,7 +67,7 @@
 
     console.log($additionalUserInfo)
 
-    let shopModalOpen = true;
+    let shopModalOpen = false;
     function openShopModal() {
         shopModalOpen = true;
     }
@@ -184,7 +184,6 @@
 {/if}
 
 <style lang="scss">
-    // sd
     .container {
         height: 100%;
         width: 100%;
