@@ -2,6 +2,7 @@
     import { fade, fly } from "svelte/transition";
     import {enhance} from "$app/forms";
     import {user} from '$lib/auth.js';
+    import { cubicOut } from "svelte/easing";
 
     let shopModalOpen = false;
     let shopSelectedVotes = 0;
