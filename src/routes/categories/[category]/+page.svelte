@@ -141,10 +141,10 @@
     -translate-x-1/2 translucent-foreground text-black rounded-2xl p-6 flex flex-col gap-6 items-center z-20">
         {#if $voted.includes(category) && $additionalUserInfo.paidVotesRemaining <= 0}
         <h2 class="text-2xl playfair">Purchase more votes</h2>
-        <p class="text-center">Do you want to vote for {selectedArtist?.name} as {category}?</p>
+        <p>You have already voted in this category. Purchase additional votes to vote for this fanbase again.</p>
         {:else}
         <h2 class="text-2xl playfair">Vote for {selectedArtist?.name}</h2>
-        <p>You have already voted in this category. Purchase additional votes to vote for this fanbase again.</p>
+        <p>Do you want to vote for {selectedArtist?.name} as {category}?</p>
         {/if}
         <div class="flex-auto"></div>
         {#if $user !== null}
