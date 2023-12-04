@@ -1,21 +1,32 @@
-<div class="container">
-    <h1 class="display-large playfair ">The <i>Award Categories</i></h1>
-    <p class="body-large">Coming soon...</p>
-</div>
+<script>
+    import { onMount } from 'svelte';
+    import Lenis from '@studio-freight/lenis';
 
-<style lang="scss">
-    .container {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        flex-flow: column nowrap;
-        align-items: center;
-        justify-content: center;
-        gap: 25px;
+    export let data;
 
-        h1, p {
-            margin: 0;
-            padding: 0;
+    onMount(() => {
+        const lenis = new Lenis({});
+        function raf(time) {
+            lenis.raf(time)
+            requestAnimationFrame(raf)
         }
-    }
-</style>
+        requestAnimationFrame(raf)
+
+        return () => {
+            lenis.destroy();
+        }
+    })
+</script>
+
+<div class="w-full h-full flex flex-col gap-3 p-3">
+    <div class="w-full flex-shrink-0 flex flex-col p-3 h-1/3 items-center justify-center">
+        <h1 class="display-large playfair italic">The Award Categories</h1>
+        <h2 class="title-large pt-1 playfair italic">Vote for your favourite fanbases!</h2>
+    </div>
+    {#each data.categories as category}
+    <a href="/categories/{category}" class="w-full flex-shrink-0 flex flex-col items-center justify-center p-3 h-1/2 translucent-background rounded-lg">
+        <h1 class="headline-large playfair italic">{category}</h1>
+    </a>
+    {/each}
+    <div class="h-px flex-shrink-0"></div>
+</div>

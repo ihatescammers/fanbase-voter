@@ -65,7 +65,7 @@
   const handleSignIn = () => {
       if (loggedIn) return;
       const auth = getAuth(app);
-      signInWithRedirect(auth, new GoogleAuthProvider())
+      signInWithPopup(auth, new GoogleAuthProvider())
     }
 
   const logout = async () => {
@@ -144,14 +144,14 @@
   </div>
   <div class="bot">
     {#if loggedIn}
-    <a href="/profile" class="full-width-button profile-button">
+    <a class="cursor-pointer full-width-button profile-button" on:click={logout}>
       <img src={$user.photoURL} alt="profile">
       {$user.displayName}
       <div class="filler"></div>
       <span class="material-symbols-outlined">settings</span>
     </a>
     {:else}
-    <a class="full-width-button profile-button">
+    <a class="full-width-button profile-button" on:click={handleSignIn}>
       <span class="material-symbols-outlined">account_circle</span>
       Login
     </a>

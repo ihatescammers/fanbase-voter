@@ -4,7 +4,8 @@ import { getDoc, setDoc, doc, getDocs } from 'firebase/firestore';
 import { app, db } from './index.js';
 
 export const user = writable(null); 
-export const voted = writable(false);
+export const voted = writable([]);
+export const additionalUserInfo = writable(null);
 
 const auth = getAuth(app);
 onAuthStateChanged(auth, (newUser) => {
@@ -31,39 +32,57 @@ user.subscribe(async (changedUser) => {
 
         if (userSnap.exists()) { // document exists, access its data
             console.log('This user exists')
-            if (userSnap.data().votedFor == '') {
+            additionalUserInfo.set(userSnap.data());
+            if (!userSnap.data().votedIn || userSnap.data().votedIn.length === 0) {
                 // user has not voted
-                voted.set(false);
+                voted.set([]);
                 console.log(`${changedUser.displayName} has not yet voted.`);
                 // Use setDoc with merge option to create a document if it does not exist
-                const updatedUser = await setDoc(docRef, {
-                    votedFor: ''
-                }, { merge: true })
+                const updatedUser = await updateDoc(docRef, {
+                    votedIn: [],
+                    paidVotesRemaining: 0,
+                    purchases: 0
+                })
             }
             else {  
                 // user has already voted
-                voted.set(true);
-                console.log(`${changedUser.displayName} has voted for ${userSnap.data().votedFor}`)
+                voted.set([...userSnap.data().votedIn]);
+                console.log(`${changedUser.displayName} has voted for ${userSnap.data().votedIn}`)
             }
         } 
         else { 
             // document doesnt exist, create a new one with default values
-            voted.set(false);
+            voted.set([]);
             console.log(`${changedUser.displayName} has not yet voted.`);
             const updatedUser = await setDoc(docRef, {
-                votedFor: ''
+                votedIn: [],
+                paidVotesRemaining: 0,
+                purchases: 0
             })
         }
     }
 });
 
-export const setVoted = async (artistID) => {
+let votedInValue;
+voted.subscribe((changedVoted) => {
+    votedInValue = changedVoted;
+    console.log(changedVoted)
+})
+
+export const setVoted = async (category) => {
+    console.log("current VotedIn value:", votedInValue)
     try {
         const userRef = doc(db, "users", userValue.uid);
+        votedInValue.push(category);
+        votedInValue = votedInValue;
         await setDoc(userRef, {
-            votedFor: artistID
+            votedIn: votedInValue
         }, { merge: true });
-        user.update(u => u); // reinstantiate user value to call the subscribe method on user again
+        setTimeout(() => {
+            user.update(u => u); // reinstantiate user value to call the subscribe method on user again
+            voted.set(votedInValue);
+        }, 1500)
+        console.log(`User ${userValue.displayName} voted for ${category}`)
     } catch(e) {
         console.log(e)
     }
@@ -71,24 +90,23 @@ export const setVoted = async (artistID) => {
 
 
 // select all users and update them to have a "remainingVotes" property, and set that property to 1
-const updateAllUsers = async () => {
-    const usersRef = collection(db, "users");
-    const usersSnapshot = await getDocs(usersRef);
-    const batch = writeBatch(db);
+// export const updateAllUsers = async () => {
+//     console.log('bingus')
+//     const usersRef = collection(db, "users");
+//     const usersSnapshot = await getDocs(usersRef);
+//     const batch = writeBatch(db);
 
-    usersSnapshot.forEach((userDoc) => {
-        const userRef = doc(db, "users", userDoc.id);
-        batch.update(userRef, {
-            remainingVotes: 1
-        });
-    });
+//     usersSnapshot.forEach((userDoc) => {
+//         const userRef = doc(db, "users", userDoc.id);
+//         batch.update(userRef, {
+//             remainingPaidVotes: 0
+//         });
+//     });
 
-    try {
-        await batch.commit();
-        console.log("All users updated with 'remainingVotes' property set to 1");
-    } catch (e) {
-        console.log(`Error updating users: ${e}`);
-    }
-};
-
-// updateAllUsers();
+//     try {
+//         await batch.commit();
+//         console.log("All users updated with 'remainingVotes' property set to 1");
+//     } catch (e) {
+//         console.log(`Error updating users: ${e}`);
+//     }
+// };

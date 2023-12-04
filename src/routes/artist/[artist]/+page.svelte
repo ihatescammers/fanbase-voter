@@ -55,118 +55,8 @@
 
 </script>
 
-<!-- <section class="container">
-    <div class="grid">
-        <div class="back-button-container">
-            <md-text-button href="/">
-                <md-icon slot="icon" class="material-symbols-outlined" style="font-size: 17px;">arrow_back</md-icon>
-                Back
-            </md-text-button>
-        </div>
-        <div class="artist-card" bind:this={artistCard} id="artist-{artist.id}" style="view-transition-name: artist-card;">
-            <div class="card-content">
-                <div class="image-parallax-wrapper">
-                    <img src="{artist.backgroundImage}" alt="{artist.name}" draggable="false">
-                </div>
-                <div class="overlay-background"></div>
-                <div class="overlay">
-                    <div class="material-symbols-outlined plus-icon">add</div>
-                    <div class="material-symbols-outlined plus-icon">add</div>
-                    <div class="material-symbols-outlined plus-icon">add</div>
-                    <div class="material-symbols-outlined plus-icon">add</div>
-                    <div class="overlay-flex-container">
-                        <div class="content-beneath">
-                            <div class="lines-wrapper">
-                                <div class="line-difference"></div>
-                                <div class="line-opaque"></div>
-                            </div>
-                            <div class="column-text-outer title-medium bold-weight" style="text-transform: uppercase">
-                                <div class="column-text-inner difference">{artist.name}</div>        <a href="/artist/{artist.id}" class="card">
-            <div class="overlay-image">
-                <img src="https://static.vecteezy.com/system/resources/previews/022/012/091/original/grunge-dots-and-points-texture-background-abstract-grainy-overlay-graphic-illustration-with-transparent-background-png.png" alt="grain">
-            </div>
-            <div class="image-circle">
-                <img src="{artist.backgroundImage}" alt="{artist.name}">
-                <img src="{artist.backgroundImage}" alt="{artist.name}">
-            </div>
-            <div class="text-wrapper">
-                <div class="top-text label-small">no. {index + 1}</div>
-                <div class="card-title">
-                    <svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="128" height="128"/>
-                        <circle cx="64" cy="64.5" r="57.5" stroke="#1A0B00"/>
-                        <circle cx="64.5" cy="122" r="3.5" fill="#1A0B00"/>
-                        <circle cx="64.5" cy="102.5" r="3.5" fill="#1A0B00"/>
-                        <circle cx="64.5" cy="26" r="3.5" fill="#1A0B00"/>
-                        <circle cx="64.5" cy="6.5" r="3.5" transform="rotate(90 64.5 6.5)" fill="#1A0B00"/>
-                    </svg>    
-                    <div class="headline-small column-text-outer">
-                        <div><i>{artist.name}</i></div>
-                        <div><i>{artist.name}</i></div>
-                    </div>
-                </div>
-                <div class="bottom-text label-small">{artist.votes} votes</div>
-                <div class="dots">
-                    <div class="dot"></div>
-                    <div class="dot"></div>
-                </div>
-            </div>
-        </a>
-                            </div>
-                            <div class="lines-wrapper">
-                                <div class="line-opaque"></div>
-                                <div class="line-difference"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <md-ripple></md-ripple>
-                <md-focus-ring for="artist-{artist.id}"></md-focus-ring>
-            </div>
-        </div>
-        <div class="leaderboard-card surface-container-blurred">
-            <div class="body-large">Leaderboard Position</div>
-            <div class="display-large bold-weight">#{artistPosition}</div>
-            <div class="body-large"><span class="bold-weight">{artist.votes}</span> Votes</div>
-        </div>
-        {#if $user !== null}
-            {#if !$voted}
-                <button class="button" on:click={handleSignIn} type="submit" form="vote-form">
-                    <form action="?/updateartistvotes" method="POST" id="vote-form" on:submit|preventDefault={handleSubmit}>
-                        <input type="hidden" name="id" value={artist.id}>
-                    </form>
-                    <span class="material-symbols-outlined primary-text">how_to_vote</span>
-                    <span class="medium-weight label-large primary-text">Cast Your Vote!</span>
-                    <div style="opacity: 0"></div>
-                    <md-focus-ring></md-focus-ring>
-                    <md-ripple></md-ripple>
-                </button>
-            {:else}
-                <a href="/leaderboard" class="button">
-                    <span class="material-symbols-outlined primary-text">social_leaderboard</span>
-                    <span class="medium-weight label-large primary-text">Voted! View Leaderboards</span>
-                    <md-focus-ring></md-focus-ring>
-                    <md-ripple></md-ripple>
-                </a> 
-            {/if}
-        {:else}
-        <button class="button" on:click={handleSignIn}>
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                <path d="M18.1713 8.36775H17.5001V8.33317H10.0001V11.6665H14.7097C14.0226 13.6069 12.1763 14.9998 10.0001 14.9998C7.23883 14.9998 5.00008 12.7611 5.00008 9.99984C5.00008 7.23859 7.23883 4.99984 10.0001 4.99984C11.2747 4.99984 12.4342 5.48067 13.3172 6.26609L15.6742 3.909C14.1859 2.52192 12.1951 1.6665 10.0001 1.6665C5.398 1.6665 1.66675 5.39775 1.66675 9.99984C1.66675 14.6019 5.398 18.3332 10.0001 18.3332C14.6022 18.3332 18.3334 14.6019 18.3334 9.99984C18.3334 9.44109 18.2759 8.89567 18.1713 8.36775Z" fill="#FFC107"/>
-                <path d="M2.62744 6.12109L5.36536 8.129C6.10619 6.29484 7.90036 4.99984 9.99994 4.99984C11.2745 4.99984 12.4341 5.48067 13.317 6.26609L15.6741 3.909C14.1858 2.52192 12.1949 1.6665 9.99994 1.6665C6.79911 1.6665 4.02327 3.47359 2.62744 6.12109Z" fill="#FF3D00"/>
-                <path d="M10 18.3331C12.1525 18.3331 14.1084 17.5094 15.5871 16.1698L13.008 13.9873C12.1713 14.621 11.1313 14.9998 10 14.9998C7.83255 14.9998 5.99213 13.6177 5.2988 11.689L2.5813 13.7827C3.96047 16.4815 6.7613 18.3331 10 18.3331Z" fill="#4CAF50"/>
-                <path d="M18.1712 8.36808H17.5V8.3335H10V11.6668H14.7096C14.3796 12.5989 13.78 13.4027 13.0067 13.9881L13.0079 13.9872L15.5871 16.1697C15.4046 16.3356 18.3333 14.1668 18.3333 10.0002C18.3333 9.44141 18.2758 8.896 18.1712 8.36808Z" fill="#1976D2"/>
-            </svg>
-            <span class="medium-weight label-large primary-text">Vote With Google</span>
-            <md-focus-ring></md-focus-ring>
-            <md-ripple></md-ripple>
-        </button>
-        {/if}
-    </div>
-</section> -->
-
-<div class="container">
-    <a class="card global-card">
+<div class="container flex-col">
+    <a href="/artist/{artist.id}" class="card">
         <div class="overlay-image">
             <img src="https://static.vecteezy.com/system/resources/previews/022/012/091/original/grunge-dots-and-points-texture-background-abstract-grainy-overlay-graphic-illustration-with-transparent-background-png.png" alt="grain">
         </div>
@@ -175,36 +65,44 @@
             <img src="{artist.backgroundImage}" alt="{artist.name}">
         </div>
         <div class="text-wrapper">
-            <div class="top-text label-small">Stan</div>
+            <div class="top-text label-small">{artist.votes} votes</div>
             <div class="card-title">
-                <svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="128" height="128"/>
-                    <circle cx="64" cy="64.5" r="57.5" stroke="#1A0B00"/>
-                    <circle cx="64.5" cy="122" r="3.5" fill="#1A0B00"/>
-                    <circle cx="64.5" cy="102.5" r="3.5" fill="#1A0B00"/>
-                    <circle cx="64.5" cy="26" r="3.5" fill="#1A0B00"/>
-                    <circle cx="64.5" cy="6.5" r="3.5" transform="rotate(90 64.5 6.5)" fill="#1A0B00"/>
-                </svg>    
-                <div class="headline-small column-text-outer">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" height=128 width=128 viewBox="0 0 128 128" style="enable-background:new 0 0 128 128;" xml:space="preserve">
+                    <style type="text/css">
+                        .st0{fill:none;}
+                        .st1{fill:none;stroke:#FFF2E0;}
+                        .st2{fill:#FFF2E0;}
+                    </style>
+                    <rect x="0.2" y="-0.2" class="st0" width="128" height="128"/>
+                    <path class="st1" d="M23.6,23.6C34,13.2,48.4,6.8,64.2,6.8s30.3,6.4,40.7,16.8"/>
+                    <path class="st1" d="M104.9,104.9c-10.4,10.4-24.8,16.8-40.7,16.8s-30.3-6.4-40.7-16.8"/>
+                    <circle class="st2" cx="64.7" cy="121.8" r="3.5"/>
+                    <circle class="st2" cx="64.7" cy="102.3" r="3.5"/>
+                    <circle class="st2" cx="64.7" cy="25.8" r="3.5"/>
+                    <circle class="st2" cx="64.7" cy="6.3" r="3.5"/>
+                    </svg> 
+                <div class="headline-medium column-text-outer">
                     <div><i>{artist.name}</i></div>
                     <div><i>{artist.name}</i></div>
                 </div>
             </div>
-            <div class="bottom-text label-small">Awards</div>
+            <div class="bottom-text label-small">{artist.votes} votes</div>
             <div class="dots">
                 <div class="dot"></div>
                 <div class="dot"></div>
             </div>
         </div>
     </a>
-    <div class="voter-card">
+    <a href="/categories" class="cursor-pointer translucent-background translucent-background-hover rounded-full h-12 w-full max-w-[350px] flex items-center justify-center">Vote for {artist.name}</a>
+    <a on:click={() => {history.back()}} class="cursor-pointer translucent-background translucent-background-hover rounded-full h-12 w-full max-w-[350px] flex items-center justify-center">Go back</a>
+    <!-- <div class="voter-card">
         <div class="votes">
             <h1 class="display-medium playfair">{artist.votes}</h1>
             <p class="playfair body-large"><i>votes</i></p>
         </div>
         <div class="filler"></div>
         <a class="large-button inverse">Vote with Google</a>
-    </div>
+    </div> -->
 </div>
 
 <style lang="scss">
@@ -214,7 +112,7 @@
         justify-content: center;
         width: 100%;
         height: 100%;
-        gap: 18px;
+        gap: 10px;
 
         --card-height: 600px;
 
@@ -222,35 +120,49 @@
             max-width: 350px;
             width: 350px;
             height: var(--card-height);
-            img {box-sizing: border-box;}
-            svg {scale: 0.85}
-        }
+            &:nth-of-type(3n - 2) {translate: 0 0}
+            &:nth-of-type(3n - 1) {translate: 0 100px}
+            &:nth-of-type(3n) {translate: 0 200px}
 
-        .voter-card {
-            width: 325px;
-            background: var(--beige);
-            color: var(--dark-text);
-            padding: 10px;
-            border-radius: 200px 200px 4px 4px;
-            height: calc(var(--card-height) - 20px);
-            display: flex;
-            flex-flow: column nowrap;
-
-            .votes {
-                width: 100%;
-                aspect-ratio: 1;
-                border-radius: 50%;
-                border: 1px solid var(--background);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                flex-flow: column nowrap;
-                gap: 10px;
-                h1, p {margin: 0}
+            svg circle {
+                stroke: var(--beige);
+                &[fill] {
+                    fill: var(--beige);
+                }
             }
+            div.text-wrapper div.dots div.dot {
+                &:nth-child(1) {border-color: var(--beige)}
+                &:nth-child(2) {background-color: var(--beige)}
+            }
+        }
+        @media (max-width: 1200px) {
+            grid-template-columns: 1fr 1fr;
 
-            .large-button {
-                height: 56px;
+            .card {
+                &:nth-of-type(3n) {translate: none}
+                &:nth-of-type(3n - 2) {translate: none}
+                &:nth-of-type(3n - 1) {translate: none}
+
+                &:nth-of-type(even) {translate: 0 75px}
+            }
+        }
+        @media (max-width: 560px) {
+            gap: 20px 10px;
+            .card {
+                .text-wrapper {
+                    min-height: none;
+                    gap: 15px;
+
+                    .card-title {
+                        .headline-small, .headline-medium, .title-medium, .title-large {
+                            font-size: 20px;
+                            height: 26.4px;
+                        }
+                        svg {
+                            scale: 0.9;
+                        }
+                    }
+                }
             }
         }
         
@@ -258,6 +170,143 @@
             padding: 20px 20px 20px 20px;
         }
     }
+    .card {
+            background-color: var(--translucent-background);
+            // aspect-ratio: 4/7;
+            max-width: 100%;
+            max-height: 100%;
+            display: flex;
+            flex-flow: column nowrap;
+            width: 100%;
+            position: relative;
+            transition: border-radius var(--hover-transition);
+            cursor: pointer;
+            text-decoration: none;
+            border-radius: 250px 250px 4px 48px;
+
+            .text-wrapper {
+                color: var(--beige);
+                display: flex;
+                flex-flow: column nowrap;
+                min-height: 225px;
+                align-items: center;
+                justify-content: space-between;
+                box-sizing: border-box;
+                padding-top: 18px;
+                padding: 0px 0 6px 0;
+                width: 100%;
+                gap: 45px;
+                .card-title {
+                    position: relative;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 100%;
+                    .headline-small, .headline-medium, .title-medium, .title-large {
+                        font-family: 'Playfair Display';
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        translate: -50% -50%;
+                        width: 100%;
+                        text-align: center;
+                        // background: var(--translucent-background);
+                        // padding: 6px 0;
+                        height: 42px;
+                        font-weight: 500;
+                        i {font-weight: 600}
+                        div {
+                            transition: translate var(--hover-transition);
+                            &:nth-child(2) {font-weight: 800}
+                        }
+                    }
+                    svg {scale: 0.95;}
+                }
+                .top-text, .bottom-text {
+                    text-transform: uppercase;
+                    font-weight: 800;
+                    font-size: 10px;
+                }        
+                .dots {
+                    position: absolute;
+                    bottom: 10px;
+                    right: 10px;
+                    display: flex;
+                    gap: 4px;
+                    .dot {
+                        height: 8px;
+                        width: 8px;
+                        border-radius: 50%;
+                        box-sizing: border-box;
+                        transition: translate var(--hover-transition);
+                        &:nth-child(1) {border: 1px solid var(--background)}
+                        &:nth-child(2) {background: var(--background)}
+                    }   
+                }
+            }
+
+            .image-circle {
+                width: 100%;
+                position: relative;
+                aspect-ratio: 1;
+                scale: 0.95; // 1.1 was the estimated match
+                // overflow: hidden;
+                border-radius: 50%;
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    box-sizing: border-box;
+                    border-radius: 50%;
+                    // border: 15px solid var(--background);
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    
+                    &:nth-child(2) {
+                        transition: var(--hover-transition);
+                        clip-path: circle(42.5% at 50% 50%);
+                    }
+                }
+            }
+            
+            .overlay-image {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                mix-blend-mode:multiply;
+                z-index: 2;
+                opacity: 0.05;
+                pointer-events: none;
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+            }
+
+            @media (pointer: fine) {
+                &:hover {
+                    border-radius: 250px 250px 48px 48px;
+                    .text-wrapper {
+                        .column-text-outer div {
+                            translate: 0 -100%;
+                        }
+                    }
+                    .dots .dot:nth-child(1) {translate: 12px -12px;}
+                    .dots .dot:nth-child(2) {translate: -12px 0px;}
+                    .image-circle img:nth-child(2) {
+                        clip-path: circle(0% at 50% 50%);
+                        rotate: 10deg;
+                        // filter: blur(2.5px);
+                    }
+                }
+                // &:nth-of-type(odd):hover {.image-circle img:nth-child(2) {rotate: 15deg}}
+                // &:nth-of-type(even):hover {.image-circle img:nth-child(2) {rotate: -15deg}}
+            }
+        }
 </style>
 
 

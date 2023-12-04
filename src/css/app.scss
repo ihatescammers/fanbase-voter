@@ -31,10 +31,14 @@
 .translucent-background {background-color: var(--translucent-background) !important}
 .translucent-foreground {background-color: var(--translucent-foreground) !important}
 .translucent-background-hover:hover {
-    background-color: var(--translucent-foreground) !important
+    background-color: rgba(217, 217, 217, 0.2) !important;
+    color: white !important;
 }
 .translucent-foreground-hover:hover {
     background-color: var(--translucent-background) !important
+}
+.hover-transition {
+    transition: var(--hover-transition);
 }
 
 .translate-100 {
@@ -51,7 +55,7 @@ html, body {
     // background: linear-gradient(126deg, #1a0b00 0%, rgb(21, 5, 0) 51%);
 }
 html {overflow-x: hidden}
-html.lenis {height: auto; scroll-behavior: auto;}
+html.lenis {height: auto; scroll-behavior: auto; height: 100svh}
 
 .lenis.lenis-scrolling iframe {
     pointer-events: none;

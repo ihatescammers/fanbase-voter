@@ -45,6 +45,8 @@ export const getOrderedArtists = async () => {
             name: artist.data().name,
             votes: artist.data().votes,
             backgroundImage: artist.data().backgroundImage,
+            enrolledIn: artist.data().enrolledIn,
+            votesArr: artist.data().votesArr
         }))
     } catch(e) {
         console.log(`Error fetching artists: ${e}`);
@@ -61,20 +63,28 @@ export const addArtist = async (artist) => {
     }
 }
 
-export const updateArtistVotes = async (id) => {
+export const updateArtistVotes = async (id, category, amount) => {
     const docRef = doc(db, "artists", id);
     try {
         const artistRef = await getDoc(docRef);
         const artistData = artistRef.data();
-        const newVotes = artistData.votes + 1
-        const artistUpdate = await updateDoc(docRef, {
-            votes: newVotes
+        let enrolledIn = artistData.enrolledIn;
+        let votesArr = artistData.votesArr;
+        const categoryIndex = enrolledIn.findIndex(catName => catName === category);
+        const newAmount = votesArr[categoryIndex] + amount;
+        votesArr[categoryIndex] = newAmount;
+
+        await updateDoc(docRef, {
+            votesArr: votesArr
         });
-        console.log(`Update artist ${artistRef.id}'s votes with new value: ${newVotes}`);
+
+        // console.log('updating artist', artistData)
+        console.log(`Updated artist ${artistData.name}'s votes to ${votesArr[categoryIndex]}`);
         return {
             status: true,
             message: 'Your vote has been cast!',
-            votes: newVotes
+            previousVotes: newAmount - amount,
+            newVotes: newAmount
         }
     } catch(e) {
         console.log(`Error: ${e}`);
@@ -84,7 +94,6 @@ export const updateArtistVotes = async (id) => {
         }
     }
 }
-
 
 
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';

@@ -9,6 +9,7 @@ export async function load() {
         const cRef = doc(db, "categories", "categories");
         const c = await getDoc(cRef);
         const categories = c.data();
+        console.log(categories)
 
         return {
             leaderboard: artists.docs.map(artist => ({
