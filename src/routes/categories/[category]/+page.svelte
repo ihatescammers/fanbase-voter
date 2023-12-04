@@ -79,7 +79,7 @@
 
 <div class="navbar-filler"></div>
 <div class="container">
-    <div class="w-full p-3 fixed top-0 z-20">
+    <div class="w-full p-3 fixed top-[60px] md:top-0 z-20">
         <a on:click={() => {history.back()}} class="cursor-pointer translucent-background rounded-full h-12 w-36 flex items-center justify-center">Go back</a>
     </div>
     <div class="heading-line column-text-outer pt-[45px] w-full flex flex-col items-center">
