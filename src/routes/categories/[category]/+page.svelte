@@ -15,7 +15,7 @@
     const category = url.split("/")[2];
 
     const artists = data.leaderboard
-        .filter(artist => artist.enrolledIn.includes(category))
+        .filter(artist => artist.enrolledIn?.includes(category))
         .sort((a, b) => {
             const votesA = a.votesArr[a.enrolledIn.findIndex(c => c === category)];
             const votesB = b.votesArr[b.enrolledIn.findIndex(c => c === category)];
