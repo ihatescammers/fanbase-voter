@@ -225,7 +225,7 @@
                 .top-text, .bottom-text {
                     text-transform: uppercase;
                     font-weight: 800;
-                    font-size: 10px;
+                    font-size: 13px;
                 }        
                 .dots {
                     position: absolute;

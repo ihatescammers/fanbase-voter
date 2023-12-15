@@ -87,7 +87,7 @@
     </div>
     {#if $voted.includes(category)}
     <div class="w-full flex justify-center">
-        <div class="border border-green-500 text-green-500 rounded-lg py-1 px-2 text-xs w-fit">voted</div>
+        <div class="border border-green-500 text-green-500 rounded-lg py-1 px-2 text-sm w-fit">voted</div>
     </div>
     {/if}
     <div class="leaderboard">
@@ -121,11 +121,11 @@
                         <circle class="st2" cx="64.7" cy="6.3" r="3.5"/>
                         </svg> 
                     <div class="headline-medium column-text-outer">
-                        <div><i>{artist.name}</i></div>
-                        <div><i>{artist.name}</i></div>
+                        <div><i>{artist.fandomName ? artist.fandomName : artist.name + ' Fans'}</i></div>
+                        <div><i>{artist.fandomName ? artist.fandomName : artist.name + ' Fans'}</i></div>
                     </div>
                 </div>
-                <div class="bottom-text label-small">{artist.votesArr[artist.enrolledIn.findIndex((c) => c === category)]} votes</div>
+                <div class="bottom-text label-small"><span class="text-sm">{artist.votesArr[artist.enrolledIn.findIndex((c) => c === category)]}</span> votes</div>
                 <div class="dots">
                     <div class="dot"></div>
                     <div class="dot"></div>
@@ -331,7 +331,7 @@
                 .top-text, .bottom-text {
                     text-transform: uppercase;
                     font-weight: 800;
-                    font-size: 10px;
+                    font-size: 13px;
                 }        
                 .dots {
                     position: absolute;

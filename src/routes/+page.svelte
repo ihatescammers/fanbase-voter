@@ -177,8 +177,8 @@
             </div>
         </a>
     </div>
-    <div class="second-column">
-        <div class="countdown-container flex-center-container flex-column">
+    <div class="second-column gap-[5px]">
+        <div class="countdown-container flex-center-container flex-column translucent-background" style="border-radius: 200px 40px 4px 4px">
             <div class="flex-center-container">
                 <div class="circle flex-center-container flex-column title-large bold-weight playfair">
                     {timeRemaining.months}
@@ -362,7 +362,7 @@
                     .top-text, .bottom-text {
                         text-transform: uppercase;
                         font-weight: 800;
-                        font-size: 10px;
+                        font-size: 13px;
                     }        
                     .dots {
                         position: absolute;
@@ -480,7 +480,7 @@
                     width: 120px;
                     height: 120px;
                     border-radius: 50%;
-                    border: 2px dashed var(--beige);
+                    border: 2px solid var(--beige);
                     gap: 7px;
                     filter: drop-shadow(0 0 0.75rem crimson);
                 }
@@ -594,7 +594,7 @@
                     .top-text, .bottom-text {
                         text-transform: uppercase;
                         font-weight: 800;
-                        font-size: 10px;
+                        font-size: 13px;
                     }        
                     .dots {
                         position: absolute;

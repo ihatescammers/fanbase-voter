@@ -92,11 +92,11 @@
                         <circle class="st2" cx="64.7" cy="6.3" r="3.5"/>
                         </svg> 
                     <div class="headline-medium column-text-outer">
-                        <div><i>{artist.name}</i></div>
-                        <div><i>{artist.name}</i></div>
+                        <div><i>{artist.fandomName ? artist.fandomName : artist.name + ' Fans'}</i></div>
+                        <div><i>{artist.fandomName ? artist.fandomName : artist.name + ' Fans'}</i></div>
                     </div>
                 </div>
-                <div class="bottom-text label-small">{artist.votes} votes</div>
+                <div class="bottom-text label-small"><span class="text-sm">{artist.votes}</span> votes</div>
                 <div class="dots">
                     <div class="dot"></div>
                     <div class="dot"></div>
@@ -263,7 +263,7 @@
                 justify-content: space-between;
                 box-sizing: border-box;
                 padding-top: 18px;
-                padding: 24px 0 6px 0;
+                padding: 6px 0 6px 0;
                 width: 100%;
                 gap: 45px;
                 .card-title {
@@ -290,12 +290,12 @@
                             &:nth-child(2) {font-weight: 800}
                         }
                     }
-                    svg {scale: 0.95;}
+                    svg {scale: 0.95; display: none;}
                 }
                 .top-text, .bottom-text {
                     text-transform: uppercase;
                     font-weight: 800;
-                    font-size: 10px;
+                    font-size: 12px;
                 }        
                 .dots {
                     position: absolute;

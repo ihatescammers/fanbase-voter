@@ -1,4 +1,4 @@
-import { getDoc, addDoc, collection, doc, deleteDoc, query, getDocs, orderBy } from 'firebase/firestore';
+import { getDoc, addDoc, collection, doc, deleteDoc, query, getDocs, orderBy, updateDoc } from 'firebase/firestore';
 import { app, db } from '$lib';
 import { fail } from '@sveltejs/kit';
 
@@ -9,7 +9,6 @@ export async function load() {
         const cRef = doc(db, "categories", "categories");
         const c = await getDoc(cRef);
         const categories = c.data();
-        console.log(categories)
 
         return {
             leaderboard: artists.docs.map(artist => ({
@@ -17,8 +16,11 @@ export async function load() {
                             name: artist.data().name,
                             votes: artist.data().votes,
                             backgroundImage: artist.data().backgroundImage,
+                            enrolledIn: artist.data().enrolledIn,
+                            votesArr: artist.data().votesArr,
+                            fandomName: artist.data().fandomName
                         })),
-            categories: categories
+            categories: categories.categories
         }
     } catch(e) {
         console.log(`Error fetching artists: ${e}`);
@@ -50,13 +52,15 @@ export const actions = {
             const fandomName = data.get("fandomName")
             const votes = data.get("votes")
             const backgroundImage = data.get("backgroundImage")
-            const category = data.get("category")
+            const categories = data.getAll("categories");
+            const votesArr = Array.from({length: categories.length}, () => 0);
             const artist = {
                 name,
                 fandomName,
                 votes: votes === null || votes === "" ? 0 : parseInt(votes),
                 backgroundImage,
-                category
+                enrolledIn: categories,
+                votesArr: votesArr
             }
 
             // ensure that backgroundImage is a valid url
@@ -73,14 +77,14 @@ export const actions = {
             return {
                 type: 'addArtist',
                 success: true,
-                message: `Artist '${name}' added successfully!`
+                message: `${name}'s fanbase added successfully!`
             }
         } catch(e) {
             console.log(`Error adding to collection artists: ${e}`);
             return fail(422, {
                 type: 'addArtist',
 				success: false,
-				error: 'Could not add new artist, please revalidate data and try again'
+				error: 'Could not add new fanbase, please revalidate data and try again'
 			});
         }
     },
@@ -104,6 +108,18 @@ export const actions = {
 				success: false,
 				deletionError: 'Error deleting artist, please check your internet connection, refresh the page and try again'
 			});
+        }
+    },
+    setBackgroundImage: async ({request}) => {
+        try {
+            const data = await request.formData();
+            const link = data.get("link");
+            const docRef = doc(db, "about", "about");
+            await updateDoc(docRef, {
+                backgroundimage: link
+            }, {merge: true});
+        } catch (e) {
+            console.log(e);
         }
     }
 };

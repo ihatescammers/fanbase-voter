@@ -17,7 +17,8 @@ export async function load() {
                             votes: artist.data().votes,
                             backgroundImage: artist.data().backgroundImage,
                             enrolledIn: artist.data().enrolledIn,
-                            votesArr: artist.data().votesArr
+                            votesArr: artist.data().votesArr,
+                            fandomName: artist.data().fandomName
                         })),
             categories: categories.categories
         }

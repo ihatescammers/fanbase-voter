@@ -46,7 +46,8 @@ export const getOrderedArtists = async () => {
             votes: artist.data().votes,
             backgroundImage: artist.data().backgroundImage,
             enrolledIn: artist.data().enrolledIn,
-            votesArr: artist.data().votesArr
+            votesArr: artist.data().votesArr,
+            fandomName: artist.data().fandomName
         }))
     } catch(e) {
         console.log(`Error fetching artists: ${e}`);
@@ -70,12 +71,14 @@ export const updateArtistVotes = async (id, category, amount) => {
         const artistData = artistRef.data();
         let enrolledIn = artistData.enrolledIn;
         let votesArr = artistData.votesArr;
+        let newTotalVotes = artistData.votes + 1
         const categoryIndex = enrolledIn.findIndex(catName => catName === category);
         const newAmount = votesArr[categoryIndex] + amount;
         votesArr[categoryIndex] = newAmount;
 
         await updateDoc(docRef, {
-            votesArr: votesArr
+            votesArr: votesArr,
+            votes: newTotalVotes
         });
 
         // console.log('updating artist', artistData)

@@ -32,37 +32,6 @@
         const analytics = getAnalytics(app);
     })
 
-    // onNavigate((navigation) => {
-    //     if (!document.startViewTransition) {
-    //         return new Promise((resolve) => {
-    //             gsap.to('.route-container', {
-    //                 opacity: 0,
-    //                 duration: 0.125,
-    //                 onComplete: async () => {
-    //                     resolve();
-    //                     await navigation.complete;
-    //                 }
-    //             })
-    //         })
-    //     }
-    //     else {
-    //         return new Promise((resolve) => {
-    //             document.startViewTransition(async () => {
-    //                 resolve();
-    //                 await navigation.complete;
-    //             })
-    //         })
-    //     }
-    // })
-
-    // afterNavigate((navigation) => {
-    //     if (!document.startViewTransition) {
-    //         gsap.to('.route-container', {
-    //             opacity: 1,
-    //             duration: 0.175
-    //         })
-    //     }
-    // }) 
 </script>
 
 <svelte:head>
@@ -70,6 +39,9 @@
 </svelte:head>
 
 <!-- <Clouds /> -->
+<div class="fixed top-0 left-0 w-full h-full z-0 opacity-[0.35] pointer-events-none">
+    <img class="blur-xl object-cover h-full w-full" src="{data.backgroundImage}" alt="concert background">
+</div>
 
 <main class="app-container">
     <Navrail />
