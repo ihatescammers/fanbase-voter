@@ -28,7 +28,7 @@
 <div in:fade={{duration: 100}} out:fade={{duration: 100}} class="w-96 fixed top-1/2 left-1/2 -translate-y-1/2 
 -translate-x-1/2 translucent-foreground text-black rounded-lg p-6 flex flex-col gap-6">
     <h2 class="text-lg font-semibold">Updates</h2>
-    <ol>
+    <ol class="flex flex-col gap-2">
         <li>1. Categories can be added on new fanbases through the admin page. In order to select multiple categories at once, command + click</li>
         <li>2. The site's background image can be changed through the admin page</li>
         <li>3. Replaced the word "Artist" with "Fanbase" or "Fandom" in different parts of the site</li>
