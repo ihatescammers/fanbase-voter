@@ -84,7 +84,7 @@
                       </select>
                       
                       <div class="flex flex-col gap-3">
-                        <p class="italic playfair p-3 rounded-lg border border-cyan-500 text-cyan-200">Tip: Ctrl + Click to select multiple categories</p>
+                        <p class="italic playfair p-3 rounded-lg border border-cyan-500 text-cyan-200">Tip: Cmd + Click to select multiple categories</p>
                         <h2 class="text-xl font-bold">Selected categories for this fanbase: </h2>
                           {#each selectedCategories as category}
                             <p>- {category}</p>
