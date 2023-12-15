@@ -14,7 +14,33 @@
     // categories.map((category, index) => categoriesFlags[index] && category)
     // .filter(category => category != false && category != undefined)
     let selectedCategories = []; // Array to store selected categories
+
+    let updatesModalOpen = false;
 </script>
+
+<div class="h-8 w-full fixed top-0 left-0 bg-blue-500 flex gap-9 px-6 items-center justify-center">
+    <button on:click={() => {updatesModalOpen = true}} class="underline">
+        Updates published. Click to view
+    </button>
+</div>
+{#if updatesModalOpen}
+<div in:fade={{duration: 100}} out:fade={{duration: 100}} class="fixed top-0 left-0 z-0 w-full h-full backdrop-blur-lg" on:click={() => {updatesModalOpen = false}}></div>
+<div in:fade={{duration: 100}} out:fade={{duration: 100}} class="w-96 fixed top-1/2 left-1/2 -translate-y-1/2 
+-translate-x-1/2 translucent-foreground text-black rounded-lg p-6 flex flex-col gap-6">
+    <h2 class="text-lg font-semibold">Updates</h2>
+    <ol>
+        <li>1. Categories can be added on new fanbases through the admin page. In order to select multiple categories at once, command + click</li>
+        <li>2. The site's background image can be changed through the admin page</li>
+        <li>3. Replaced the word "Artist" with "Fanbase" or "Fandom" in different parts of the site</li>
+        <li>4. Design changes for the countdown timer</li>
+    </ol>
+    <div class="flex gap-3 justify-center">
+        <button on:click={() => {updatesModalOpen = false}} type="submit" class="text-black rounded-full pl-3 pr-4 h-10 flex items-center gap-1.5 text-sm">
+            Close
+        </button>
+    </div>
+</div>
+{/if}
 
 <div class="h-full w-full p-3">
     <div class="w-full p-3 lg:p-9 flex flex-col gap-9 translucent-background rounded-lg">

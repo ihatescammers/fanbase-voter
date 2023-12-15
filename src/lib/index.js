@@ -16,7 +16,6 @@ const firebaseConfig = {
   measurementId: "G-2NZX276N15",
 //   clientId: "442591407052-q2oskicagqm3sga5cptnvb110eneh5hk.apps.googleusercontent.com"
 };
-//asd
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
