@@ -18,7 +18,7 @@
     let updatesModalOpen = false;
 </script>
 
-<div class="h-8 w-full fixed top-0 left-0 bg-blue-500 flex gap-9 px-6 items-center justify-center">
+<!-- <div class="h-8 w-full fixed top-0 left-0 bg-blue-500 flex gap-9 px-6 items-center justify-center">
     <button on:click={() => {updatesModalOpen = true}} class="underline">
         Updates published. Click to view
     </button>
@@ -40,7 +40,7 @@
         </button>
     </div>
 </div>
-{/if}
+{/if} -->
 
 <div class="h-full w-full p-3">
     <div class="w-full p-3 lg:p-9 flex flex-col gap-9 translucent-background rounded-lg">

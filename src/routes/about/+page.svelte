@@ -21,12 +21,12 @@
         initialAnimations();
         // loaded = true;
         
-        const lenis = new Lenis({});
-        function raf(time) {
-            lenis.raf(time)
-            requestAnimationFrame(raf)
-        }
-        requestAnimationFrame(raf)
+        // const lenis = new Lenis({});
+        // function raf(time) {
+        //     lenis.raf(time)
+        //     requestAnimationFrame(raf)
+        // }
+        // requestAnimationFrame(raf)
 
         let mn = gsap.matchMedia();
         mn.add("(pointer: fine)", () => {
